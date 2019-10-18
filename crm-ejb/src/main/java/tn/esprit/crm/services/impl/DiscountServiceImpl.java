@@ -13,7 +13,8 @@ import tn.esprit.crm.services.IDiscountService;
 @Stateless
 public class DiscountServiceImpl implements IDiscountService {	
 	
-	@EJB
+	@PersistenceContext(unitName="crm-ejb") //l esm men persistance.xml
+
 	private IDiscountDao discountDao;
 
 

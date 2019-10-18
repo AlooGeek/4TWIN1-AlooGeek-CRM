@@ -9,7 +9,7 @@ public class AuthenticationService {
 	
 	public User getAuthenticated() {
 		User user=new User();
-		user.setId((long) 1);
+		//user.setId((long) 1);
 		return user;
 	}
 
