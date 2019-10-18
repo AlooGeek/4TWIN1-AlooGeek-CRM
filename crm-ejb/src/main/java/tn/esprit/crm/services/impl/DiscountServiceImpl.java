@@ -11,18 +11,19 @@ import tn.esprit.crm.entities.Discount;
 import tn.esprit.crm.services.IDiscountService;
 
 @Stateless
-public class DiscountServiceImpl implements IDiscountService {	
+public class DiscountServiceImpl implements IDiscountService  {	
 	
 	@PersistenceContext(unitName="crm-ejb") //l esm men persistance.xml
-
+	
 	private IDiscountDao discountDao;
+	
 
 
 	@Override
-	public Discount add(Discount discount) {
-		discount.setDescription("this is a discount");
+	public Discount save(Discount discount) {
 		discountDao.save(discount);
-		return null;
+		return discount;
+		
 	}
 
 }

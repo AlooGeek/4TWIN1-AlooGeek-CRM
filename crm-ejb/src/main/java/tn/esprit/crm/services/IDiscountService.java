@@ -7,6 +7,6 @@ import tn.esprit.crm.entities.Discount;
 @Local
 public interface IDiscountService {
 	
-	public Discount add (Discount discount);
+	public Discount save (Discount discount);
 
 }

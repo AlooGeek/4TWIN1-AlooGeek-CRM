@@ -1,7 +1,9 @@
 package tn.esprit.crm.entities;
 
+
+
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,11 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 @Entity
 @XmlRootElement
-public class Discount implements Serializable {
 
+public class Discount implements Serializable{
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -23,8 +25,17 @@ public class Discount implements Serializable {
 	private Date enddate;
 	
 	public Discount() {
-		
+		super();
 	}
+	
+	public Discount( String description, Date startdate, Date enddate) {
+		super();
+		
+		this.description = description;
+		this.startdate = startdate;
+		this.enddate = enddate;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -51,5 +62,4 @@ public class Discount implements Serializable {
 	}
 	
 	
-
 }

@@ -14,7 +14,7 @@ import tn.esprit.crm.dao.IGenericDao;
 
 public class GenericDaoImpl<E> implements IGenericDao<E> {
 
-	@PersistenceContext(unitName="unit") 
+	@PersistenceContext(unitName="crm-ejb") //l esm men persistance.xml
 	EntityManager em;
 	
 	private Class<E> type;

@@ -51,7 +51,7 @@
 
         <!-- Define the version of the JBoss BOMs we want to import to specify tested stacks. -->
         <version.jboss.bom>8.2.1.Final</version.jboss.bom>
-       <version.wildfly>11.0.0.Final</version.wildfly>
+          <version.wildfly>11.0.0.Final</version.wildfly>
 
 
         <!-- other plugin versions -->
@@ -62,8 +62,8 @@
         <version.war.plugin>2.5</version.war.plugin>
 
         <!-- maven-compiler-plugin -->
-       <maven.compiler.target>1.8</maven.compiler.target>
-<maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
 
     <dependencyManagement>
@@ -111,27 +111,18 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            
-            <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+
 			<dependency>
-			    <groupId>mysql</groupId>
-			    <artifactId>mysql-connector-java</artifactId>
-			    <version>5.1.40</version>
-			</dependency>
-			
-			<!-- Dependency for Lombok -->
-		<dependency>
 	        <groupId>org.projectlombok</groupId>
 	        <artifactId>lombok</artifactId>
 	        <scope>provided</scope>
-	    </dependency>
-            
-<dependency>
-    <groupId>com.microsoft.sqlserver</groupId>
-    <artifactId>mssql-jdbc</artifactId>
-    <version>7.4.1.jre11</version>
-</dependency>
-
+	    </dependency>			
+				
+			<dependency>
+			    <groupId>com.microsoft.sqlserver</groupId>
+			    <artifactId>mssql-jdbc</artifactId>
+			    <version>7.4.1.jre11</version>
+			</dependency>
         </dependencies>
     </dependencyManagement>
 

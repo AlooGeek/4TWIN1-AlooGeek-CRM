@@ -91,16 +91,14 @@
                </exclusion>
            </exclusions>
        </dependency>
-       
-       <!-- Dependency for javaee api -->
-     
-		
-		
+
+	
 	<dependency>
 	<groupId>javax</groupId>
 	<artifactId>javaee-api</artifactId>
 	<version>7.0</version>
 	</dependency>
+	
    </dependencies>
 
    <build>

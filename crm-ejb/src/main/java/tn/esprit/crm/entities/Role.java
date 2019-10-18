@@ -11,7 +11,7 @@ import lombok.Data;
 
 
 
-@Entity
+@Entity	
 @Data
 public class Role extends BaseEntity {
 	

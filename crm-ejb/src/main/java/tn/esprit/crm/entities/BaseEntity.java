@@ -10,8 +10,8 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Version;
-
 import lombok.Data;
+
 
 @MappedSuperclass
 @Data

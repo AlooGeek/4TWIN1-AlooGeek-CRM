@@ -31,7 +31,7 @@
     <name>crm: EAR Module</name>
 
     <url>http://wildfly.org</url>
-    <licenses>
+   <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
             <distribution>repo</distribution>
