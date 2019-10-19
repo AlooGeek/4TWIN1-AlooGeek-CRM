@@ -26,7 +26,5 @@ public interface IUserService {
 	public User findOne(String paramName, Object paramValue);
 	
 	public User findOne(String[] paramNames, Object[] paramValues);
-	
-	public User testAuthenticatedUser();
 
 }
