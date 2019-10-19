@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -32,8 +33,9 @@ public class Product {
 	@OneToMany(mappedBy="products")
 	private List<StoreProduct> storeproduct;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Discount discount;
+	@ManyToOne
+	@JoinColumn(name ="DISCOUNT_ID",referencedColumnName ="id")
+	private Discount discounts;
 	
 	
 	public Product(int id, String label, float unit_price, int qte, int tva) {
@@ -110,12 +112,12 @@ public class Product {
 
 
 	public Discount getDiscount() {
-		return discount;
+		return discounts;
 	}
 
 
 	public void setDiscount(Discount discount) {
-		this.discount = discount;
+		this.discounts = discount;
 	}
 
 
