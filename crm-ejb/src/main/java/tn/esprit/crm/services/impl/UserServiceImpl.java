@@ -4,26 +4,18 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.PersistenceContext;
 
 import tn.esprit.crm.dao.IUserDao;
 import tn.esprit.crm.entities.User;
-import tn.esprit.crm.security.AuthenticationService;
 import tn.esprit.crm.services.IUserService;
 
 @Stateless
 public class UserServiceImpl implements IUserService {
 	
-	@PersistenceContext(unitName="crm-ejb") //l esm men persistance.xml
-
+	@EJB
 	private IUserDao userDao;
-	private AuthenticationService authenticationService;
-
-	@Override
-	public User testAuthenticatedUser() {
-		return authenticationService.getAuthenticated();
-		
-	}
+	
+	
 
 	@Override
 	public User save(User user) {
