@@ -1,9 +1,12 @@
 package tn.esprit.crm.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,8 +15,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class Store {
+public class Store implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_store")
@@ -23,7 +30,7 @@ public class Store {
 	private int phoneNumber;
 	private String email;
 	
-	@OneToMany(mappedBy="stores")
+	@OneToMany(mappedBy="stores",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
 	private List<StoreProduct> storeproduct;
 	
 	public Store(int id, String name, String address, int phoneNumber, String email) {

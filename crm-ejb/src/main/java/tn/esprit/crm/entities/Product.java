@@ -1,14 +1,15 @@
 package tn.esprit.crm.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -19,8 +20,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class Product {
+public class Product implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_product")
@@ -29,13 +34,11 @@ public class Product {
 	private float unitPrice;
 	private int qte;
 	private int tva;
+	@OneToMany(mappedBy="products",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+	private List<StoreProduct> storeproducts;
 	
-	@OneToMany(mappedBy="products")
-	private List<StoreProduct> storeproduct;
-	
-	@ManyToOne
-	@JoinColumn(name ="DISCOUNT_ID",referencedColumnName ="id")
-	private Discount discounts;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Discount discount;
 	
 	
 	public Product(int id, String label, float unit_price, int qte, int tva) {
@@ -100,24 +103,31 @@ public class Product {
 		this.tva = tva;
 	}
 
-
+	
 	public List<StoreProduct> getStoreproduct() {
-		return storeproduct;
+		return storeproducts;
 	}
 
 
 	public void setStoreproduct(List<StoreProduct> storeproduct) {
-		this.storeproduct = storeproduct;
+		this.storeproducts = storeproduct;
 	}
 
 
 	public Discount getDiscount() {
-		return discounts;
+		return discount;
 	}
 
 
 	public void setDiscount(Discount discount) {
-		this.discounts = discount;
+		this.discount = discount;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", label=" + label + ", unitPrice=" + unitPrice + ", qte=" + qte + ", tva=" + tva
+				+ ", storeproducts=" + storeproducts + ", discount=" + discount + "]";
 	}
 
 

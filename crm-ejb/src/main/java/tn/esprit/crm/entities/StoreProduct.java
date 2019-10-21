@@ -1,5 +1,6 @@
 package tn.esprit.crm.entities;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -13,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class StoreProduct {
+public class StoreProduct implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,14 +22,15 @@ public class StoreProduct {
 	private int id;
 	private int qte;
 	private Date dateEntry;
-	
 	@ManyToOne
-	@JoinColumn(name ="STORE_ID",referencedColumnName ="id_store")
+	@JoinColumn(name ="STORE_ID",referencedColumnName ="id_store",insertable=false,updatable=false)
 	private Store stores;
-	
 	@ManyToOne
-	@JoinColumn(name ="PRODUCT_ID",referencedColumnName ="id_product")
+	@JoinColumn(name ="PRODUCT_ID",referencedColumnName ="id_product",insertable=false,updatable=false)
 	private Product products;
+	
+
+
 
 	public StoreProduct(int id, int qte, Date dateEntry, Store stores, Product products) {
 		
@@ -64,15 +66,16 @@ public class StoreProduct {
 	public void setDateEntry(Date dateEntry) {
 		this.dateEntry = dateEntry;
 	}
-
-	public Store getStores() {
+	
+		public Store getStores() {
 		return stores;
 	}
 
 	public void setStores(Store stores) {
 		this.stores = stores;
 	}
-
+	
+	
 	public Product getProducts() {
 		return products;
 	}
