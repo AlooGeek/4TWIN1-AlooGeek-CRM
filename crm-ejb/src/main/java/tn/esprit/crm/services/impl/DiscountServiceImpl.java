@@ -31,10 +31,27 @@ public class DiscountServiceImpl implements IDiscountService  {
 
 	@Override
 	public List<Discount> selectAll() {
-		 System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA@@@@@@@@@");
-	     System.out.println(Discount.class.getName());
-		List<Discount> discounts=em.createQuery("from"+Discount.class.getName()).getResultList();
+		
+		List<Discount> discounts=em.createQuery("SELECT d FROM Discount d  ",Discount.class).getResultList();
 		return discounts;
+	}
+
+	@Override
+	public Discount update(Discount discount) {
+		 em.merge(discount);
+		 return discount;
+	
+	}
+
+	@Override
+	public boolean Delete(int id) {
+		for (Discount d:this.selectAll()) {
+			if (d.getId()==id) {
+				em.remove(d);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	
