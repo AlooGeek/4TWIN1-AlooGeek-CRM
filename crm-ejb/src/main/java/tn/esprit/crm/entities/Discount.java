@@ -31,7 +31,7 @@ public class Discount implements Serializable{
 	private int reduction_amount;
 	private String description;
 	
-	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL,mappedBy="discount")
+	@OneToMany(fetch=FetchType.EAGER,mappedBy = "discount", cascade = CascadeType.ALL)
 	private List<Product> product;
 	
 	public Discount() {
@@ -109,5 +109,70 @@ public class Discount implements Serializable{
 		this.product = product;
 	}
 
-	
+
+	@Override
+	public String toString() {
+		return "Discount [id=" + id + ", name=" + name + ", startdate=" + startdate + ", enddate=" + enddate
+				+ ", reduction_amount=" + reduction_amount + ", description=" + description + ", product=" + product
+				+ "]";
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((enddate == null) ? 0 : enddate.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((product == null) ? 0 : product.hashCode());
+		result = prime * result + reduction_amount;
+		result = prime * result + ((startdate == null) ? 0 : startdate.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Discount other = (Discount) obj;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (enddate == null) {
+			if (other.enddate != null)
+				return false;
+		} else if (!enddate.equals(other.enddate))
+			return false;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (product == null) {
+			if (other.product != null)
+				return false;
+		} else if (!product.equals(other.product))
+			return false;
+		if (reduction_amount != other.reduction_amount)
+			return false;
+		if (startdate == null) {
+			if (other.startdate != null)
+				return false;
+		} else if (!startdate.equals(other.startdate))
+			return false;
+		return true;
+	}
+
+
 }
