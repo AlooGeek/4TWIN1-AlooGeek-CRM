@@ -5,9 +5,12 @@ import java.sql.Date;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -40,13 +43,50 @@ public class DiscountResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	//(D) DisplayEmployeeList
 	public Response DisplayDiscountList() {
-		 System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA@@@@@@@@@");
-	     System.out.println(Discount.class.getName());
+		 
 		return Response.status(Status.OK).entity(discloc.selectAll()).build();
-		
 
 		}
 	
+		
+		@PUT
+		@Path("{id}")
+		@Consumes(MediaType.APPLICATION_XML)
+		@Produces(MediaType.APPLICATION_JSON)
+	public Response UpdateDiscount(@PathParam(value="id") int id) {
+			for(int i=0 ; i<discloc.selectAll().size();i++) {
+				if(discloc.selectAll().get(i).getId()==id) {
+					Discount d=new Discount();
+					d.setId(discloc.selectAll().get(i).getId());
+					d.setName("nyech");
+					d.setReduction_amount(50);
+					d.setDescription("ntestiw fel update bel postman");
+					d.setStartdate(new Date(01,01,2019));
+					d.setEnddate(new Date(01,01,2040));
+					System.out.println("@@@@@@"+discloc.selectAll().get(i));
+					discloc.update(d);
+					return Response.status(Status.ACCEPTED).entity("Discount Updated").build();
+
+				}
+			
+		}
+			
+			return Response.status(Status.NOT_MODIFIED).entity("Discount n est pas modifie").build();
+
+		}
 	
-	
+		@DELETE
+		@Path("{id}")
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response deleteDiscount(@PathParam(value="id") int id) {
+			
+			if (discloc.Delete(id)) {
+			return Response.status(Status.GONE).entity("Discount deleted"+id).build();
+			}
+			return Response.status(Status.NOT_FOUND).entity("Not found Discount").build();
+			
+		}
+		
+		
+		
 }
