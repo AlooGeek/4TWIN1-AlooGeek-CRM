@@ -100,17 +100,6 @@ public class Discount implements Serializable{
 		this.reduction_amount = reduction_amount;
 	}
 
-
-	public Set<Product> getProduct() {
-		return product;
-	}
-
-
-	public void setProduct(Set<Product> product) {
-		this.product = product;
-	}
-
-
 	@Override
 	public String toString() {
 		return "Discount [id=" + id + ", name=" + name + ", startdate=" + startdate + ", enddate=" + enddate

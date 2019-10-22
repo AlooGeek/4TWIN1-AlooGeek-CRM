@@ -108,16 +108,6 @@ public class Pack implements Serializable{
 
 
 
-	public Set<Pack_Product> getPack_products() {
-		return pack_products;
-	}
-
-
-
-	public void setPack_products(Set<Pack_Product> pack_products) {
-		this.pack_products = pack_products;
-	}
-
 
 
 	
