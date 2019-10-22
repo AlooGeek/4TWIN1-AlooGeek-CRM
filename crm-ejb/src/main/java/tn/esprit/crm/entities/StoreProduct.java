@@ -19,7 +19,7 @@ public class StoreProduct implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_sp")
-	private int id;
+	private Long id;
 	private int qte;
 	private Date dateEntry;
 	@ManyToOne
@@ -32,7 +32,7 @@ public class StoreProduct implements Serializable{
 
 
 
-	public StoreProduct(int id, int qte, Date dateEntry, Store stores, Product products) {
+	public StoreProduct(Long id, int qte, Date dateEntry, Store stores, Product products) {
 		
 		this.id = id;
 		this.qte = qte;
@@ -43,11 +43,11 @@ public class StoreProduct implements Serializable{
 
 	public StoreProduct() {	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -63,10 +63,12 @@ public class StoreProduct implements Serializable{
 		return dateEntry;
 	}
 
-	public void setDateEntry(Date dateEntry) {
+
+	
+		public void setDateEntry(Date dateEntry) {
 		this.dateEntry = dateEntry;
 	}
-	
+
 		public Store getStores() {
 		return stores;
 	}

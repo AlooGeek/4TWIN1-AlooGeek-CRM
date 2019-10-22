@@ -24,7 +24,7 @@ public class Store implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_store")
-	private int id;
+	private Long id;
 	private String name;
 	private String address;
 	private int phoneNumber;
@@ -33,7 +33,7 @@ public class Store implements Serializable{
 	@OneToMany(mappedBy="stores",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
 	private List<StoreProduct> storeproduct;
 	
-	public Store(int id, String name, String address, int phoneNumber, String email) {
+	public Store(Long id, String name, String address, int phoneNumber, String email) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
@@ -43,11 +43,11 @@ public class Store implements Serializable{
 
 	public Store() {	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
