@@ -8,6 +8,9 @@ import java.sql.Date;
 
 =======
 import java.util.List;
+<<<<<<< HEAD
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
+=======
 >>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 import java.util.Set;
 
@@ -105,10 +108,13 @@ public class Discount implements Serializable{
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 =======
 >>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	@Override

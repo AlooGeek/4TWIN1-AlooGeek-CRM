@@ -41,12 +41,16 @@ public class Product implements Serializable{
 	@OneToMany(mappedBy="products",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 =======
 	@OneToMany(mappedBy="products",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+<<<<<<< HEAD
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
+=======
 >>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	private Set<StoreProduct> storeproducts;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Discount discount;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@OneToMany(mappedBy ="productss",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Set<pack_product> pack_product;
@@ -56,11 +60,16 @@ public class Product implements Serializable{
 	private Set<Document_line> doc_lines;
 	
 =======
+=======
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	@OneToMany(fetch=FetchType.EAGER,mappedBy="productss",cascade = CascadeType.ALL)
 	private Set<Pack_Product> pack_product;
 	
 	@OneToMany(fetch=FetchType.EAGER,mappedBy="product",cascade = CascadeType.ALL)
 	private Set<Document_line>doc_lines;
+<<<<<<< HEAD
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
+=======
 >>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	
 	
@@ -140,7 +149,10 @@ public class Product implements Serializable{
 
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	public Set<StoreProduct> getStoreproduct() {
 		return storeproducts;
 	}
@@ -170,7 +182,10 @@ public class Product implements Serializable{
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	public Set<StoreProduct> getStoreproducts() {
 		return storeproducts;
 	}
