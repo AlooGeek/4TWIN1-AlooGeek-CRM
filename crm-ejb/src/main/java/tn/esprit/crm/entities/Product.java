@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -39,6 +40,12 @@ public class Product implements Serializable{
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Discount discount;
+	
+	@ManyToMany(cascade=CascadeType.ALL)
+	private List<Pack> pack;
+	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy="product")
+	private List<Document_line>doc_lines;
 	
 	
 	public Product(int id, String label, float unit_price, int qte, int tva) {

@@ -1,13 +1,18 @@
 package tn.esprit.crm.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 import lombok.Data;
 
 @Entity
@@ -29,6 +34,11 @@ public class User extends BaseEntity {
 	private String cin;
 	private LocalDateTime birthDate;
 	private String type;
+	private int userScore;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Offer offer;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "fk_role")
