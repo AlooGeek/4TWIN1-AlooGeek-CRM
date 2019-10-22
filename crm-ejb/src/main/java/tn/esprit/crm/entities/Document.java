@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class Document implements Serializable {
 	private DocumentType type;
 	private DocumentState State;
 	
-	@OneToMany (mappedBy = "document",cascade = CascadeType.ALL)
+	@OneToMany (mappedBy = "document",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
 	private Set<Document_line> doc_lines;
 	
 	@ManyToOne

@@ -26,10 +26,12 @@ public class Document_line implements Serializable {
 	private int quantity;
 	
 	@ManyToOne
-	Document document;
+	@JoinColumn(name ="DOCUMENT_ID",referencedColumnName ="id",insertable=false,updatable=false)
+	private Document document;
 	
 	@ManyToOne
-	Product product;
+	@JoinColumn(name ="PRODUCT_ID",referencedColumnName ="id_product",insertable=false,updatable=false)
+	private Product product;
 
 	public Document_line(int id, Date creation_date, int quantity, Document document, Product product) {
 		super();
