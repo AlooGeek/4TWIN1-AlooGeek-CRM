@@ -44,7 +44,7 @@ public class Product implements Serializable{
 	@ManyToMany(cascade=CascadeType.ALL)
 	private List<Pack> pack;
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy="product")
+	@OneToMany(mappedBy="product",cascade = CascadeType.ALL)
 	private List<Document_line>doc_lines;
 	
 	
