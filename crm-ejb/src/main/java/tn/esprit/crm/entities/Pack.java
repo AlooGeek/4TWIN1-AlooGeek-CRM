@@ -103,6 +103,18 @@ public class Pack implements Serializable{
 	public void setPackDescription(String packDescription) {
 		PackDescription = packDescription;
 	}
+
+
+
+	public List<Product> getProduct() {
+		return product;
+	}
+
+
+
+	public void setProduct(List<Product> product) {
+		this.product = product;
+	}
 	
 	
 }

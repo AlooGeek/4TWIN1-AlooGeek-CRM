@@ -23,33 +23,32 @@ public class DiscountServiceImpl implements IDiscountService  {
 	//private IDiscountDao discountDao;
 	EntityManager em;
 	
+	@EJB
+	IDiscountDao discountDao;
+	
 	@Override
 	public Discount save(Discount d) {
-	em.persist(d);
-		return d;
+	return discountDao.save(d);
 	}
 
 	@Override
 	public List<Discount> selectAll() {
 		
-		List<Discount> discounts=em.createQuery("SELECT d FROM Discount d  ",Discount.class).getResultList();
-		return discounts;
+		return discountDao.selectAll();
 	}
 
 	@Override
 	public Discount update(Discount discount) {
-		 em.merge(discount);
-		 return discount;
+	return discountDao.update(discount);
 	
 	}
 
+
 	@Override
-	public boolean Delete(int id) {
-		for (Discount d:this.selectAll()) {
-			if (d.getId()==id) {
-				em.remove(d);
-				return true;
-			}
+	public boolean remove(Long id) {
+		if(id!=0) {
+			 discountDao.remove(id);
+			 return true;
 		}
 		return false;
 	}

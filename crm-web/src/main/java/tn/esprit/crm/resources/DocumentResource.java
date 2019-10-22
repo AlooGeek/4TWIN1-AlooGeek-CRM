@@ -42,7 +42,7 @@ public class DocumentResource {
 		Document doc = new Document();
 		doc.setDate_creation(new Date());
 		doc.setState(DocumentState.notTreated);
-		doc.setType(DocumentType.command);
+		doc.setType(DocumentType.bill);
 		return documentService.addDocument(doc);
 		
 	}

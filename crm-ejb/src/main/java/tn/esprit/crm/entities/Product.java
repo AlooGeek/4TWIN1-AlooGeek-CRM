@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -134,6 +135,36 @@ public class Product implements Serializable{
 	public String toString() {
 		return "Product [id=" + id + ", label=" + label + ", unitPrice=" + unitPrice + ", qte=" + qte + ", tva=" + tva
 				+ ", storeproducts=" + storeproducts + ", discount=" + discount + "]";
+	}
+
+
+	public List<StoreProduct> getStoreproducts() {
+		return storeproducts;
+	}
+
+
+	public void setStoreproducts(List<StoreProduct> storeproducts) {
+		this.storeproducts = storeproducts;
+	}
+
+
+	public List<Pack> getPack() {
+		return pack;
+	}
+
+
+	public void setPack(List<Pack> pack) {
+		this.pack = pack;
+	}
+
+
+	public List<Document_line> getDoc_lines() {
+		return doc_lines;
+	}
+
+
+	public void setDoc_lines(List<Document_line> doc_lines) {
+		this.doc_lines = doc_lines;
 	}
 
 
