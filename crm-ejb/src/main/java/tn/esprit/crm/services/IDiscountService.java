@@ -14,5 +14,5 @@ public interface IDiscountService {
 	public Discount save (Discount discount);
 	public List<Discount> selectAll();
 	public Discount update(Discount discount);
-	public boolean Delete(int id);
+	public boolean remove(Long id);
 }

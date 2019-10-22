@@ -24,7 +24,7 @@ public class Discount implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	private String name;
 	private Date startdate;
 	private Date enddate;
@@ -49,10 +49,10 @@ public class Discount implements Serializable{
 	}
 
 	@XmlAttribute(name="id" , required=true)
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
@@ -117,20 +117,6 @@ public class Discount implements Serializable{
 				+ "]";
 	}
 
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((enddate == null) ? 0 : enddate.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((product == null) ? 0 : product.hashCode());
-		result = prime * result + reduction_amount;
-		result = prime * result + ((startdate == null) ? 0 : startdate.hashCode());
-		return result;
-	}
 
 
 	@Override
