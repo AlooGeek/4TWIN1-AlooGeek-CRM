@@ -4,6 +4,7 @@ import javax.ejb.Stateless;
 
 import tn.esprit.crm.dao.IDiscountDao;
 import tn.esprit.crm.entities.Discount;
+import tn.esprit.crm.entities.Product;
 
 
 @Stateless

@@ -15,4 +15,5 @@ public interface IDiscountService {
 	public List<Discount> selectAll();
 	public Discount update(Discount discount);
 	public boolean remove(Long id);
+	public Discount getById(Long id);
 }

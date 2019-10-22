@@ -16,7 +16,9 @@ import javax.ws.rs.core.Response.Status;
 import tn.esprit.crm.entities.Product;
 import tn.esprit.crm.entities.Store;
 import tn.esprit.crm.entities.StoreProduct;
+import tn.esprit.crm.services.IProductService;
 import tn.esprit.crm.services.IStoreProductService;
+import tn.esprit.crm.services.IStoreService;
 
 
 @Path("storeproduct")
@@ -24,12 +26,20 @@ public class StoreProductRessource {
 	
 	@EJB
 	IStoreProductService servsp;
+	@EJB
+	IStoreService servstore;
+	@EJB
+	IProductService servpro;
 	
 	
-	@POST
+	@GET
+	@Path("{id_store}/{id_product}")
 	@Consumes(MediaType.APPLICATION_XML)
-	public Response AddStoreProduct() {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response AddStoreProduct(@PathParam(value="id_store") Long id_store,@PathParam(value="id_product") Long id_product) {
 		StoreProduct sp=new StoreProduct();
+		sp.setStores(servstore.getById(id_store));
+		sp.setProducts(servpro.getById(id_product));
 		sp.setQte(50);
 		sp.setDateEntry(new Date(1996-1900,5,25));
 		servsp.save(sp);

@@ -26,11 +26,11 @@ public class Document_line implements Serializable {
 	private int quantity;
 	
 	@ManyToOne
-	@JoinColumn(name ="DOCUMENT_ID",referencedColumnName ="id",insertable=false,updatable=false)
+	@JoinColumn(name ="DOCUMENT_ID",referencedColumnName ="id",insertable=true,updatable=true)
 	private Document document;
 	
 	@ManyToOne
-	@JoinColumn(name ="PRODUCT_ID",referencedColumnName ="id_product",insertable=false,updatable=false)
+	@JoinColumn(name ="PRODUCT_ID",referencedColumnName ="id_product",insertable=true,updatable=true)
 	private Product product;
 
 	public Document_line(int id, Date creation_date, int quantity, Document document, Product product) {

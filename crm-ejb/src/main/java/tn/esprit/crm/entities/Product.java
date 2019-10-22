@@ -2,6 +2,7 @@ package tn.esprit.crm.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,19 +36,46 @@ public class Product implements Serializable{
 	private float unitPrice;
 	private int qte;
 	private int tva;
+<<<<<<< HEAD
+	
+	@OneToMany(mappedBy="products",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+=======
 	@OneToMany(mappedBy="products",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
-	private List<StoreProduct> storeproducts;
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
+	private Set<StoreProduct> storeproducts;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Discount discount;
 
-	@ManyToMany(cascade=CascadeType.ALL)
-	private List<Pack> pack;
-	
-	@OneToMany(mappedBy="product",cascade = CascadeType.ALL)
-	private List<Document_line>doc_lines;
+<<<<<<< HEAD
+	@OneToMany(mappedBy ="productss",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	private Set<pack_product> pack_product;
 	
 	
+	@OneToMany(mappedBy="product",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	private Set<Document_line> doc_lines;
+	
+=======
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="productss",cascade = CascadeType.ALL)
+	private Set<Pack_Product> pack_product;
+	
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="product",cascade = CascadeType.ALL)
+	private Set<Document_line>doc_lines;
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
+	
+	
+
+
+
+
+
+	public void setPack_product(Set<pack_product> pack_product) {
+		this.pack_product = pack_product;
+	}
+
+
+
+
 	public Product(Long id, String label, float unit_price, int qte, int tva) {
 		
 		this.id = id;
@@ -111,14 +139,17 @@ public class Product implements Serializable{
 	}
 
 	
-	public List<StoreProduct> getStoreproduct() {
+<<<<<<< HEAD
+=======
+	public Set<StoreProduct> getStoreproduct() {
 		return storeproducts;
 	}
 
 
-	public void setStoreproduct(List<StoreProduct> storeproduct) {
+	public void setStoreproduct(Set<StoreProduct> storeproduct) {
 		this.storeproducts = storeproduct;
 	}
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 
 
 	public Discount getDiscount() {
@@ -138,37 +169,42 @@ public class Product implements Serializable{
 	}
 
 
-	public List<StoreProduct> getStoreproducts() {
+<<<<<<< HEAD
+=======
+	public Set<StoreProduct> getStoreproducts() {
 		return storeproducts;
 	}
 
 
-	public void setStoreproducts(List<StoreProduct> storeproducts) {
+	public void setStoreproducts(Set<StoreProduct> storeproducts) {
 		this.storeproducts = storeproducts;
 	}
 
 
-	public List<Pack> getPack() {
-		return pack;
+	
+
+	public Set<Pack_Product> getPack_product() {
+		return pack_product;
 	}
 
 
-	public void setPack(List<Pack> pack) {
-		this.pack = pack;
+	public void setPack_product(Set<Pack_Product> pack_product) {
+		this.pack_product = pack_product;
 	}
 
 
-	public List<Document_line> getDoc_lines() {
+	public Set<Document_line> getDoc_lines() {
 		return doc_lines;
 	}
 
 
-	public void setDoc_lines(List<Document_line> doc_lines) {
+	public void setDoc_lines(Set<Document_line> doc_lines) {
 		this.doc_lines = doc_lines;
 	}
 
 
 
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	
 	
 	

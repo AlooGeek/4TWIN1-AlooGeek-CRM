@@ -53,6 +53,11 @@ public class DiscountServiceImpl implements IDiscountService  {
 		return false;
 	}
 
+	@Override
+	public Discount getById(Long id) {
+	return discountDao.getById(id);
+	}
+
 	
 	
 

@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import tn.esprit.crm.entities.Product;
-
+import tn.esprit.crm.services.IDiscountService;
 import tn.esprit.crm.services.IProductService;
 
 @Path("product")
@@ -22,6 +22,8 @@ public class ProductRessource {
 
 	@EJB
 	IProductService servprod;
+	@EJB
+	IDiscountService servdisc;
 	
 	
 	@POST
@@ -46,10 +48,10 @@ public class ProductRessource {
 		}
 	
 	@PUT
-	@Path("{id}")
+	@Path("{id}/{id_discount}")
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.APPLICATION_JSON)
-public Response UpdateProduct(@PathParam(value="id") Long id) {
+public Response UpdateProduct(@PathParam(value="id") Long id,@PathParam(value="id_discount") Long id_discount) {
 
 		if (id!=null) {
 			Product p=new Product();			
@@ -58,6 +60,7 @@ public Response UpdateProduct(@PathParam(value="id") Long id) {
 			p.setQte(50);
 			p.setTva(19);
 			p.setUnitPrice(500);
+			p.setDiscount(servdisc.getById(id_discount));
 		servprod.update(p);
 		return Response.status(Status.ACCEPTED).entity("Product "+id+" Updated").build();
 		}

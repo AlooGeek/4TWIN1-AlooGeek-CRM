@@ -3,6 +3,7 @@ package tn.esprit.crm.entities;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -27,9 +28,14 @@ public class Pack implements Serializable{
 	private String PackDescription;
 	
 	@OneToMany(fetch=FetchType.EAGER,mappedBy = "packs", cascade = CascadeType.ALL)
-	private List<Product> products;
+<<<<<<< HEAD
+	private List<pack_product> packproducts;
+=======
+	private Set<Pack_Product> pack_products;
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	
 	
+
 	public Pack(String packName, Date packStartDate, Date packEndDate, String packDescription) {
 		super();
 		PackName = packName;
@@ -106,15 +112,12 @@ public class Pack implements Serializable{
 
 
 
-	public List<Product> getProduct() {
-		return products;
-	}
+<<<<<<< HEAD
+
+=======
 
 
-
-	public void setProduct(List<Product> product) {
-		this.products = product;
-	}
 	
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	
 }

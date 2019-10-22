@@ -4,7 +4,12 @@ package tn.esprit.crm.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+<<<<<<< HEAD
+
+=======
 import java.util.List;
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -32,7 +37,7 @@ public class Discount implements Serializable{
 	private String description;
 	
 	@OneToMany(fetch=FetchType.EAGER,mappedBy = "discount", cascade = CascadeType.ALL)
-	private List<Product> product;
+	private Set<Product> product;
 	
 	public Discount() {
 		super();
@@ -99,17 +104,13 @@ public class Discount implements Serializable{
 		this.reduction_amount = reduction_amount;
 	}
 
-
-	public List<Product> getProduct() {
-		return product;
-	}
+<<<<<<< HEAD
 
 
-	public void setProduct(List<Product> product) {
-		this.product = product;
-	}
 
 
+=======
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	@Override
 	public String toString() {
 		return "Discount [id=" + id + ", name=" + name + ", startdate=" + startdate + ", enddate=" + enddate
