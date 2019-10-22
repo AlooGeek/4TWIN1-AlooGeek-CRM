@@ -26,8 +26,8 @@ public class Pack implements Serializable{
 	private Date PackEndDate;
 	private String PackDescription;
 	
-	@ManyToMany(mappedBy = "pack", cascade = CascadeType.ALL)
-	private List<Product> product;
+	@OneToMany(fetch=FetchType.EAGER,mappedBy = "packs", cascade = CascadeType.ALL)
+	private List<Product> products;
 	
 	
 	public Pack(String packName, Date packStartDate, Date packEndDate, String packDescription) {
@@ -107,13 +107,13 @@ public class Pack implements Serializable{
 
 
 	public List<Product> getProduct() {
-		return product;
+		return products;
 	}
 
 
 
 	public void setProduct(List<Product> product) {
-		this.product = product;
+		this.products = product;
 	}
 	
 	
