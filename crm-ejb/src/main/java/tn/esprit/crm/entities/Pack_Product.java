@@ -22,10 +22,10 @@ public class Pack_Product implements Serializable{
 	private Long id;
 	private int period;
 	@ManyToOne
-	@JoinColumn(name="PACK_ID",referencedColumnName="id",insertable=true,updatable=true)
+	@JoinColumn(name="PACK_ID",referencedColumnName="id",insertable=false,updatable=false)
 	private Pack packs;
 	@ManyToOne
-	@JoinColumn(name="PRODUCT_ID",referencedColumnName="id_product",insertable=true,updatable=true)
+	@JoinColumn(name="PRODUCT_ID",referencedColumnName="id_product",insertable=false,updatable=false)
 	private Product productss;
 	public Long getId() {
 		return id;
