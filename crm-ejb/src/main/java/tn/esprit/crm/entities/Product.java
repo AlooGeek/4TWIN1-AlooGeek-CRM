@@ -23,10 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @XmlRootElement
 public class Product implements Serializable{
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,52 +33,23 @@ public class Product implements Serializable{
 	private float unitPrice;
 	private int qte;
 	private int tva;
-<<<<<<< HEAD
 	
-	@OneToMany(mappedBy="products",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-=======
 	@OneToMany(mappedBy="products",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
-<<<<<<< HEAD
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
-=======
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
+
 	private Set<StoreProduct> storeproducts;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Discount discount;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-	@OneToMany(mappedBy ="productss",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	private Set<pack_product> pack_product;
 	
-	
-	@OneToMany(mappedBy="product",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	private Set<Document_line> doc_lines;
-	
-=======
-=======
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	@OneToMany(fetch=FetchType.EAGER,mappedBy="productss",cascade = CascadeType.ALL)
 	private Set<Pack_Product> pack_product;
 	
 	@OneToMany(fetch=FetchType.EAGER,mappedBy="product",cascade = CascadeType.ALL)
 	private Set<Document_line>doc_lines;
-<<<<<<< HEAD
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
-=======
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
+
 	
 	
-
-
-
-
-
-	public void setPack_product(Set<pack_product> pack_product) {
-		this.pack_product = pack_product;
-	}
-
 
 
 
@@ -147,12 +115,6 @@ public class Product implements Serializable{
 		this.tva = tva;
 	}
 
-	
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	public Set<StoreProduct> getStoreproduct() {
 		return storeproducts;
 	}
@@ -161,7 +123,6 @@ public class Product implements Serializable{
 	public void setStoreproduct(Set<StoreProduct> storeproduct) {
 		this.storeproducts = storeproduct;
 	}
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 
 
 	public Discount getDiscount() {
@@ -180,12 +141,6 @@ public class Product implements Serializable{
 				+ ", storeproducts=" + storeproducts + ", discount=" + discount + "]";
 	}
 
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	public Set<StoreProduct> getStoreproducts() {
 		return storeproducts;
 	}
@@ -216,11 +171,6 @@ public class Product implements Serializable{
 	public void setDoc_lines(Set<Document_line> doc_lines) {
 		this.doc_lines = doc_lines;
 	}
-
-
-
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
-	
 	
 	
 

@@ -4,14 +4,9 @@ package tn.esprit.crm.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
-<<<<<<< HEAD
 
-=======
 import java.util.List;
-<<<<<<< HEAD
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
-=======
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
+
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -107,16 +102,7 @@ public class Discount implements Serializable{
 		this.reduction_amount = reduction_amount;
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-
-
-
-=======
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
-=======
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	@Override
 	public String toString() {
 		return "Discount [id=" + id + ", name=" + name + ", startdate=" + startdate + ", enddate=" + enddate
