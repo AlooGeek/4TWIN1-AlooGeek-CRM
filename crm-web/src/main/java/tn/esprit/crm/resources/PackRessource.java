@@ -27,13 +27,8 @@ public class PackRessource {
 	
 
 	@POST
-	@Consumes(MediaType.APPLICATION_XML)
-	public Response AddPack() {
-		Pack p=new Pack();
-		p.setPackName("Postman pack");
-		p.setPackDescription("ntestiw fel ajout pack bel postman");
-		p.setPackStartDate(new Date(2001-1900,01,15));
-		p.setPackEndDate(new Date(2009-1900,01,19));
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response AddPack(Pack p) {
 		packService.save(p);
 		return  Response.status(Status.OK).entity("votre pack a ete ajouté").build();
 	}
@@ -49,18 +44,13 @@ public class PackRessource {
 		}
 	
 		
-		@PUT
-		@Path("{id}")
-		@Consumes(MediaType.APPLICATION_XML)
-		@Produces(MediaType.APPLICATION_JSON)
-	public Response UpdatePack(@PathParam(value="id") Long id) {
+	@PUT
+	@Path("{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response UpdatePack(@PathParam(value="id") Long id,Pack p) {
 			if(id!=0) {
-					Pack p=new Pack();
-					p.setId(id);
-					p.setPackName("nyech");
-					p.setPackDescription("ntestiw fel update bel postman");
-					p.setPackStartDate(new Date(01,01,2019));
-					p.setPackEndDate(new Date(01,01,2040));
+				
 					packService.update(p);
 					return Response.status(Status.ACCEPTED).entity("Pack Updated").build();
 		}

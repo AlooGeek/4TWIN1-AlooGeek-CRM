@@ -26,14 +26,9 @@ public class DiscountResource {
 	IDiscountService discloc;
 	
 	@POST
-	@Consumes(MediaType.APPLICATION_XML)
-	public Response AddDiscount() {
-		Discount d=new Discount();
-		d.setName("Postman Reduction");
-		d.setReduction_amount(30);
-		d.setDescription("ntestiw fel ajout bel postman");
-		d.setStartdate(new Date(01,01,2001));
-		d.setEnddate(new Date(01,01,2009));
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response AddDiscount(Discount d) {
+		
 		discloc.save(d);
 		return  Response.status(Status.OK).entity("votre discount a ete ajouté").build();
 	}
@@ -51,18 +46,11 @@ public class DiscountResource {
 		
 		@PUT
 		@Path("{id}")
-		@Consumes(MediaType.APPLICATION_XML)
+		@Consumes(MediaType.APPLICATION_JSON)
 		@Produces(MediaType.APPLICATION_JSON)
-	public Response UpdateDiscount(@PathParam(value="id") Long id) {
+	public Response UpdateDiscount(@PathParam(value="id") Long id,Discount d) {
 			if(id!=0) {
-					Discount d=new Discount();
-					d.setId(id);
-					d.setName("nyech");
-					d.setReduction_amount(50);
-					d.setDescription("ntestiw fel update bel postman");
-					d.setStartdate(new Date(01,01,2019));
-					d.setEnddate(new Date(01,01,2040));
-					discloc.update(d);
+				discloc.update(d);
 					return Response.status(Status.ACCEPTED).entity("Discount Updated").build();
 		}
 			

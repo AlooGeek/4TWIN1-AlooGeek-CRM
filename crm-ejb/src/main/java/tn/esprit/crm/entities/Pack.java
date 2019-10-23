@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -45,7 +47,7 @@ public class Pack implements Serializable{
 	}
 
 
-
+	@XmlAttribute(name="id" , required=true)
 	public Long getId() {
 		return id;
 	}
@@ -57,7 +59,7 @@ public class Pack implements Serializable{
 	}
 
 
-
+	@XmlElement(name="PackName")
 	public String getPackName() {
 		return PackName;
 	}
@@ -69,7 +71,7 @@ public class Pack implements Serializable{
 	}
 
 
-
+	@XmlElement(name="PackStartDate")
 	public Date getPackStartDate() {
 		return PackStartDate;
 	}
@@ -81,7 +83,7 @@ public class Pack implements Serializable{
 	}
 
 
-
+	@XmlElement(name="PackEndDate")
 	public Date getPackEndDate() {
 		return PackEndDate;
 	}
@@ -93,7 +95,7 @@ public class Pack implements Serializable{
 	}
 
 
-
+	@XmlElement(name="PackDescription")
 	public String getPackDescription() {
 		return PackDescription;
 	}
