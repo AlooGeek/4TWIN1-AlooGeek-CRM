@@ -28,7 +28,15 @@ public class Pack implements Serializable{
 	private String PackDescription;
 	
 	@OneToMany(fetch=FetchType.EAGER,mappedBy = "packs", cascade = CascadeType.ALL)
+<<<<<<< HEAD
+<<<<<<< HEAD
+	private List<pack_product> packproducts;
+=======
 	private Set<Pack_Product> pack_products;
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
+=======
+	private Set<Pack_Product> pack_products;
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	
 	
 
@@ -108,8 +116,15 @@ public class Pack implements Serializable{
 
 
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+=======
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 
 
 	
+>>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	
 }

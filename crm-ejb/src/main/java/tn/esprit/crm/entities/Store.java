@@ -2,6 +2,7 @@ package tn.esprit.crm.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,7 +32,7 @@ public class Store implements Serializable{
 	private String email;
 	
 	@OneToMany(mappedBy="stores",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
-	private List<StoreProduct> storeproduct;
+	private Set<StoreProduct> storeproduct;
 	
 	public Store(Long id, String name, String address, int phoneNumber, String email) {
 		this.id = id;
@@ -83,15 +84,7 @@ public class Store implements Serializable{
 		this.email = email;
 	}
 
-	
-	
-	public List<StoreProduct> getStoreproduct() {
-		return storeproduct;
-	}
 
-	public void setStoreproduct(List<StoreProduct> storeproduct) {
-		this.storeproduct = storeproduct;
-	}
 
 	@Override
 	public String toString() {

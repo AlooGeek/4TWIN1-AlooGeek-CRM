@@ -23,10 +23,10 @@ public class StoreProduct implements Serializable{
 	private int qte;
 	private Date dateEntry;
 	@ManyToOne
-	@JoinColumn(name ="STORE_ID",referencedColumnName ="id_store",insertable=false,updatable=false)
+	@JoinColumn(name ="STORE_ID",referencedColumnName ="id_store",insertable=true,updatable=true)
 	private Store stores;
 	@ManyToOne
-	@JoinColumn(name ="PRODUCT_ID",referencedColumnName ="id_product",insertable=false,updatable=false)
+	@JoinColumn(name ="PRODUCT_ID",referencedColumnName ="id_product",insertable=true,updatable=true)
 	private Product products;
 	
 

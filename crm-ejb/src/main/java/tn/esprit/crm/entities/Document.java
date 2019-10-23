@@ -3,6 +3,7 @@ package tn.esprit.crm.entities;
 import java.io.Serializable;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,10 +14,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
 
 @Entity
+@XmlRootElement
 public class Document implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -28,9 +31,11 @@ public class Document implements Serializable {
 	private DocumentType type;
 	private DocumentState State;
 	
-	@OneToMany (mappedBy = "document",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+	@OneToMany (mappedBy="document",cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<Document_line> doc_lines;
 	
+
+
 	@ManyToOne
 	User user;
 
@@ -40,7 +45,7 @@ public class Document implements Serializable {
 	}
 
 	public Document(long id, float total_ht, float total_ttc, float total, Date date_creation, DocumentType type,
-			DocumentState state, Set<Document_line> doc_lines, User user) {
+			DocumentState state, User user) {
 		super();
 		this.id = id;
 		this.total_ht = total_ht;
@@ -49,7 +54,6 @@ public class Document implements Serializable {
 		this.date_creation = date_creation;
 		this.type = type;
 		State = state;
-		this.doc_lines = doc_lines;
 		this.user = user;
 	}
 
@@ -111,13 +115,6 @@ public class Document implements Serializable {
 		State = state;
 	}
 
-	public Set<Document_line> getDoc_lines() {
-		return doc_lines;
-	}
-
-	public void setDoc_lines(Set<Document_line> doc_lines) {
-		this.doc_lines = doc_lines;
-	}
 
 	public User getUser() {
 		return user;
