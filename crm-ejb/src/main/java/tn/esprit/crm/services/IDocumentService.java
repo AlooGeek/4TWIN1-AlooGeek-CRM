@@ -14,24 +14,20 @@ public interface IDocumentService {
 	
 
 
-	/********Client************/
-	public String requestDocument(DocumentType reason,int qte , int idProd);//almost
-	public String cancelRequestDocument(long documentID);//almost
-	public String updateRequestDocument(long documentID);//almost
-	public List<Document> listDocumentByUser(long userID);//done
+	/********Client************/ //CRUD not treat 
+	public String requestDocument(DocumentType reason,int qte , long idProd);//done
+	public String cancelRequestDocument(long documentID);//done
+	public String updateRequestDocument(long documentID);//done
 	/***********Document line******************************/
-	/*public long addLine(Document_line document);//done
+	public long addLine(Document_line document,long idProd, long idDoc);//done
 	public void updateLine(Document_line newDocument);//done
 	public void deleteLine(long documentID);//done
-	public List<Document_line> listLine();//done*/
-
-	/********Admin*************/
-	public void validateRequestDocument(long documentID);//almost
+	/********Admin
+	 * @return *************/
+	public String validateRequestDocument(long documentID,long prodID);//almost
 	public long addDocument(Document document);//done
 	public void updateDocument(Document newDocument);//done
 	public void deleteDocument(long documentID);//done
-	public List<Document> listQuotes();//done
-	public List<Document> listBills();//done
 	public Document findDocByID(long documentID);//done
 
 	/***business 
@@ -40,13 +36,9 @@ public interface IDocumentService {
 	public String calculateQuote(long quoteID);//done
 	public String trackDocumentState(long documentID);//done
 	public String deadlineReminder(long documentID);//done
-	public void pdfFormatDocument() ;
-	public void excelFormatDocument();
-	public String sendDocument();
-	public void downloadDocument();
-	public void printDocument();
+	public String pdfCreateDownloadDocument() ;
 	
-	public void statisticDocument();
+	public String statisticDocument();
 
 	
 }

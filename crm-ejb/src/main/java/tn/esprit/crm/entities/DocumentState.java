@@ -2,6 +2,6 @@ package tn.esprit.crm.entities;
 
 public enum DocumentState {
 	
-	payed,toBill,toQuote,treated,notTreated, notPayed,canceled,validated
+	treated,notTreated,canceled,validated,payed,notPayed,toBill
 
 }
