@@ -22,4 +22,8 @@ public interface IStoreProductService {
 	public StoreProduct getById(Long id);
 	
 	public boolean remove(Long id);
+	
+	public int UpdateStoreprodQte(Long idprod, Long idStore, int qte);
+	
+	public List<StoreProduct> StatisticsStore();
 }

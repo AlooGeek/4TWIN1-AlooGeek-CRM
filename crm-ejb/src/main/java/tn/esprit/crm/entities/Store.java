@@ -30,8 +30,10 @@ public class Store implements Serializable{
 	private String address;
 	private int phoneNumber;
 	private String email;
+	private float latitude;
+	private float longitude;
 	
-	@OneToMany(mappedBy="stores",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="stores",fetch=FetchType.EAGER)
 	private Set<StoreProduct> storeproduct;
 	
 	public Store(Long id, String name, String address, int phoneNumber, String email) {
@@ -83,14 +85,33 @@ public class Store implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
 
 
+
+	public float getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(float latitude) {
+		this.latitude = latitude;
+	}
+
+	public float getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(float longitude) {
+		this.longitude = longitude;
+	}
 
 	@Override
 	public String toString() {
 		return "Store [id=" + id + ", name=" + name + ", address=" + address + ", phoneNumber=" + phoneNumber
-				+ ", email=" + email + "]";
+				+ ", email=" + email + ", latitude=" + latitude + ", longitude=" + longitude + "]";
 	}
+
+
 	
 	
 	

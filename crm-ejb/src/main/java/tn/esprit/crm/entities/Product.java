@@ -33,25 +33,20 @@ public class Product implements Serializable{
 	@Column(name = "id_product")
 	private Long id;
 	private String label;
+	private String ImageUrl;
 	private float unitPrice;
 	private int qte;
 	private int tva;
-<<<<<<< HEAD
 	
-	@OneToMany(mappedBy="products",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-=======
-	@OneToMany(mappedBy="products",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
-<<<<<<< HEAD
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
-=======
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
+	@OneToMany(mappedBy="products",fetch = FetchType.EAGER)
 	private Set<StoreProduct> storeproducts;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Discount discount;
+	
+	@ManyToOne()
+	private Categorie category;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	@OneToMany(mappedBy ="productss",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Set<pack_product> pack_product;
 	
@@ -59,39 +54,19 @@ public class Product implements Serializable{
 	@OneToMany(mappedBy="product",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Set<Document_line> doc_lines;
 	
-=======
-=======
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="productss",cascade = CascadeType.ALL)
-	private Set<Pack_Product> pack_product;
-	
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="product",cascade = CascadeType.ALL)
-	private Set<Document_line>doc_lines;
-<<<<<<< HEAD
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
-=======
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	
 	
 
 
 
-
-
-	public void setPack_product(Set<pack_product> pack_product) {
-		this.pack_product = pack_product;
-	}
-
-
-
-
-	public Product(Long id, String label, float unit_price, int qte, int tva) {
+	public Product(Long id, String label, float unit_price, int qte, int tva,String imgurl) {
 		
 		this.id = id;
 		this.label = label;
 		this.unitPrice = unit_price;
 		this.qte = qte;
 		this.tva = tva;
+		this.ImageUrl=imgurl;
 	}
 
 
@@ -148,20 +123,16 @@ public class Product implements Serializable{
 	}
 
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
-	public Set<StoreProduct> getStoreproduct() {
-		return storeproducts;
+
+
+	public String getImageUrl() {
+		return ImageUrl;
 	}
 
 
-	public void setStoreproduct(Set<StoreProduct> storeproduct) {
-		this.storeproducts = storeproduct;
+	public void setImageUrl(String imageUrl) {
+		ImageUrl = imageUrl;
 	}
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 
 
 	public Discount getDiscount() {
@@ -172,54 +143,29 @@ public class Product implements Serializable{
 	public void setDiscount(Discount discount) {
 		this.discount = discount;
 	}
+	
+	
+
+	public Categorie getCategory() {
+		return category;
+	}
+
+
+	public void setCategory(Categorie category) {
+		this.category = category;
+	}
 
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", label=" + label + ", unitPrice=" + unitPrice + ", qte=" + qte + ", tva=" + tva
-				+ ", storeproducts=" + storeproducts + ", discount=" + discount + "]";
-	}
-
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
-	public Set<StoreProduct> getStoreproducts() {
-		return storeproducts;
-	}
-
-
-	public void setStoreproducts(Set<StoreProduct> storeproducts) {
-		this.storeproducts = storeproducts;
-	}
-
-
-	
-
-	public Set<Pack_Product> getPack_product() {
-		return pack_product;
-	}
-
-
-	public void setPack_product(Set<Pack_Product> pack_product) {
-		this.pack_product = pack_product;
-	}
-
-
-	public Set<Document_line> getDoc_lines() {
-		return doc_lines;
-	}
-
-
-	public void setDoc_lines(Set<Document_line> doc_lines) {
-		this.doc_lines = doc_lines;
+		return "Product [id=" + id + ", label=" + label + ", ImageUrl=" + ImageUrl + ", unitPrice=" + unitPrice
+				+ ", qte=" + qte + ", tva=" + tva + ", discount=" + discount + ", category=" + category + "]";
 	}
 
 
 
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
+
+
 	
 	
 	

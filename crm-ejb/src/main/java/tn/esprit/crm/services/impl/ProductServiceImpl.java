@@ -66,6 +66,12 @@ public class ProductServiceImpl implements IProductService {
 		return false;
 	}
 
+	@Override
+	public int updateQte(Long id, int qte) {
+		
+		return prodDao.updateQte(id, qte);
+	}
+
 
 
 }

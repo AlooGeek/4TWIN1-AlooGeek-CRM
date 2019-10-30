@@ -3,6 +3,7 @@ package tn.esprit.crm.entities;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,6 +23,7 @@ public class StoreProduct implements Serializable{
 	private Long id;
 	private int qte;
 	private Date dateEntry;
+	
 	@ManyToOne
 	@JoinColumn(name ="STORE_ID",referencedColumnName ="id_store",insertable=true,updatable=true)
 	private Store stores;

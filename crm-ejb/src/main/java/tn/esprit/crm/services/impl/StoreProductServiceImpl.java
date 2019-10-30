@@ -12,7 +12,7 @@ import tn.esprit.crm.services.IStoreProductService;
 @Stateless
 public class StoreProductServiceImpl implements IStoreProductService {
 	@PersistenceContext(unitName="crm-ejb")
-
+	
 	
 	@EJB
 	IStoreProductDao spDao;
@@ -55,11 +55,23 @@ public class StoreProductServiceImpl implements IStoreProductService {
 
 	@Override
 	public boolean remove(Long id) {
+		
 		if (id!=0) {
 			spDao.remove(id);
 			return true;
 			}
 			return false;
+	}
+
+	@Override
+	public int UpdateStoreprodQte(Long idprod, Long idStore, int qte) {
+		return spDao.UpdateStoreprodQte(idprod, idStore, qte);
+	}
+
+	@Override
+	public List<StoreProduct> StatisticsStore() {
+		
+		return spDao.StatisticsStore();
 	}
 	
 	

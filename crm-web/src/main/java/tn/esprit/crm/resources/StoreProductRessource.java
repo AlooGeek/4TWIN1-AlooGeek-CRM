@@ -1,6 +1,6 @@
 package tn.esprit.crm.resources;
 
-import java.sql.Date;
+
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -13,8 +13,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import tn.esprit.crm.entities.Product;
-import tn.esprit.crm.entities.Store;
 import tn.esprit.crm.entities.StoreProduct;
 import tn.esprit.crm.services.IProductService;
 import tn.esprit.crm.services.IStoreProductService;
@@ -32,41 +30,74 @@ public class StoreProductRessource {
 	IProductService servpro;
 	
 	
-	@GET
+	@POST
 	@Path("{id_store}/{id_product}")
-	@Consumes(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response AddStoreProduct(@PathParam(value="id_store") Long id_store,@PathParam(value="id_product") Long id_product) {
-		StoreProduct sp=new StoreProduct();
+	public Response AddStoreProduct(@PathParam(value="id_store") Long id_store,@PathParam(value="id_product") Long id_product,StoreProduct sp) {
+		
 		sp.setStores(servstore.getById(id_store));
 		sp.setProducts(servpro.getById(id_product));
-		sp.setQte(50);
-		sp.setDateEntry(new Date(1996-1900,5,25));
-		servsp.save(sp);
-		return  Response.status(Status.OK).entity("Store Product Added : "+sp).build();
+		
+		if (servpro.getById(id_product).getQte()>=sp.getQte()) {
+			
+			servpro.updateQte(id_product,sp.getQte());
+			servsp.save(sp);
+			return  Response.status(Status.OK).entity("Store Product Added").build();
+			
+		}
+	
+		return  Response.status(Status.NOT_ACCEPTABLE).entity("la quantité saisie n'existe pas en stock").build();
+		
 	}
+	
 
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response DisplayProductList() {
+	public Response DisplayStoreProdList() {
 		return Response.status(Status.OK).entity(servsp.selectAll()).build();
+		
+
+		}
+	
+	// Statistique 
+	@GET
+	@Path("statistic")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response DisplayStatisticsp() {
+		return Response.status(Status.OK).entity(servsp.StatisticsStore()).build();
+		
+
+		}
+	
+	@GET
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response AfficheStoreProdParId(@PathParam(value="id") Long id) {
+		return Response.status(Status.OK).entity(servsp.getById(id)).build();
+		
+
+		}
+	
+	@GET
+	@Path("{param}/{value}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response AfficheStoreProdParamValue(@PathParam(value="param") String param,@PathParam(value="value") String value) {
+		return Response.status(Status.OK).entity(servsp.selectBy(param, value)).build();
 		
 
 		}
 	
 	@PUT
 	@Path("{id}")
-	@Consumes(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-public Response UpdateProduct(@PathParam(value="id") Long id) {
+public Response UpdateStoreProd(@PathParam(value="id") Long id,StoreProduct sp) {
 
 		if (id!=null) {
-			StoreProduct p=new StoreProduct();			
-			p=servsp.getById(id);
-			p.setQte(250);
-			p.setDateEntry(new Date(25,02,2018));
-			servsp.update(p);
+			
+			servsp.update(sp);
 		return Response.status(Status.ACCEPTED).entity("Store Product "+id+" Updated").build();
 		}
 	
@@ -82,7 +113,7 @@ public Response UpdateProduct(@PathParam(value="id") Long id) {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteStore(@PathParam(value="id") Long id) {
+	public Response deleteStoreProd(@PathParam(value="id") Long id) {
 		
 		if (servsp.remove(id)) {
 		return Response.status(Status.GONE).entity("Store Product "+id+" Deleted").build();
