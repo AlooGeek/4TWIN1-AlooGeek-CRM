@@ -25,17 +25,11 @@ public class OfferRessource {
 	IOfferService OffService; 
 	
 	@POST
-	@Consumes(MediaType.APPLICATION_XML)
-	public Response AddOffer() {
-		Offer d=new Offer();
-		d.setOffCode("Q5z4a1");
-		d.setOffDescription("offre cadeau 100points");
-		d.setOffStartDate(new Date(01,05,2019));
-		d.setOffEndDate(new Date(01,01,2020));
-		d.setOffName("offre cadeau");
-		d.setOffReduction_amount(30);
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response AddOffer(Offer o) {
 		
-		OffService.save(d);
+		
+		OffService.save(o);
 		return  Response.status(Status.OK).entity("Your offer has been added").build();
 	}
 	
@@ -51,22 +45,16 @@ public class OfferRessource {
 		
 		@PUT
 		@Path("{OffCode}")
-		@Consumes(MediaType.APPLICATION_XML)
+		@Consumes(MediaType.APPLICATION_JSON)
 		@Produces(MediaType.APPLICATION_JSON)
-	public Response UpdateOffer(@PathParam(value="OffCode") String OffCode) {
-			for(int i=0 ; i<OffService.selectAll().size();i++) {
-				if(OffService.selectAll().get(i).getOffCode().equals(OffCode)) {
-					Offer d=new Offer();
-					d.setOffCode((OffService.selectAll().get(i).getOffCode()));
-					d.setOffDescription("Offer modification");
-					d.setOffDescription("ntestiw fel update bel postman");
-					d.setOffStartDate(new Date(01,01,2019));
-					d.setOffEndDate(new Date(01,01,2040));
-					d.setOffReduction_amount(50);
-					OffService.update(d);
+	public Response UpdateOffer(@PathParam(value="OffCode") String OffCode,Offer o) {
+			
+				if(OffCode!=null) {
+					
+					OffService.update(o);
 					return Response.status(Status.ACCEPTED).entity("Offer Updated").build();
 
-				}
+				
 			
 		}
 			

@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -28,17 +30,7 @@ public class Pack implements Serializable{
 	private String PackDescription;
 	
 	@OneToMany(fetch=FetchType.EAGER,mappedBy = "packs", cascade = CascadeType.ALL)
-<<<<<<< HEAD
-<<<<<<< HEAD
-	private List<pack_product> packproducts;
-=======
 	private Set<Pack_Product> pack_products;
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
-=======
-	private Set<Pack_Product> pack_products;
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
-	
-	
 
 	public Pack(String packName, Date packStartDate, Date packEndDate, String packDescription) {
 		super();
@@ -55,7 +47,7 @@ public class Pack implements Serializable{
 	}
 
 
-
+	@XmlAttribute(name="id" , required=true)
 	public Long getId() {
 		return id;
 	}
@@ -67,7 +59,7 @@ public class Pack implements Serializable{
 	}
 
 
-
+	@XmlElement(name="PackName")
 	public String getPackName() {
 		return PackName;
 	}
@@ -79,7 +71,7 @@ public class Pack implements Serializable{
 	}
 
 
-
+	@XmlElement(name="PackStartDate")
 	public Date getPackStartDate() {
 		return PackStartDate;
 	}
@@ -91,7 +83,7 @@ public class Pack implements Serializable{
 	}
 
 
-
+	@XmlElement(name="PackEndDate")
 	public Date getPackEndDate() {
 		return PackEndDate;
 	}
@@ -103,7 +95,7 @@ public class Pack implements Serializable{
 	}
 
 
-
+	@XmlElement(name="PackDescription")
 	public String getPackDescription() {
 		return PackDescription;
 	}
@@ -114,17 +106,5 @@ public class Pack implements Serializable{
 		PackDescription = packDescription;
 	}
 
-
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
-
-
-	
->>>>>>> 7deb84a96367460c984886d0c00aa670b45997f2
 	
 }

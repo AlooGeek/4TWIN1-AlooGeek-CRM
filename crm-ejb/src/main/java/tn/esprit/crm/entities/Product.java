@@ -23,10 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @XmlRootElement
 public class Product implements Serializable{
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +35,7 @@ public class Product implements Serializable{
 	private int qte;
 	private int tva;
 	
+
 	@OneToMany(mappedBy="products",fetch = FetchType.EAGER)
 	private Set<StoreProduct> storeproducts;
 	
@@ -47,6 +45,7 @@ public class Product implements Serializable{
 	@ManyToOne()
 	private Categorie category;
 
+
 	@OneToMany(mappedBy ="productss",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Set<pack_product> pack_product;
 	
@@ -54,12 +53,16 @@ public class Product implements Serializable{
 	@OneToMany(mappedBy="product",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Set<Document_line> doc_lines;
 	
+
+
 	
 	
+
 
 
 
 	public Product(Long id, String label, float unit_price, int qte, int tva,String imgurl) {
+
 		
 		this.id = id;
 		this.label = label;
@@ -130,6 +133,7 @@ public class Product implements Serializable{
 	}
 
 
+
 	public void setImageUrl(String imageUrl) {
 		ImageUrl = imageUrl;
 	}
@@ -143,7 +147,7 @@ public class Product implements Serializable{
 	public void setDiscount(Discount discount) {
 		this.discount = discount;
 	}
-	
+
 	
 
 	public Categorie getCategory() {
@@ -164,9 +168,6 @@ public class Product implements Serializable{
 
 
 
-
-
-	
 	
 	
 
