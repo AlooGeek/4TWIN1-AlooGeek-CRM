@@ -20,6 +20,7 @@ public class StoreServiceImpl implements IStoreService{
 	
 	@Override
 	public Store save(Store store) {
+		
 		storeDao.save(store);	 
 		return store;	
 	}

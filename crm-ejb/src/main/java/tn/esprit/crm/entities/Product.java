@@ -30,36 +30,46 @@ public class Product implements Serializable{
 	@Column(name = "id_product")
 	private Long id;
 	private String label;
+	private String ImageUrl;
 	private float unitPrice;
 	private int qte;
 	private int tva;
 	
-	@OneToMany(mappedBy="products",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
 
+	@OneToMany(mappedBy="products",fetch = FetchType.EAGER)
 	private Set<StoreProduct> storeproducts;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Discount discount;
+	
+	@ManyToOne()
+	private Categorie category;
+
+
+	@OneToMany(mappedBy ="productss",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	private Set<pack_product> pack_product;
+	
+	
+	@OneToMany(mappedBy="product",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	private Set<Document_line> doc_lines;
+	
+
 
 	
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="productss",cascade = CascadeType.ALL)
-	private Set<Pack_Product> pack_product;
-	
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="product",cascade = CascadeType.ALL)
-	private Set<Document_line>doc_lines;
-
-	
 	
 
 
 
-	public Product(Long id, String label, float unit_price, int qte, int tva) {
+
+	public Product(Long id, String label, float unit_price, int qte, int tva,String imgurl) {
+
 		
 		this.id = id;
 		this.label = label;
 		this.unitPrice = unit_price;
 		this.qte = qte;
 		this.tva = tva;
+		this.ImageUrl=imgurl;
 	}
 
 
@@ -115,13 +125,17 @@ public class Product implements Serializable{
 		this.tva = tva;
 	}
 
-	public Set<StoreProduct> getStoreproduct() {
-		return storeproducts;
+	
+
+
+	public String getImageUrl() {
+		return ImageUrl;
 	}
 
 
-	public void setStoreproduct(Set<StoreProduct> storeproduct) {
-		this.storeproducts = storeproduct;
+
+	public void setImageUrl(String imageUrl) {
+		ImageUrl = imageUrl;
 	}
 
 
@@ -134,43 +148,26 @@ public class Product implements Serializable{
 		this.discount = discount;
 	}
 
+	
+
+	public Categorie getCategory() {
+		return category;
+	}
+
+
+	public void setCategory(Categorie category) {
+		this.category = category;
+	}
+
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", label=" + label + ", unitPrice=" + unitPrice + ", qte=" + qte + ", tva=" + tva
-				+ ", storeproducts=" + storeproducts + ", discount=" + discount + "]";
-	}
-
-	public Set<StoreProduct> getStoreproducts() {
-		return storeproducts;
+		return "Product [id=" + id + ", label=" + label + ", ImageUrl=" + ImageUrl + ", unitPrice=" + unitPrice
+				+ ", qte=" + qte + ", tva=" + tva + ", discount=" + discount + ", category=" + category + "]";
 	}
 
 
-	public void setStoreproducts(Set<StoreProduct> storeproducts) {
-		this.storeproducts = storeproducts;
-	}
 
-
-	
-
-	public Set<Pack_Product> getPack_product() {
-		return pack_product;
-	}
-
-
-	public void setPack_product(Set<Pack_Product> pack_product) {
-		this.pack_product = pack_product;
-	}
-
-
-	public Set<Document_line> getDoc_lines() {
-		return doc_lines;
-	}
-
-
-	public void setDoc_lines(Set<Document_line> doc_lines) {
-		this.doc_lines = doc_lines;
-	}
 	
 	
 

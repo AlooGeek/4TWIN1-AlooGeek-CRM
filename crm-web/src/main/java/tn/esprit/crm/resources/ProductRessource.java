@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import tn.esprit.crm.entities.Product;
+import tn.esprit.crm.services.ICategoryService;
 import tn.esprit.crm.services.IDiscountService;
 import tn.esprit.crm.services.IProductService;
 
@@ -24,16 +25,17 @@ public class ProductRessource {
 	IProductService servprod;
 	@EJB
 	IDiscountService servdisc;
+	@EJB
+	ICategoryService servcat;
 	
 	
 	@POST
-	@Consumes(MediaType.APPLICATION_XML)
-	public Response AddProduct() {
-		Product p=new Product();
-		p.setLabel("A50");
-		p.setQte(20);
-		p.setTva(18);
-		p.setUnitPrice(950);
+	@Path("{IdCategorie}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response AddProduct(@PathParam(value="IdCategorie") Long IdCategorie,Product p) {
+		
+		p.setCategory(servcat.getById(IdCategorie));
 		servprod.save(p);
 		return  Response.status(Status.OK).entity("Product Added : "+p).build();
 	}
@@ -47,21 +49,36 @@ public class ProductRessource {
 
 		}
 	
+	@GET
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response AfficheProductParId(@PathParam(value="id") Long id) {
+		return Response.status(Status.OK).entity(servprod.getById(id)).build();
+		
+
+		}
+	
+	@GET
+	@Path("{param}/{value}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response AfficheProductParamValue(@PathParam(value="param") String param,@PathParam(value="value") String value) {
+		return Response.status(Status.OK).entity(servprod.selectBy(param, value)).build();
+		
+
+		}
+	
+	
+	
+	
 	@PUT
 	@Path("{id}/{id_discount}")
-	@Consumes(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-public Response UpdateProduct(@PathParam(value="id") Long id,@PathParam(value="id_discount") Long id_discount) {
+public Response UpdateProduct(@PathParam(value="id") Long id,@PathParam(value="id_discount") Long id_discount,Product p) {
 
-		if (id!=null) {
-			Product p=new Product();			
-			p=servprod.getById(id);
-			p.setLabel("hala");
-			p.setQte(50);
-			p.setTva(19);
-			p.setUnitPrice(500);
+		if (id!=0) {					
 			p.setDiscount(servdisc.getById(id_discount));
-		servprod.update(p);
+			servprod.update(p);
 		return Response.status(Status.ACCEPTED).entity("Product "+id+" Updated").build();
 		}
 	

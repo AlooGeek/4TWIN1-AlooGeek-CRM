@@ -25,13 +25,9 @@ public class StoreResource {
 
 	
 	@POST
-	@Consumes(MediaType.APPLICATION_XML)
-	public Response AddStore() {
-		Store s=new Store();
-		s.setAddress("Taniour");
-		s.setEmail("Ahmed@esprit.tn");
-		s.setName("ooredoo");
-		s.setPhoneNumber(23193908);
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response AddStore(Store s) {
 		storeserv.save(s);
 		return  Response.status(Status.OK).entity("Store Added : "+s).build();
 	}
@@ -41,25 +37,37 @@ public class StoreResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response DisplayStoreList() {
 		return Response.status(Status.OK).entity(storeserv.selectAll()).build();
+		}
+	
+	@GET
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response AfficheStoreParId(@PathParam(value="id") Long id) {
+		return Response.status(Status.OK).entity(storeserv.getById(id)).build();
 		
 
 		}
 	
+	@GET
+	@Path("{param}/{value}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response AfficheStoreParamValue(@PathParam(value="param") String param,@PathParam(value="value") String value) {
+		return Response.status(Status.OK).entity(storeserv.selectBy(param, value)).build();
+		
+
+		}
+	
+	
+	
 	@PUT
 	@Path("{id}")
-	@Consumes(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-public Response UpdateDiscount(@PathParam(value="id") Long id) {
+public Response UpdateStore(@PathParam(value="id") Long id,Store s) {
 	
 		if (id!=0) {
-				Store s1=new Store();
-				s1=storeserv.getById(id);
-				s1.setAddress("sidiselem");
-				s1.setEmail("Email");
-				s1.setPhoneNumber(25364856);
-				s1.setName("telecom");
-		
-				storeserv.update(s1);
+
+				storeserv.update(s);
 				return Response.status(Status.ACCEPTED).entity("Store "+id+" Updated").build();
 
 		}
