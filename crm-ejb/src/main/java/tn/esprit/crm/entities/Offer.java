@@ -3,6 +3,7 @@ package tn.esprit.crm.entities;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -29,8 +30,8 @@ public class Offer implements Serializable {
 	
 	
 	
-	@OneToMany(fetch=FetchType.EAGER,mappedBy = "offer", cascade = CascadeType.ALL)
-	private List<User> user;
+	@OneToMany(fetch=FetchType.EAGER,mappedBy = "offer")
+	private Set<User> user;
 	
 	@XmlAttribute(name="OffCode" , required=true)
 	public String getOffCode() {

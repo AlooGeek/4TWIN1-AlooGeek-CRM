@@ -15,14 +15,19 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import tn.esprit.crm.entities.Discount;
 import tn.esprit.crm.entities.Offer;
+import tn.esprit.crm.entities.User;
 import tn.esprit.crm.services.IOfferService;
+import tn.esprit.crm.services.IUserService;
 
 @Path("offer")
 public class OfferRessource {
 
 	@EJB
 	IOfferService OffService; 
+	@EJB
+	IUserService userService;
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -66,13 +71,37 @@ public class OfferRessource {
 		@Path("{OffCode}")
 		@Produces(MediaType.APPLICATION_JSON)
 		public Response deleteOffer(@PathParam(value="OffCode") String OffCode) {
-			
+			//set offer code in user already affected null
+			OffService.setUsersNull();
 			if (OffService.Delete(OffCode)) {
 			return Response.status(Status.GONE).entity("Offer deleted"+OffCode).build();
 			}
 			return Response.status(Status.NOT_FOUND).entity("Not found Offer").build();
 			
 		}
-	
+		
+		@Path("bestusers")
+		@GET
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response DisplayScoredUsers() {
+			return Response.status(Status.OK).entity(OffService.getBestUsers()).build();
+
+			}
+		
+		
+		@PUT
+		@Path("/affected/{OffCode}")
+		@Consumes(MediaType.APPLICATION_JSON)
+		public Response AddOfferToUser(@PathParam(value="OffCode") String OffCode) {
+			if(OffCode!=null) {
+				
+				OffService.AddOfferToUser(OffCode);
+					return Response.status(Status.ACCEPTED).entity("Offer affected").build();
+		}
+			
+			return Response.status(Status.NOT_MODIFIED).entity("Offer not affected").build();
+
+		}
+		
 	
 }

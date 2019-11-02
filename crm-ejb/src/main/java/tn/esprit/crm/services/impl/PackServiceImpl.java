@@ -16,7 +16,6 @@ public class PackServiceImpl implements IPackService{
 
 	
 	@PersistenceContext(unitName="crm-ejb") //l esm men persistance.xml
-	//private IDiscountDao discountDao;
 	EntityManager em;
 	
 	@EJB
@@ -43,6 +42,11 @@ public class PackServiceImpl implements IPackService{
 			 return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Pack getById(Long id) {
+		return packDao.getById(id);
 	}
 	
 

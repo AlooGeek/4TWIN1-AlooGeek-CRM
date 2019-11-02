@@ -70,7 +70,17 @@ public class DiscountResource {
 			
 		}
 		
-		
+		@DELETE
+		@Path("deleteExpired")
+		@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteExpiredDiscount() {
+			
+			if (discloc.DeleteExpiredDiscount()) {
+			return Response.status(Status.GONE).entity("Expired discount deleted").build();
+			}
+			return Response.status(Status.NOT_FOUND).entity("Not found Discount").build();
+			
+		}
 		
 		
 }

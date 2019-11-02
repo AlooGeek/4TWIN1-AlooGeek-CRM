@@ -16,4 +16,5 @@ public interface IDiscountService {
 	public Discount update(Discount discount);
 	public boolean remove(Long id);
 	public Discount getById(Long id);
+	public boolean DeleteExpiredDiscount ();
 }

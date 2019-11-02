@@ -34,7 +34,8 @@ public class Product implements Serializable{
 	private float unitPrice;
 	private int qte;
 	private int tva;
-	
+	private float newprice;
+
 
 	@OneToMany(mappedBy="products",fetch = FetchType.EAGER)
 	private Set<StoreProduct> storeproducts;
@@ -61,7 +62,7 @@ public class Product implements Serializable{
 
 
 
-	public Product(Long id, String label, float unit_price, int qte, int tva,String imgurl) {
+	public Product(Long id, String label, float unit_price, int qte, int tva,String imgurl,float newprice) {
 
 		
 		this.id = id;
@@ -70,6 +71,7 @@ public class Product implements Serializable{
 		this.qte = qte;
 		this.tva = tva;
 		this.ImageUrl=imgurl;
+		this.newprice=newprice;
 	}
 
 
@@ -164,6 +166,16 @@ public class Product implements Serializable{
 	public String toString() {
 		return "Product [id=" + id + ", label=" + label + ", ImageUrl=" + ImageUrl + ", unitPrice=" + unitPrice
 				+ ", qte=" + qte + ", tva=" + tva + ", discount=" + discount + ", category=" + category + "]";
+	}
+
+
+	public float getNewprice() {
+		return newprice;
+	}
+
+
+	public void setNewprice(float newprice) {
+		this.newprice = newprice;
 	}
 
 

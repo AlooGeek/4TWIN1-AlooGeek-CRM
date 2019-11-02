@@ -28,6 +28,7 @@ public class Pack implements Serializable{
 	private Date PackStartDate;
 	private Date PackEndDate;
 	private String PackDescription;
+	private int reduction_amount;
 	
 	@OneToMany(fetch=FetchType.EAGER,mappedBy = "packs", cascade = CascadeType.ALL)
 	private Set<Pack_Product> pack_products;
@@ -104,6 +105,18 @@ public class Pack implements Serializable{
 
 	public void setPackDescription(String packDescription) {
 		PackDescription = packDescription;
+	}
+
+
+
+	public int getReduction_amount() {
+		return reduction_amount;
+	}
+
+
+
+	public void setReduction_amount(int reduction_amount) {
+		this.reduction_amount = reduction_amount;
 	}
 
 	

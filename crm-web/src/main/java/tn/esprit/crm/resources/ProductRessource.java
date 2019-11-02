@@ -77,7 +77,8 @@ public class ProductRessource {
 public Response UpdateProduct(@PathParam(value="id") Long id,@PathParam(value="id_discount") Long id_discount,Product p) {
 
 		if (id!=0) {					
-			p.setDiscount(servdisc.getById(id_discount));
+		p.setDiscount(servdisc.getById(id_discount));
+			p.setNewprice(p.getUnitPrice()-((( p.getUnitPrice()*servdisc.getById(id_discount).getReduction_amount())/100)));
 			servprod.update(p);
 		return Response.status(Status.ACCEPTED).entity("Product "+id+" Updated").build();
 		}

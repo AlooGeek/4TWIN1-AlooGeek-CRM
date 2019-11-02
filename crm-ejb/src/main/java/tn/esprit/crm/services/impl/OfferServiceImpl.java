@@ -1,13 +1,16 @@
 package tn.esprit.crm.services.impl;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import tn.esprit.crm.entities.Discount;
 import tn.esprit.crm.entities.Offer;
+import tn.esprit.crm.entities.User;
 import tn.esprit.crm.services.IOfferService;
 
 @Stateless
@@ -19,6 +22,15 @@ public class OfferServiceImpl implements IOfferService{
 	
 	@Override
 	public Offer save(Offer offer) {
+	 String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	 StringBuilder builder = new StringBuilder();
+	 int count=10;
+	 String code="";
+	 while (count-- != 0) {
+	 int character = (int)(Math.random()*ALPHA_NUMERIC_STRING.length());
+	code= builder.append(ALPHA_NUMERIC_STRING.charAt(character)).toString();
+	 }
+	 offer.setOffCode(code);
 		em.persist(offer);
 		return offer;
 	}
@@ -45,6 +57,49 @@ public class OfferServiceImpl implements IOfferService{
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public List<User> getBestUsers() {
+		List<User> users=em.createQuery("SELECT u FROM User u where u.userScore >= 100 ",User.class).getResultList();
+		return users;
+	}
+
+	@Override
+	public int AddOfferToUser( String OffCode) {
+		List<User>list=getBestUsers();
+		int i = 0;
+		if(list.size()> 0 ) {
+		for (User user : list) {
+			user.setOffer(em.find(Offer.class, OffCode));
+			em.merge(user);
+			em.flush();
+		}
+		i = 1;
+		}
+		return i;
+		
+		
+	}
+
+	@Override
+	public Offer getById(String OffCode) {
+		return em.find(Offer.class, OffCode);
+	}
+
+	@Override
+	public void setUsersNull() {
+		List<User>list=em.createQuery("SELECT u FROM User u where u.offer is NOT NULL ",User.class).getResultList();
+		if(list.size()> 0 ) {
+		for (User user : list) {
+			user.setOffer(null);
+			em.merge(user);
+			em.flush();
+		}
+	
+		}
+
+		
 	}
 
 }
