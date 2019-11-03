@@ -103,5 +103,19 @@ public class OfferRessource {
 
 		}
 		
+		@PUT
+		@Path("/UpdateScore/{idUser}")
+		@Consumes(MediaType.APPLICATION_JSON)
+		public Response UpdateScore(@PathParam(value="idUser") Long idUser) {
+			if(idUser!=0) {
+				
+				OffService.AddScoreToUser(idUser);
+					return Response.status(Status.ACCEPTED).entity("User Score Updated").build();
+		}
+			
+			return Response.status(Status.NOT_MODIFIED).entity("Score not updated").build();
+
+		}
+		
 	
 }

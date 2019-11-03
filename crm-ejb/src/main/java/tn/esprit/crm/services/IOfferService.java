@@ -20,5 +20,6 @@ public interface IOfferService {
 	public int AddOfferToUser(String OffCode);
 	public Offer getById(String OffCode);
 	public void setUsersNull();
+	public Boolean AddScoreToUser(Long idUser);
 
 }

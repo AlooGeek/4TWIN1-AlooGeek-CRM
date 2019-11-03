@@ -48,7 +48,7 @@ public class Product implements Serializable{
 
 
 	@OneToMany(mappedBy ="productss",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	private Set<pack_product> pack_product;
+	private Set<Pack_Product> pack_product;
 	
 	
 	@OneToMany(mappedBy="product",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
