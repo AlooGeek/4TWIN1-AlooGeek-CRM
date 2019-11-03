@@ -17,4 +17,5 @@ public interface IDiscountService {
 	public boolean remove(Long id);
 	public Discount getById(Long id);
 	public boolean DeleteExpiredDiscount ();
+	public List<Discount> StatistiqueDiscount();
 }

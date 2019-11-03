@@ -82,5 +82,16 @@ public class DiscountResource {
 			
 		}
 		
+		@GET
+		@Path("statistiqueDiscount")
+		@Produces(MediaType.APPLICATION_JSON)
+
+		public Response DisplayStatList() {
+			 
+			return Response.status(Status.OK).entity(discloc.StatistiqueDiscount()).build();
+
+			}
+		
+		
 		
 }
