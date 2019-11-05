@@ -43,7 +43,7 @@ public class DocumentResource {
 	@Path("/request")
 	@Produces(MediaType.APPLICATION_JSON)
 	@PermitAll
-	public String request() {
+	
 	public String request(@QueryParam(value ="qte") int qte , @QueryParam(value="idProd") long idProd, @QueryParam(value="idUser")long idUser) {
 		DocumentType type = null ;
 	
@@ -107,6 +107,7 @@ public class DocumentResource {
 			documentService.updateDocument(doc);
 		
 	}
+		
 	
 	@PUT
 	@Path("/updateRequest")
@@ -179,9 +180,7 @@ public class DocumentResource {
 	@Path("/pdf")
 	@Produces(MediaType.APPLICATION_JSON)
 	@PermitAll	
-	public void pdfFormat() {
-		 //PDFGenerator pd= new PDFGenerator();
-		 System.out.println("File created succesfully");
+
 	public String pdfFormat() {
 		return documentService.pdfCreateDownloadDocument();
 	}
@@ -190,7 +189,7 @@ public class DocumentResource {
 	@Path("/track")
 	@Produces(MediaType.APPLICATION_JSON)
 	@PermitAll
-	public void trackDocument() {
+
 	public String trackDocument(@QueryParam(value="id")long id) {
 		
 		return documentService.trackDocumentState(id);
@@ -200,7 +199,7 @@ public class DocumentResource {
 	@Path("/reminder")
 	@Produces(MediaType.APPLICATION_JSON)
 	@PermitAll
-	public String reminder() {
+	
 	public String reminder(@QueryParam(value="id")long id) {
 		
 		return documentService.deadlineReminder(id);
