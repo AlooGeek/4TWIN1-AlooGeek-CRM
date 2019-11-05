@@ -24,8 +24,6 @@ import tn.esprit.crm.entities.DocumentState;
 import tn.esprit.crm.entities.DocumentType;
 import tn.esprit.crm.entities.Product;
 import tn.esprit.crm.entities.StoreProduct;
-import tn.esprit.crm.entities.User;
-import tn.esprit.crm.entities.UserPhysical;
 import tn.esprit.crm.security.AuthenticationService;
 import tn.esprit.crm.services.IDocumentService;
 import tn.esprit.crm.services.IStoreProductService;
@@ -48,12 +46,12 @@ public class DocumentServiceImp implements IDocumentService {
 		// create doc (command) use it to send mail
 	
 		Document commande = new Document();
-		User currentUser = (User) em.find(UserPhysical.class, idUser); 
+		//User currentUser = (User) em.find(UserPhysical.class, idUser); 
 		commande.setType(DocumentType.command);
 		commande.setDate_creation(new Date());
 		commande.setState(DocumentState.notTreated);
 		
-		commande.setUser(currentUser);
+		//commande.setUser(currentUser);
 		//System.out.println(currentUser.getId() + " "+ currentUser.getGender());
 		//get user 
 		//commande.setUser(authenticationService.getAuthenticated());
