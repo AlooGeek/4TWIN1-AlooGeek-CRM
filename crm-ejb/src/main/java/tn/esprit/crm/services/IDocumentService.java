@@ -15,7 +15,7 @@ public interface IDocumentService {
 
 
 	/********Client************/ //CRUD not treat 
-	public String requestDocument(DocumentType reason,int qte , long idProd);//done
+	public String requestDocument(DocumentType reason, int qte,long idProd, long idUser);//done
 	public String cancelRequestDocument(long documentID);//done
 	public String updateRequestDocument(long documentID);//done
 	/***********Document line******************************/
