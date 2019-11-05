@@ -2,6 +2,7 @@ package tn.esprit.crm.resources;
 
 import java.sql.Date;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -57,6 +58,7 @@ public class PackProductRessource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public Response DisplayPackProductList() {
 		return Response.status(Status.OK).entity(packproductservice.selectAll()).build();
 		
@@ -99,7 +101,7 @@ public Response UpdatePP(@PathParam(value="id") Long id,Pack_Product p) {
 	@Path("packprice")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	
+	@PermitAll
 	public Response DisplayPrice() {
 		return Response.status(Status.OK).entity(packproductservice.getPriceOfPack()).build();
 

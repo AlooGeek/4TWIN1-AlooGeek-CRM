@@ -84,6 +84,8 @@ public Response UpdateProduct(@PathParam(value="id") Long id,@PathParam(value="i
 		if (id!=0) {					
 			p.setDiscount(servdisc.getById(id_discount));
 			p.setCategory(servprod.getById(id).getCategory());
+			p.setNewprice(p.getUnitPrice()-((( p.getUnitPrice()*servdisc.getById(id_discount).getReduction_amount())/100)));
+
 			servprod.update(p);
 			
 			if (servprod.getById(p.getId()).getQte()!=0) {

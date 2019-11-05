@@ -76,7 +76,7 @@ public class DiscountServiceImpl implements IDiscountService  {
 
 	@Override
 	public List<Discount> StatistiqueDiscount() {
-		Query q=em.createQuery("SELECT p.discount.reduction_amount AS \'Reduction_amount\' ,COUNT(*) AS Discount from Product p group by(p.discount.id)");
+		Query q=em.createQuery("SELECT p.discount.reduction_amount ,COUNT(*)  from Product p group by(p.discount.id)");
 		return q.getResultList();			
 		}
 		

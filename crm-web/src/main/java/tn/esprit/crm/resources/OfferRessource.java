@@ -2,6 +2,7 @@ package tn.esprit.crm.resources;
 
 import java.sql.Date;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -43,7 +44,7 @@ public class OfferRessource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	
+	@PermitAll
 	public Response DisplayOfferList() {
 		 
 		return Response.status(Status.OK).entity(OffService.selectAll()).build();
