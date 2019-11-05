@@ -26,6 +26,8 @@ import tn.esprit.crm.entities.Document_line;
 import tn.esprit.crm.entities.Product;
 import tn.esprit.crm.entities.StoreProduct;
 import tn.esprit.crm.services.IDocumentService;
+import javax.annotation.security.PermitAll;
+
 
 @Path("/Document")
 public class DocumentResource {
