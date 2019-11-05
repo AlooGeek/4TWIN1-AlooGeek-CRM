@@ -39,6 +39,7 @@ public class DocumentResource {
 	@POST
 	@Path("/request")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public String request(@QueryParam(value ="qte") int qte , @QueryParam(value="idProd") long idProd, @QueryParam(value="idUser")long idUser) {
 		DocumentType type = null ;
 	
@@ -47,6 +48,7 @@ public class DocumentResource {
 	@POST 
 	@Path("/cancelrequest")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public String cancelRequest(@QueryParam (value="id") long id) {
 		return documentService.cancelRequestDocument(id);
 	}
@@ -54,6 +56,7 @@ public class DocumentResource {
 	@POST 
 	@Path("/validaterequest")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public String validate (@QueryParam(value="idDoc")long idDoc,@QueryParam(value="idProd") long idProd, @QueryParam(value="qte") int qty ) {
 		int stock = documentDao.getProductQtyById(idProd);
 		String res="";
@@ -74,6 +77,7 @@ public class DocumentResource {
 	@POST
 	@Path("/add")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public long addDocument() {
 		Document doc = new Document();
 		doc.setDate_creation(new Date());
@@ -86,6 +90,7 @@ public class DocumentResource {
 	@PUT
 	@Path("/update")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public void updateDocument(Document doc) {
 			doc.setState(DocumentState.treated);
 			documentService.updateDocument(doc);
@@ -95,6 +100,7 @@ public class DocumentResource {
 	@PUT
 	@Path("/updateRequest")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public void updateRequest(@QueryParam(value="id")int id) {
 		
 			//doc.setState(DocumentState.treated);
@@ -106,6 +112,7 @@ public class DocumentResource {
 	@DELETE
 	@Path("/delete")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public String deleteDocument(@QueryParam(value="id")long id) {
 		
 		documentService.deleteDocument(id);
@@ -115,6 +122,7 @@ public class DocumentResource {
 	@GET
 	@Path("/getAll")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public Object[]  getDocuments() {
 		
 		return documentDao.listBills().toArray();
@@ -124,6 +132,7 @@ public class DocumentResource {
 	@GET
 	@Path("/getLines")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public Object[]  getDocumentLines() {
 		
 		return documentDao.listLine().toArray();
@@ -132,6 +141,7 @@ public class DocumentResource {
 	
 	@POST 
 	@Path("/addline")
+	@PermitAll
 	@Produces(MediaType.APPLICATION_JSON)
 	public String addLine(@QueryParam (value="idDoc")long id, @QueryParam(value="idProd")long idprod) {
 		Document_line dl = new Document_line();
@@ -145,6 +155,7 @@ public class DocumentResource {
 	@POST
 	@Path("/calculateBill")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public String calculateBill() {
 		return documentService.calculateBill(3);
 	}
@@ -152,6 +163,7 @@ public class DocumentResource {
 	@POST
 	@Path("/pdf")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public String pdfFormat() {
 		return documentService.pdfCreateDownloadDocument();
 	}
@@ -159,6 +171,7 @@ public class DocumentResource {
 	@POST
 	@Path("/track")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public String trackDocument(@QueryParam(value="id")long id) {
 		
 		return documentService.trackDocumentState(id);
@@ -167,6 +180,7 @@ public class DocumentResource {
 	@POST
 	@Path("/reminder")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public String reminder(@QueryParam(value="id")long id) {
 		
 		return documentService.deadlineReminder(id);
@@ -176,6 +190,7 @@ public class DocumentResource {
 	@POST
 	@Path("/stat")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public String statisticDocument() {
 		
 		return documentService.statisticDocument();
