@@ -27,6 +27,8 @@ import tn.esprit.crm.entities.Document_line;
 import tn.esprit.crm.entities.Product;
 import tn.esprit.crm.entities.StoreProduct;
 import tn.esprit.crm.services.IDocumentService;
+import tn.esprit.crm.services.IOfferService;
+
 import javax.annotation.security.PermitAll;
 
 
@@ -38,6 +40,9 @@ public class DocumentResource {
 	IDocumentService documentService;
 	@EJB
 	IDocumentDao documentDao;
+	@EJB
+	IOfferService OffService;
+	
 	
 	@POST
 	@Path("/request")
@@ -46,7 +51,7 @@ public class DocumentResource {
 	
 	public String request(@QueryParam(value ="qte") int qte , @QueryParam(value="idProd") long idProd, @QueryParam(value="idUser")long idUser) {
 		DocumentType type = null ;
-	
+		OffService.AddScoreToUser(idUser); //increase use score
 		return documentService.requestDocument(type.command,qte,idProd, idUser);
 	}
 	@POST 
