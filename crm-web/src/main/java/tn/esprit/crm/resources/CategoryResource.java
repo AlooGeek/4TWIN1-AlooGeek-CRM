@@ -45,7 +45,7 @@ public Response DisplayCategoryList() {
 @Path("{id}")
 @Produces(MediaType.APPLICATION_JSON)
 public Response AfficheCategoryParId(@PathParam(value="id") Long id) {
-	return Response.status(Status.OK).entity(servcat.getById(id)).build();
+	return Response.status(Status.OK).entity(servcat.getById(id)==null?"Category not found":servcat.getById(id)).build();
 	
 
 	}

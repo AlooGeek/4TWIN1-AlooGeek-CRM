@@ -24,6 +24,7 @@ public class StoreProductImpl extends GenericDaoImpl<StoreProduct> implements IS
 
 	@Override
 	public List<StoreProduct> StatisticsStore() {
+
 		Query query = em.createQuery("select sp.stores,count(sp) from StoreProduct sp group by sp.stores");
 		return query.getResultList();
 		

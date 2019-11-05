@@ -1,7 +1,6 @@
 package tn.esprit.crm.resources;
 
 
-import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -35,12 +34,13 @@ public class StoreProductRessource {
 	@Path("{id_store}/{id_product}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@PermitAll
 	public Response AddStoreProduct(@PathParam(value="id_store") Long id_store,@PathParam(value="id_product") Long id_product,StoreProduct sp) {
+		
+		
 		
 		sp.setStores(servstore.getById(id_store));
 		sp.setProducts(servpro.getById(id_product));
-		
+	if (servstore.getById(id_store)!=null &&  servpro.getById(id_product)!=null) {	
 		if (servpro.getById(id_product).getQte()>=sp.getQte()) {
 			
 			servpro.updateQte(id_product,sp.getQte());
@@ -48,7 +48,7 @@ public class StoreProductRessource {
 			return  Response.status(Status.OK).entity("Store Product Added").build();
 			
 		}
-	
+	}
 		return  Response.status(Status.NOT_ACCEPTABLE).entity("la quantité saisie n'existe pas en stock").build();
 		
 	}
@@ -99,6 +99,8 @@ public Response UpdateStoreProd(@PathParam(value="id") Long id,StoreProduct sp) 
 
 		if (id!=null) {
 			
+			sp.setStores(servsp.getById(id).getStores());
+			sp.setProducts(servsp.getById(id).getProducts());
 			servsp.update(sp);
 		return Response.status(Status.ACCEPTED).entity("Store Product "+id+" Updated").build();
 		}

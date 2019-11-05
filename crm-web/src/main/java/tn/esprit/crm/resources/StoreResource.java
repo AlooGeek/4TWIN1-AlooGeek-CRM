@@ -88,8 +88,12 @@ public Response UpdateStore(@PathParam(value="id") Long id,Store s) {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteStore(@PathParam(value="id_store") Long id_store) {
 		
+		try {
 		if (storeserv.remove(id_store)) {
 		return Response.status(Status.GONE).entity("Store "+id_store+" Deleted").build();
+		}
+		}catch(Exception e) {
+			return Response.status(Status.NOT_FOUND).entity("The store that you try to delete have products").build();
 		}
 		return Response.status(Status.NOT_FOUND).entity("Store Not Found").build();
 		

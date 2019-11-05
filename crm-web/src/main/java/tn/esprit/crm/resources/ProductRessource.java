@@ -36,8 +36,12 @@ public class ProductRessource {
 	public Response AddProduct(@PathParam(value="IdCategorie") Long IdCategorie,Product p) {
 		
 		p.setCategory(servcat.getById(IdCategorie));
+		
+		if (servcat.getById(IdCategorie)!=null) {
 		servprod.save(p);
 		return  Response.status(Status.OK).entity("Product Added : "+p).build();
+		}
+		return Response.status(Status.NOT_FOUND).entity("Category Not Found!").build();
 	}
 
 	
@@ -77,8 +81,8 @@ public class ProductRessource {
 public Response UpdateProduct(@PathParam(value="id") Long id,@PathParam(value="id_discount") Long id_discount,Product p) {
 
 		if (id!=0) {					
-		p.setDiscount(servdisc.getById(id_discount));
-			p.setNewprice(p.getUnitPrice()-((( p.getUnitPrice()*servdisc.getById(id_discount).getReduction_amount())/100)));
+			p.setDiscount(servdisc.getById(id_discount));
+			p.setCategory(servprod.getById(id).getCategory());
 			servprod.update(p);
 		return Response.status(Status.ACCEPTED).entity("Product "+id+" Updated").build();
 		}
@@ -97,8 +101,12 @@ public Response UpdateProduct(@PathParam(value="id") Long id,@PathParam(value="i
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteStore(@PathParam(value="id") Long id) {
 		
+		try {
 		if (servprod.remove(id)) {
 		return Response.status(Status.GONE).entity("Product "+id+" Deleted").build();
+		}
+		}catch(Exception e) {
+			return Response.status(Status.NOT_FOUND).entity("The Product that you try to delete is afected to a store ").build();
 		}
 		return Response.status(Status.NOT_FOUND).entity("Product Not Found").build();
 		
