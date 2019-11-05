@@ -24,7 +24,7 @@ public interface IDocumentService {
 	public void deleteLine(long documentID);//done
 	/********Admin
 	 * @return *************/
-	public String validateRequestDocument(long documentID,long prodID);//almost
+	public String validateRequestDocument(long documentID,long prodID, int qte );//almost
 	public long addDocument(Document document);//done
 	public void updateDocument(Document newDocument);//done
 	public void deleteDocument(long documentID);//done
