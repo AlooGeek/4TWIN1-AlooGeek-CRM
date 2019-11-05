@@ -37,7 +37,6 @@ public class DocumentServiceImp implements IDocumentService {
 	EntityManager em;
 	
 	private IDocumentDao documentDao;
-	private AuthenticationService authenticationService;
 
 
 	@Override
@@ -52,8 +51,6 @@ public class DocumentServiceImp implements IDocumentService {
 		commande.setState(DocumentState.notTreated);
 		
 		//commande.setUser(currentUser);
-		//System.out.println(currentUser.getId() + " "+ currentUser.getGender());
-		//get user 
 		//commande.setUser(authenticationService.getAuthenticated());
 		//notify admin to validate it by mail
 		this.addDocument(commande);
