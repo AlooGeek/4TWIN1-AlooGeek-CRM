@@ -1,5 +1,6 @@
 package tn.esprit.crm.resources;
 
+import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -22,7 +23,7 @@ public class CategoryResource {
 @EJB 
 ICategoryService servcat;
 
-
+@PermitAll
 @POST
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -32,7 +33,7 @@ public Response AddCategory (Categorie c) {
 	return  Response.status(Status.OK).entity("Category Added : "+c).build();
 }
 
-
+@PermitAll
 @GET
 @Produces(MediaType.APPLICATION_JSON)
 public Response DisplayCategoryList() {
@@ -40,7 +41,7 @@ public Response DisplayCategoryList() {
 	
 
 	}
-
+@PermitAll
 @GET
 @Path("{id}")
 @Produces(MediaType.APPLICATION_JSON)
@@ -49,7 +50,7 @@ public Response AfficheCategoryParId(@PathParam(value="id") Long id) {
 	
 
 	}
-
+@PermitAll
 @GET
 @Path("{param}/{value}")
 @Produces(MediaType.APPLICATION_JSON)
@@ -58,7 +59,7 @@ public Response AfficheCategoryParamValue(@PathParam(value="param") String param
 	
 
 	}
-
+@PermitAll
 @PUT
 @Path("{id}")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -78,7 +79,7 @@ public Response UpdateCategory(@PathParam(value="id") Long id,Categorie c) {
 
 
 
-
+@PermitAll
 @DELETE
 @Path("{id}")
 @Produces(MediaType.APPLICATION_JSON)

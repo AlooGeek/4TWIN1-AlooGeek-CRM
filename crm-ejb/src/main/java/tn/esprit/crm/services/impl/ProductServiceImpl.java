@@ -72,6 +72,20 @@ public class ProductServiceImpl implements IProductService {
 		return prodDao.updateQte(id, qte);
 	}
 
+	@Override
+	public void ActivateDispo(Long id_prod) {
+		
+		
+		prodDao.ActivateDispo(id_prod);
+		
+	}
+
+	@Override
+	public void DesactivateDispo(Long id_prod) {
+		prodDao.DesactivateDispo(id_prod);
+		
+	}
+
 
 
 }

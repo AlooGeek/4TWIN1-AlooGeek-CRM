@@ -26,4 +26,8 @@ public interface IProductService {
 	public boolean remove(Long id);
 	
 	public int updateQte(Long id,int qte);
+	
+	public void ActivateDispo(Long id_prod);
+	
+	public void DesactivateDispo(Long id_prod);
 }

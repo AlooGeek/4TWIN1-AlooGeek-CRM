@@ -23,6 +23,7 @@ public class StoreProduct implements Serializable{
 	private Long id;
 	private int qte;
 	private Date dateEntry;
+	private int disponible=1;
 	
 	@ManyToOne
 	@JoinColumn(name ="STORE_ID",referencedColumnName ="id_store",insertable=true,updatable=true)
@@ -86,6 +87,16 @@ public class StoreProduct implements Serializable{
 
 	public void setProducts(Product products) {
 		this.products = products;
+	}
+	
+	
+
+	public int getDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(int disponible) {
+		this.disponible = disponible;
 	}
 
 	@Override

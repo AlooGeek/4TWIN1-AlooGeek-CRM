@@ -32,6 +32,7 @@ public class Store implements Serializable{
 	private String email;
 	private float latitude;
 	private float longitude;
+	private String ville;
 	
 	@OneToMany(mappedBy="stores",fetch=FetchType.EAGER)
 	private Set<StoreProduct> storeproduct;

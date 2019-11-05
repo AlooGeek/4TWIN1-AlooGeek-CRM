@@ -1,6 +1,7 @@
 package tn.esprit.crm.resources;
 
 
+import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -13,6 +14,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import tn.esprit.crm.entities.Product;
 import tn.esprit.crm.entities.StoreProduct;
 import tn.esprit.crm.services.IProductService;
 import tn.esprit.crm.services.IStoreProductService;
@@ -29,22 +32,33 @@ public class StoreProductRessource {
 	@EJB
 	IProductService servpro;
 	
-	
+	@PermitAll
 	@POST
 	@Path("{id_store}/{id_product}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response AddStoreProduct(@PathParam(value="id_store") Long id_store,@PathParam(value="id_product") Long id_product,StoreProduct sp) {
 		
-		
+		Product p = new Product();
+		p=servpro.getById(id_product);
 		
 		sp.setStores(servstore.getById(id_store));
-		sp.setProducts(servpro.getById(id_product));
-	if (servstore.getById(id_store)!=null &&  servpro.getById(id_product)!=null) {	
-		if (servpro.getById(id_product).getQte()>=sp.getQte()) {
+		sp.setProducts(p);
+	if (servstore.getById(id_store)!=null &&  p!=null) {	
+		if (p.getQte()>=sp.getQte()) {
+			
 			
 			servpro.updateQte(id_product,sp.getQte());
+			
+			
+			if (servpro.getById(id_product).getQte()!=0) {
+				servpro.ActivateDispo(id_product);
+			}else {
+				servpro.DesactivateDispo(id_product);
+			}
+			
 			servsp.save(sp);
+			
 			return  Response.status(Status.OK).entity("Store Product Added").build();
 			
 		}
@@ -54,7 +68,7 @@ public class StoreProductRessource {
 	}
 	
 
-	
+	@PermitAll
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response DisplayStoreProdList() {
@@ -64,6 +78,7 @@ public class StoreProductRessource {
 		}
 	
 	// Statistique 
+	@PermitAll
 	@GET
 	@Path("statistic")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -72,7 +87,7 @@ public class StoreProductRessource {
 		
 
 		}
-	
+	@PermitAll
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -81,7 +96,7 @@ public class StoreProductRessource {
 		
 
 		}
-	
+	@PermitAll
 	@GET
 	@Path("{param}/{value}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -90,7 +105,7 @@ public class StoreProductRessource {
 		
 
 		}
-	
+	@PermitAll
 	@PUT
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -113,7 +128,7 @@ public Response UpdateStoreProd(@PathParam(value="id") Long id,StoreProduct sp) 
 	
 	
 	
-	
+	@PermitAll
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)

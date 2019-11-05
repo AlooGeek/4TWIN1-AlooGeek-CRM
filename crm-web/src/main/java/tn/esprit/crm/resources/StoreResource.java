@@ -1,6 +1,7 @@
 package tn.esprit.crm.resources;
 
 
+import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -23,7 +24,7 @@ public class StoreResource {
 	@EJB
 	IStoreService storeserv;
 
-	
+	@PermitAll
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -32,13 +33,13 @@ public class StoreResource {
 		return  Response.status(Status.OK).entity("Store Added : "+s).build();
 	}
 
-	
+	@PermitAll
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response DisplayStoreList() {
 		return Response.status(Status.OK).entity(storeserv.selectAll()).build();
 		}
-	
+	@PermitAll
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -47,7 +48,7 @@ public class StoreResource {
 		
 
 		}
-	
+	@PermitAll
 	@GET
 	@Path("{param}/{value}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -58,7 +59,7 @@ public class StoreResource {
 		}
 	
 	
-	
+	@PermitAll
 	@PUT
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -82,7 +83,7 @@ public Response UpdateStore(@PathParam(value="id") Long id,Store s) {
 	
 	
 	
-	
+	@PermitAll
 	@DELETE
 	@Path("{id_store}")
 	@Produces(MediaType.APPLICATION_JSON)
