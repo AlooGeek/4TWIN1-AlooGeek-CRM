@@ -95,13 +95,6 @@ public class DocumentResource {
 	@Path("/update")
 	@Produces(MediaType.APPLICATION_JSON)
 	@PermitAll
-	public String getDocuments() {
-	
-		String res = "";
-		java.util.Iterator<Document> it = docDao.listBills().iterator();
-	
-		 
-		while (it.hasNext()) {
 	public void updateDocument(Document doc) {
 			doc.setState(DocumentState.treated);
 			documentService.updateDocument(doc);
@@ -128,11 +121,7 @@ public class DocumentResource {
 	public void deleteDocument() {
 		documentService.deleteDocument(1);
 		System.out.println("Document Deleted Successfully ! ");
-
-	public String deleteDocument(@QueryParam(value="id")long id) {
-		
-		documentService.deleteDocument(id);
-		return"Document"+ id + " Deleted Successfully ! ";}
+	}
 		
 	
 	@GET
