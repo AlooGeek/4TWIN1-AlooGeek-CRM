@@ -23,8 +23,9 @@ import tn.esprit.crm.entities.Document_line;
 import tn.esprit.crm.entities.DocumentState;
 import tn.esprit.crm.entities.DocumentType;
 import tn.esprit.crm.entities.Product;
-import tn.esprit.crm.entities.User;
+import tn.esprit.crm.entities.StoreProduct;
 import tn.esprit.crm.services.IDocumentService;
+import tn.esprit.crm.services.IStoreProductService;
 import tn.esprit.crm.util.MailSender;
 import tn.esprit.crm.util.PDFGenerator;
 
@@ -36,24 +37,31 @@ public class DocumentServiceImp implements IDocumentService {
 	
 	private IDocumentDao documentDao;
 
+
 	@Override
-	public String requestDocument(DocumentType reason, int qte,long idProd) {
+	public String requestDocument(DocumentType reason, int qte,long idProd, long idUser) {
 
 		// create doc (command) use it to send mail
+	
 		Document commande = new Document();
+		//User currentUser = (User) em.find(UserPhysical.class, idUser); 
 		commande.setType(DocumentType.command);
 		commande.setDate_creation(new Date());
+		commande.setState(DocumentState.notTreated);
+		
+		//commande.setUser(currentUser);
+		//commande.setUser(authenticationService.getAuthenticated());
 		//notify admin to validate it by mail
 		this.addDocument(commande);
 		Product prod = em.find(Product.class, idProd);
 		String prodname = prod.getLabel();
 		
-		String description = " Produit : "+prodname + ", quantité commandé"+qte ; 
+		String description = " Produit :  " +prod.getId()+"  "+prodname + ", Quantity"+qte ; 
 		System.out.println(description);
 
 		MailSender mailSender = new MailSender();
 		String messageBody = "Dear Stock Supervisor, <br>"
-				+ "You have a new  request from the client (client name) :"+". <br>"
+				+ "You have a new  request "+ commande.getId()+"from the client : . <br>"
 				+ "<b>Request details:</b> <br>"
 				+ "Request context: " + reason + "<br>"
 				+ "Products Description: " + description + "<br>"
@@ -69,6 +77,7 @@ public class DocumentServiceImp implements IDocumentService {
 					"true",
 					"true",
 					"ahmed.derbel@esprit.tn",
+					"ahmed.derberl@esprit.tn",
 					"New "+reason+" Request",
 					messageBody
 			);
@@ -96,11 +105,11 @@ public class DocumentServiceImp implements IDocumentService {
 			mailSender.sendMessage(
 					"smtp.gmail.com",
 					"rabeimelek9@gmail.com",
-					"",
+					"@Yaoming913",
 					"587",
 					"true",
 					"true",
-					"rabeimelek9@gmail.com",
+					"ahmed.derberl@esprit.tn",
 					"New Cancellation",
 					messageBody
 			);
@@ -135,7 +144,7 @@ public class DocumentServiceImp implements IDocumentService {
 					"587",
 					"true",
 					"true",
-					"",
+					"ahmed.derberl@esprit.tn",
 					"New Command update",
 					messageBody
 			);
@@ -149,36 +158,53 @@ public class DocumentServiceImp implements IDocumentService {
 
 
 	@Override
-	public String validateRequestDocument(long documentID, long prodID) {
+	public String validateRequestDocument(long documentID, long prodID, int qte ) {
 		Document document = em.find(Document.class,documentID );
 		String res="";
 		// check the product quantity (stock) of the prod line
 		Product prod = em.find(Product.class, prodID);
 		int stock= prod.getQte();
-		if(stock== 0) {
+		if(stock < 0) {
 			document.setState(DocumentState.canceled);
 			res =" Sorry , Your request has been canceled, Product Sold OUT ! ";
 			return res ;
 		}else {
-		//suggest the available store
-		
+			
 		 //add document (bill)	
 		document.setState(DocumentState.validated);
 		Document autoDoc= new Document();
+		//get the user id
+		//autoDoc.setUser(document.getUser());
 		autoDoc.setDate_creation(new Date());
 		//update state to treated (true)
 		autoDoc.setState(DocumentState.treated);
 		//check type 
 		if(document.getType()==DocumentType.command && document.getState()==DocumentState.validated) {
-		autoDoc.setType(DocumentType.bill);
+			autoDoc.setType(DocumentType.bill);
+		// create doc line 
+		Document_line docLine = new Document_line();
+		docLine.setCreation_date(new Date());
+		docLine.setProduct(em.find(Product.class, prodID));
+		docLine.setDocument(em.find(Document.class, autoDoc.getId()));
+		docLine.setQuantity(qte);
+		
+		this.addDocument(autoDoc);
+		this.addLine(docLine, prodID, autoDoc.getId());
+		//update document type
+		//update product qty 
+		prod.setQte(prod.getQte()-qte);
+		//calculate bill
 		this.calculateBill(autoDoc.getId());
 		
+
 		} else {
+			//creatiioon du quote à part
 		autoDoc.setType(DocumentType.quote);
 		this.calculateQuote(autoDoc.getId());
-		this.addDocument(autoDoc);}
+		this.addDocument(autoDoc);
+			}
 		//set ligne document
-		res= "The request has been validatted successfully"; 
+		res= "The request has been validated successfully you will find this product in the following stores"; 
 		return res; 
 		}
 	
@@ -346,6 +372,7 @@ public class DocumentServiceImp implements IDocumentService {
 			}else {
 				return "Your bill is treated and it reminds today and  "+ reminding +" days until the deadline";
 			}
+			//test other possibility
 		}
 		else {
 			System.out.println("Your bill has been automaticaly canceled");
@@ -411,6 +438,17 @@ public class DocumentServiceImp implements IDocumentService {
 		em.remove(em.find(Document_line.class,docLineID));
 	}
 
+	public void applyReduction (long idDoc) {
+		
+		Document bill = em.find(Document.class, idDoc);
+		String line =  em.createQuery("select l.product from Document_line l where document= : idDoc")
+				.setParameter("idDoc", idDoc)
+				.getSingleResult().toString();
+		long idProd = Long.parseLong(line);
+		Product prod = em.find(Product.class, idProd);
+		if (prod.getDiscount()!=null)//
+		bill.setTotal(bill.getTotal());
+	}
 
 	
 	

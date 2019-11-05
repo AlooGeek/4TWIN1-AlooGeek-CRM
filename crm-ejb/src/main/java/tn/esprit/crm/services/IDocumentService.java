@@ -15,7 +15,7 @@ public interface IDocumentService {
 
 
 	/********Client************/ //CRUD not treat 
-	public String requestDocument(DocumentType reason,int qte , long idProd);//done
+	public String requestDocument(DocumentType reason, int qte,long idProd, long idUser);//done
 	public String cancelRequestDocument(long documentID);//done
 	public String updateRequestDocument(long documentID);//done
 	/***********Document line******************************/
@@ -24,7 +24,7 @@ public interface IDocumentService {
 	public void deleteLine(long documentID);//done
 	/********Admin
 	 * @return *************/
-	public String validateRequestDocument(long documentID,long prodID);//almost
+	public String validateRequestDocument(long documentID,long prodID, int qte );//almost
 	public long addDocument(Document document);//done
 	public void updateDocument(Document newDocument);//done
 	public void deleteDocument(long documentID);//done

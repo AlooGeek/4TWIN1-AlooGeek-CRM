@@ -11,8 +11,10 @@ import tn.esprit.crm.dao.IDocumentDao;
 import tn.esprit.crm.entities.Document;
 import tn.esprit.crm.entities.Document_line;
 import tn.esprit.crm.entities.Product;
+import tn.esprit.crm.entities.StoreProduct;
 @Stateless
 public class DocumentDaoImp extends GenericDaoImpl<Document> implements IDocumentDao{
+	
 
 	@Override
 	public List<Document> listQuotes() {
@@ -54,7 +56,15 @@ public class DocumentDaoImp extends GenericDaoImpl<Document> implements IDocumen
 				.getSingleResult();
 		return prod;
 	}
-
+	@Override
+	public int getProductQtyById(long idProd) {
+		
+		String prod = em.createQuery("select p.qte from Product p where p.id= :idProd ")
+				.setParameter("idProd", idProd)
+				.getSingleResult().toString();
+		int qty = Integer.parseInt(prod);
+		return qty;
+	}
 	@Override
 	public List<Document_line> listLine() {
 		List<Document_line> lines = em.createQuery("select d from Document_line d  ",Document_line.class).getResultList();
@@ -80,5 +90,16 @@ public class DocumentDaoImp extends GenericDaoImpl<Document> implements IDocumen
 		
 		return lineProd;
 		}
+	
+	
+	@Override
+	public List<StoreProduct> listStoreProducts() {
+		List<StoreProduct> StoreProducts = em.createQuery(" select s from StoreProduct s ", StoreProduct.class).getResultList();
+		List<StoreProduct> StoreProductsList = new ArrayList<StoreProduct>();
+		for(StoreProduct StoreProduct : StoreProducts){
+			StoreProductsList.add(StoreProduct);
+		}
+		return StoreProductsList;
+	}
 
 }

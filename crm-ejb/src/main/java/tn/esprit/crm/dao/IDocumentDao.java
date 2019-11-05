@@ -7,6 +7,7 @@ import javax.ejb.Local;
 import tn.esprit.crm.entities.Document;
 import tn.esprit.crm.entities.Document_line;
 import tn.esprit.crm.entities.Product;
+import tn.esprit.crm.entities.StoreProduct;
 
 @Local
 public interface IDocumentDao extends IGenericDao<Document>{
@@ -18,4 +19,6 @@ public interface IDocumentDao extends IGenericDao<Document>{
 	public String getLineDocByID(long id);
 	Product getProductLabelById(long idProd);
 	String getLineProdByID(long id);
+	List<StoreProduct> listStoreProducts();
+	int getProductQtyById(long idProd);
 }
