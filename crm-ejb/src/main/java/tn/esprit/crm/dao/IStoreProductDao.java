@@ -14,4 +14,8 @@ public interface IStoreProductDao extends IGenericDao<StoreProduct>   {
 	public int UpdateStoreprodQte(Long idprod,Long idStore,int qte);
 	
 	public List<StoreProduct>  StatisticsStore();
+	
+	public void ActivateDispo(Long idsp,Long id_prod);
+	
+	public void DesactivateDispo(Long idsp,Long id_prod);
 }

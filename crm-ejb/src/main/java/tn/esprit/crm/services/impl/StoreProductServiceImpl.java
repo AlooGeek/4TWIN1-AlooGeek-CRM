@@ -73,6 +73,18 @@ public class StoreProductServiceImpl implements IStoreProductService {
 		
 		return spDao.StatisticsStore();
 	}
+
+	@Override
+	public void ActivateDispo(Long idsp, Long id_prod) {
+		spDao.ActivateDispo(idsp, id_prod);
+		
+	}
+
+	@Override
+	public void DesactivateDispo(Long idsp, Long id_prod) {
+		spDao.DesactivateDispo(idsp, id_prod);
+		
+	}
 	
 	
 	

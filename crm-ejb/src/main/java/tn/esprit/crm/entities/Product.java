@@ -33,8 +33,9 @@ public class Product implements Serializable{
 	private String ImageUrl;
 	private float unitPrice;
 	private int qte;
-	private int tva;
+	private int tva=18;
 	private float newprice;
+	private int disponible=1;
 
 
 	@OneToMany(mappedBy="products",fetch = FetchType.EAGER)
@@ -179,6 +180,16 @@ public class Product implements Serializable{
 	}
 
 
+	public int getDisponible() {
+		return disponible;
+	}
+
+
+	public void setDisponible(int disponible) {
+		this.disponible = disponible;
+	}
+
+	
 
 	
 	

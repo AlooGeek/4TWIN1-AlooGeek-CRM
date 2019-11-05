@@ -30,4 +30,22 @@ public class StoreProductImpl extends GenericDaoImpl<StoreProduct> implements IS
 		
 	}
 
+	@Override
+	public void ActivateDispo(Long idsp, Long id_prod) {
+		Query query = em.createQuery("update StoreProduct sp set sp.disponible=1 where sp.stores=:idStore and sp.products=:idprod");
+		query.setParameter("idStore", idsp);
+		query.setParameter("idprod", id_prod);
+		query.executeUpdate();
+		
+	}
+
+	@Override
+	public void DesactivateDispo(Long idsp, Long id_prod) {
+		Query query = em.createQuery("update StoreProduct sp set sp.disponible=0 where sp.stores=:idStore and sp.products=:idprod");
+		query.setParameter("idStore", idsp);
+		query.setParameter("idprod", id_prod);
+		query.executeUpdate();
+		
+	}
+
 }

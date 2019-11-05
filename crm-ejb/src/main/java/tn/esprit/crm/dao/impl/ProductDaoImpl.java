@@ -20,4 +20,20 @@ public class ProductDaoImpl extends GenericDaoImpl<Product> implements IProductD
 		
 	}
 
+	@Override
+	public void ActivateDispo(Long id_prod) {
+		
+		Query query = em.createQuery("update Product p set p.disponible=1 where p.id=:id_prod");
+		query.setParameter("id_prod", id_prod);
+		query.executeUpdate();
+	}
+
+	@Override
+	public void DesactivateDispo(Long id_prod) {
+		Query query = em.createQuery("update Product p set p.disponible=0 where p.id=:id_prod");
+		query.setParameter("id_prod", id_prod);
+		query.executeUpdate();
+		
+	}
+
 }

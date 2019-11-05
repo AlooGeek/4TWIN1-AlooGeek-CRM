@@ -1,5 +1,6 @@
 package tn.esprit.crm.resources;
 
+import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -28,7 +29,7 @@ public class ProductRessource {
 	@EJB
 	ICategoryService servcat;
 	
-	
+	@PermitAll
 	@POST
 	@Path("{IdCategorie}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -44,7 +45,7 @@ public class ProductRessource {
 		return Response.status(Status.NOT_FOUND).entity("Category Not Found!").build();
 	}
 
-	
+	@PermitAll
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response DisplayProductList() {
@@ -52,7 +53,7 @@ public class ProductRessource {
 		
 
 		}
-	
+	@PermitAll
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -61,7 +62,7 @@ public class ProductRessource {
 		
 
 		}
-	
+	@PermitAll
 	@GET
 	@Path("{param}/{value}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -73,7 +74,7 @@ public class ProductRessource {
 	
 	
 	
-	
+	@PermitAll
 	@PUT
 	@Path("{id}/{id_discount}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -84,6 +85,12 @@ public Response UpdateProduct(@PathParam(value="id") Long id,@PathParam(value="i
 			p.setDiscount(servdisc.getById(id_discount));
 			p.setCategory(servprod.getById(id).getCategory());
 			servprod.update(p);
+			
+			if (servprod.getById(p.getId()).getQte()!=0) {
+				servprod.ActivateDispo(p.getId());
+			}else {
+				servprod.DesactivateDispo(p.getId());
+			}
 		return Response.status(Status.ACCEPTED).entity("Product "+id+" Updated").build();
 		}
 	
@@ -95,7 +102,7 @@ public Response UpdateProduct(@PathParam(value="id") Long id,@PathParam(value="i
 	
 	
 	
-	
+	@PermitAll
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
