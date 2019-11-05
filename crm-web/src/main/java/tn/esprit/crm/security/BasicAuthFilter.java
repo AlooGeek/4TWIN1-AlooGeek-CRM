@@ -31,7 +31,7 @@ import javax.ws.rs.ext.Provider;
  * @author Derouiche
  *
  */
-//@Provider
+@Provider
 //@PreMatching
 public class BasicAuthFilter implements ContainerRequestFilter {
 

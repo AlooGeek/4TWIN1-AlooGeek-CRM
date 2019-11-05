@@ -2,6 +2,7 @@ package tn.esprit.crm.resources;
 
 import java.sql.Date;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -31,6 +32,7 @@ public class OfferRessource {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@RolesAllowed("admin")
 	public Response AddOffer(Offer o) {
 		
 		
@@ -41,6 +43,7 @@ public class OfferRessource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	
 	public Response DisplayOfferList() {
 		 
 		return Response.status(Status.OK).entity(OffService.selectAll()).build();
@@ -52,6 +55,7 @@ public class OfferRessource {
 		@Path("{OffCode}")
 		@Consumes(MediaType.APPLICATION_JSON)
 		@Produces(MediaType.APPLICATION_JSON)
+		@RolesAllowed("admin")
 	public Response UpdateOffer(@PathParam(value="OffCode") String OffCode,Offer o) {
 			
 				if(OffCode!=null) {
@@ -70,6 +74,7 @@ public class OfferRessource {
 		@DELETE
 		@Path("{OffCode}")
 		@Produces(MediaType.APPLICATION_JSON)
+		@RolesAllowed("admin")
 		public Response deleteOffer(@PathParam(value="OffCode") String OffCode) {
 			//set offer code in user already affected null
 			OffService.setUsersNull();
@@ -83,6 +88,7 @@ public class OfferRessource {
 		@Path("bestusers")
 		@GET
 		@Produces(MediaType.APPLICATION_JSON)
+		@RolesAllowed("admin")
 		public Response DisplayScoredUsers() {
 			return Response.status(Status.OK).entity(OffService.getBestUsers()).build();
 
@@ -92,6 +98,7 @@ public class OfferRessource {
 		@PUT
 		@Path("/affected/{OffCode}")
 		@Consumes(MediaType.APPLICATION_JSON)
+		@RolesAllowed("admin")
 		public Response AddOfferToUser(@PathParam(value="OffCode") String OffCode) {
 			if(OffCode!=null) {
 				
@@ -105,6 +112,7 @@ public class OfferRessource {
 		
 		@PUT
 		@Path("/UpdateScore/{idUser}")
+		@RolesAllowed("admin")
 		@Consumes(MediaType.APPLICATION_JSON)
 		public Response UpdateScore(@PathParam(value="idUser") Long idUser) {
 			if(idUser!=0) {

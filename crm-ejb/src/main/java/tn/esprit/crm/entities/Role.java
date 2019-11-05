@@ -20,4 +20,19 @@ public class Role extends BaseEntity {
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "role")
 	private List<User> usreList = new ArrayList<>();
 
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+
+	public void setUsreList(List<User> usreList) {
+		this.usreList = usreList;
+	}
+
+	
+	
 }

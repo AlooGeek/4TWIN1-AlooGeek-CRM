@@ -2,6 +2,7 @@ package tn.esprit.crm.resources;
 
 import java.sql.Date;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -38,6 +39,7 @@ public class PackProductRessource {
 	@Path("{idpack}/{idproduct}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@RolesAllowed("admin")
 	public Response AddPack_Product(@PathParam(value="idpack") Long idpack,@PathParam(value="idproduct") Long idproduct,Pack_Product pp) {
 		//pp=new Pack_Product();
 	
@@ -66,6 +68,7 @@ public class PackProductRessource {
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@RolesAllowed("admin")
 public Response UpdatePP(@PathParam(value="id") Long id,Pack_Product p) {
 
 		if (id!=null) {
@@ -83,7 +86,8 @@ public Response UpdatePP(@PathParam(value="id") Long id,Pack_Product p) {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteDiscount(@PathParam(value="id") Long id) {
+	@RolesAllowed("admin")
+	public Response deletePackProduct(@PathParam(value="id") Long id) {
 		
 		if (packproductservice.remove(id)) {
 		return Response.status(Status.GONE).entity("Pack product deleted"+id).build();
@@ -95,6 +99,7 @@ public Response UpdatePP(@PathParam(value="id") Long id,Pack_Product p) {
 	@Path("packprice")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	
 	public Response DisplayPrice() {
 		return Response.status(Status.OK).entity(packproductservice.getPriceOfPack()).build();
 

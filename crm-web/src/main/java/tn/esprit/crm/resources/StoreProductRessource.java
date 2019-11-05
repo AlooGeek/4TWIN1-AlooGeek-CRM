@@ -34,6 +34,7 @@ public class StoreProductRessource {
 	@Path("{id_store}/{id_product}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	
 	public Response AddStoreProduct(@PathParam(value="id_store") Long id_store,@PathParam(value="id_product") Long id_product,StoreProduct sp) {
 		
 		sp.setStores(servstore.getById(id_store));

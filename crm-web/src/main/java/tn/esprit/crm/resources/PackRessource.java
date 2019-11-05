@@ -2,6 +2,8 @@ package tn.esprit.crm.resources;
 
 import java.sql.Date;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -28,6 +30,7 @@ public class PackRessource {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@RolesAllowed("admin")
 	public Response AddPack(Pack p) {
 		packService.save(p);
 		return  Response.status(Status.OK).entity("votre pack a ete ajouté").build();
@@ -36,7 +39,8 @@ public class PackRessource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-
+	@PermitAll
+	
 	public Response DisplayPackList() {
 		 
 		return Response.status(Status.OK).entity(packService.selectAll()).build();
@@ -46,6 +50,7 @@ public class PackRessource {
 		
 	@PUT
 	@Path("{id}")
+	@RolesAllowed("admin")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response UpdatePack(@PathParam(value="id") Long id,Pack p) {
@@ -62,6 +67,7 @@ public class PackRessource {
 		@DELETE
 		@Path("{id}")
 		@Produces(MediaType.APPLICATION_JSON)
+		@RolesAllowed("admin")
 		public Response deletePack(@PathParam(value="id") Long id) {
 			
 			if (packService.remove(id)) {

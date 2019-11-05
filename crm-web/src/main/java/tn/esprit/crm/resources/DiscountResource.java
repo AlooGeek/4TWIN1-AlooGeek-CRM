@@ -3,6 +3,7 @@ package tn.esprit.crm.resources;
 
 import java.sql.Date;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -25,8 +26,11 @@ public class DiscountResource {
 	@EJB
 	IDiscountService discloc;
 	
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@RolesAllowed("admin")
+	
 	public Response AddDiscount(Discount d) {
 		
 		discloc.save(d);
@@ -36,7 +40,7 @@ public class DiscountResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-
+	
 	public Response DisplayDiscountList() {
 		 
 		return Response.status(Status.OK).entity(discloc.selectAll()).build();
@@ -48,6 +52,7 @@ public class DiscountResource {
 		@Path("{id}")
 		@Consumes(MediaType.APPLICATION_JSON)
 		@Produces(MediaType.APPLICATION_JSON)
+		@RolesAllowed("admin")
 	public Response UpdateDiscount(@PathParam(value="id") Long id,Discount d) {
 			if(id!=0) {
 				discloc.update(d);
@@ -61,6 +66,7 @@ public class DiscountResource {
 		@DELETE
 		@Path("{id}")
 		@Produces(MediaType.APPLICATION_JSON)
+		@RolesAllowed("admin")
 		public Response deleteDiscount(@PathParam(value="id") Long id) {
 			
 			if (discloc.remove(id)) {
@@ -73,6 +79,7 @@ public class DiscountResource {
 		@DELETE
 		@Path("deleteExpired")
 		@Produces(MediaType.APPLICATION_JSON)
+		@RolesAllowed("admin")
 	public Response deleteExpiredDiscount() {
 			
 			if (discloc.DeleteExpiredDiscount()) {
@@ -85,7 +92,7 @@ public class DiscountResource {
 		@GET
 		@Path("statistiqueDiscount")
 		@Produces(MediaType.APPLICATION_JSON)
-
+		@RolesAllowed("admin")
 		public Response DisplayStatList() {
 			 
 			return Response.status(Status.OK).entity(discloc.StatistiqueDiscount()).build();
