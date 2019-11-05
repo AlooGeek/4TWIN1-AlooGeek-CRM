@@ -19,6 +19,7 @@ import lombok.Data;
 @Data
 public class User extends BaseEntity {
 	
+	private Long id;
 	private String username;
 	private String password;
 	private String email;
@@ -191,6 +192,14 @@ public class User extends BaseEntity {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	

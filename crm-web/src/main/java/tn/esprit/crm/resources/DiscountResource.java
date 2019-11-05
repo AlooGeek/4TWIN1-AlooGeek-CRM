@@ -3,6 +3,7 @@ package tn.esprit.crm.resources;
 
 import java.sql.Date;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -40,7 +41,7 @@ public class DiscountResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	
+	@PermitAll
 	public Response DisplayDiscountList() {
 		 
 		return Response.status(Status.OK).entity(discloc.selectAll()).build();
