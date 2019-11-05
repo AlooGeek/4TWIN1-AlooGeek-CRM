@@ -4,6 +4,7 @@ import java.awt.List;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.swing.text.html.HTMLDocument.Iterator;
 import javax.ws.rs.DELETE;
@@ -14,6 +15,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import tn.esprit.crm.dao.IDocumentDao;
 import tn.esprit.crm.entities.Document;
 import tn.esprit.crm.entities.DocumentState;
 import tn.esprit.crm.entities.DocumentType;
@@ -25,10 +27,12 @@ public class DocumentResource {
 
 	@EJB
 	IDocumentService documentService;
+	IDocumentDao docDao;
 	
 	@PUT
 	@Path("/request")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public String request() {
 		DocumentType type = null ;
 	
@@ -38,6 +42,7 @@ public class DocumentResource {
 	@PUT
 	@Path("/add")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public long addDocument() {
 		Document doc = new Document();
 		doc.setDate_creation(new Date());
@@ -50,10 +55,11 @@ public class DocumentResource {
 	@POST
 	@Path("/getAll")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public String getDocuments() {
 	
 		String res = "";
-		java.util.Iterator<Document> it = documentService.listBills().iterator();
+		java.util.Iterator<Document> it = docDao.listBills().iterator();
 	
 		 
 		while (it.hasNext()) {
@@ -71,6 +77,7 @@ public class DocumentResource {
 	@DELETE
 	@Path("/delete")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public void deleteDocument() {
 		documentService.deleteDocument(1);
 		System.out.println("Document Deleted Successfully ! ");
@@ -80,6 +87,7 @@ public class DocumentResource {
 	@POST
 	@Path("/calculateBill")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public String calculateBill() {
 		return documentService.calculateBill(3);
 	}
@@ -87,6 +95,7 @@ public class DocumentResource {
 	@POST
 	@Path("/pdf")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public void pdfFormat() {
 		 //PDFGenerator pd= new PDFGenerator();
 		 System.out.println("File created succesfully");
@@ -95,6 +104,7 @@ public class DocumentResource {
 	@POST
 	@Path("/track")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public void trackDocument() {
 		
 		 documentService.trackDocumentState(3);
@@ -103,6 +113,7 @@ public class DocumentResource {
 	@POST
 	@Path("/reminder")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public String reminder() {
 		
 		return documentService.deadlineReminder(3);
