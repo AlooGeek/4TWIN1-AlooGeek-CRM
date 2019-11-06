@@ -70,13 +70,12 @@ public class DocumentServiceImp implements IDocumentService {
 		try {
 			mailSender.sendMessage(
 					"smtp.gmail.com",
-					"rabeimelek9@gmail.com",
-					//change password
-					"@Yaoming913",
+					"sender mail",
+					"password",
 					"587",
 					"true",
 					"true",
-					"ahmed.derberl@esprit.tn",
+					"destination",
 					"New "+reason+" Request",
 					messageBody
 			);
@@ -103,12 +102,12 @@ public class DocumentServiceImp implements IDocumentService {
 		try {
 			mailSender.sendMessage(
 					"smtp.gmail.com",
-					"rabeimelek9@gmail.com",
-					"@Yaoming913",
+					"sender mail",
+					"password",
 					"587",
 					"true",
 					"true",
-					"ahmed.derberl@esprit.tn",
+					"destination",
 					"New Cancellation",
 					messageBody
 			);
@@ -138,12 +137,12 @@ public class DocumentServiceImp implements IDocumentService {
 		try {
 			mailSender.sendMessage(
 					"smtp.gmail.com",
-					"rabeimelek9@gmail.com",
-					"@Yaoming913",
+					"sender mail",
+					"password",
 					"587",
 					"true",
 					"true",
-					"ahmed.derberl@esprit.tn",
+					"destination",,
 					"New Command update",
 					messageBody
 			);
