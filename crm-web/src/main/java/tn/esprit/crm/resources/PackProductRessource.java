@@ -1,6 +1,9 @@
 package tn.esprit.crm.resources;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -41,15 +44,21 @@ public class PackProductRessource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
-	public Response AddPack_Product(@PathParam(value="idpack") Long idpack,@PathParam(value="idproduct") Long idproduct,Pack_Product pp) {
+	public Response AddPack_Product(@PathParam(value="idpack") Long idpack,@PathParam(value="idproduct") Long idproduct,Pack_Product pp) throws ParseException {
 		//pp=new Pack_Product();
-	
-		int period=0;
-		period=packserv.getById(idpack).getPackEndDate().getDate()-packserv.getById(idpack).getPackStartDate().getDate();
+		SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd ");
+		String inputString1 =myFormat.format(packserv.getById(idpack).getPackEndDate());
+		String inputString2 =myFormat.format(packserv.getById(idpack).getPackStartDate());
+		 Date date1 =myFormat.parse(inputString1);
+		    Date date2 =  myFormat.parse(inputString2);
+		    int diff = (int) (date1.getDate() - date2.getDate());
+		    int days=(int) TimeUnit.DAYS.convert(diff, TimeUnit.DAYS);
+		/*int period=0;
+		period=packserv.getById(idpack).getPackEndDate().getDate()-packserv.getById(idpack).getPackStartDate().getDate();*/
 		pp.setPacks(packserv.getById(idpack));
 		pp.setProductss(productserv.getById(idproduct));
 		pp.setPrix(productserv.getById(idproduct).getUnitPrice()-((productserv.getById(idproduct).getUnitPrice()*packserv.getById(idpack).getReduction_amount())/100));
-		pp.setPeriod(period);
+		pp.setPeriod(days);
 		packproductservice.save(pp);
 		return  Response.status(Status.OK).entity("votre pack produit a ete ajouté").build();
 	}
