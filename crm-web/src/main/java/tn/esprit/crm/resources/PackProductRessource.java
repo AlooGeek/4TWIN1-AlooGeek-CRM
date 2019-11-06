@@ -45,7 +45,7 @@ public class PackProductRessource {
 		//pp=new Pack_Product();
 	
 		int period=0;
-		period=packserv.getById(idpack).getPackEndDate().getDay()-packserv.getById(idpack).getPackStartDate().getDay();
+		period=packserv.getById(idpack).getPackEndDate().getDate()-packserv.getById(idpack).getPackStartDate().getDate();
 		pp.setPacks(packserv.getById(idpack));
 		pp.setProductss(productserv.getById(idproduct));
 		pp.setPrix(productserv.getById(idproduct).getUnitPrice()-((productserv.getById(idproduct).getUnitPrice()*packserv.getById(idpack).getReduction_amount())/100));
