@@ -71,7 +71,7 @@ public class DocumentResource {
 		String res="";
 		List<StoreProduct> list = documentDao.listStoreProducts();
 		for (StoreProduct sp:list) {
-			sp.setQte(stock/2);
+		//	sp.setQte(stock/2);
 		
 		res+=" \r\n - Store "+sp.getStores().getName()+" Located at "+	sp.getStores().getAddress() +" and has " + sp.getQte() +" product";
 			sp.getQte();
