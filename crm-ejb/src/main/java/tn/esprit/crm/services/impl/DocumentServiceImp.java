@@ -76,7 +76,7 @@ public class DocumentServiceImp implements IDocumentService {
 					"587",
 					"true",
 					"true",
-					"ahmed.derberl@esprit.tn",
+					"ahmed.derbel@esprit.tn",
 					"New "+reason+" Request",
 					messageBody
 			);
@@ -143,7 +143,7 @@ public class DocumentServiceImp implements IDocumentService {
 					"587",
 					"true",
 					"true",
-					"ahmed.derberl@esprit.tn",
+					"ahmed.derbel@esprit.tn",
 					"New Command update",
 					messageBody
 			);
