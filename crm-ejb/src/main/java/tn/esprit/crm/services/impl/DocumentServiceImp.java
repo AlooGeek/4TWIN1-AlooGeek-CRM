@@ -77,8 +77,7 @@ public class DocumentServiceImp implements IDocumentService {
 					"true",
 					"ahmed.derbel@esprit.tn",
 					"destination",
-					"New "+reason+" Request",
-					messageBody
+					"New "+reason+" Request"
 			);
 		}
 		catch (MessagingException e) {
@@ -144,9 +143,8 @@ public class DocumentServiceImp implements IDocumentService {
 					"true",
 					"true",
 					"ahmed.derbel@esprit.tn",
-					"destination",,
-					"New Command update",
-					messageBody
+					"destination",
+					"New Command update"
 			);
 		}
 		catch (MessagingException e) {
