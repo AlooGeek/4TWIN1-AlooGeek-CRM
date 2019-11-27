@@ -22,7 +22,11 @@ public class ComplaintServiceImpl implements IComplaintService {
 
 	@Override
 	public Complaint update(Complaint complaint) {
-		return complaintDao.update(complaint);
+		Complaint persistedComplaint=complaintDao.findOne("id", complaint.getId());
+		persistedComplaint.setText(complaint.getText());
+		persistedComplaint.setState(complaint.getState());
+		persistedComplaint.setType(complaint.getType());
+		return complaintDao.update(persistedComplaint);
 	}
 
 	@Override

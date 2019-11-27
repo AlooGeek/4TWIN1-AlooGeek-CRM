@@ -23,8 +23,20 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public User update(User user) {
-		return userDao.update(user);
+	public User updateBasicInformation(User user) {
+		User persistedUser=findOne("id", user.getId());
+		persistedUser.setEmail( user.getEmail( ));
+		persistedUser.setPhoneNumPrimary( user.getPhoneNumPrimary( ));
+		persistedUser.setPhoneNumAlternative( user.getPhoneNumAlternative( ));
+		persistedUser.setAddress( user.getAddress( ));
+		persistedUser.setLastLoggedAt( user.getLastLoggedAt());
+		persistedUser.setCompanyName( user.getCompanyName( ));
+		persistedUser.setCompanyType( user.getCompanyType( ));
+		persistedUser.setFirstname( user.getFirstname( ));
+		persistedUser.setLastname( user.getLastname( ));
+		persistedUser.setCin( user.getCin( ));
+		persistedUser.setBirthDate( user.getBirthDate( ));
+		return userDao.update(persistedUser);
 	}
 
 	@Override

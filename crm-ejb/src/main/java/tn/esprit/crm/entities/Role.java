@@ -14,7 +14,7 @@ import lombok.Data;
 @Entity	
 @Data
 public class Role extends BaseEntity {
-	
+	private Long Id;
 	private String roleName;
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "role")
@@ -31,6 +31,14 @@ public class Role extends BaseEntity {
 
 	public void setUsreList(List<User> usreList) {
 		this.usreList = usreList;
+	}
+
+	public Long getId() {
+		return Id;
+	}
+
+	public void setId(Long id) {
+		Id = id;
 	}
 
 	

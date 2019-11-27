@@ -11,7 +11,7 @@ public interface IUserService {
 	
     public User save(User user);
 	
-	public User update(User user);
+	public User updateBasicInformation(User user);
 	
 	public List<User> selectAll();
 	

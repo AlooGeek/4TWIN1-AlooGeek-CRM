@@ -3,11 +3,18 @@ package tn.esprit.crm.services.impl;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 import tn.esprit.crm.dao.IRoleDao;
 import tn.esprit.crm.entities.Role;
 import tn.esprit.crm.services.IRoleService;
 
+@Stateless
+/**
+ * 
+ * @author Derouiche
+ *
+ */
 public class RoleServiceImpl implements IRoleService {
 
 	@EJB
@@ -20,7 +27,9 @@ public class RoleServiceImpl implements IRoleService {
 
 	@Override
 	public Role update(Role role) {
-		return roleDao.update(role);
+		Role persistedRole=roleDao.findOne("id", role.getId());
+		persistedRole.setRoleName(role.getRoleName());
+		return roleDao.update(persistedRole);
 	}
 
 	@Override
