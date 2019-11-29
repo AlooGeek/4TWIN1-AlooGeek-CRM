@@ -20,7 +20,7 @@ public class UserDto {
 	private String cin;
 	private LocalDateTime birthDate;
 	private String type;
-	
+	private String roleRoleName;
 	public long getId() {
 		return id;
 	}
@@ -117,6 +117,14 @@ public class UserDto {
 	public void setType(String type) {
 		this.type = type;
 	}
+	public String getRoleRoleName() {
+		return roleRoleName;
+	}
+	public void setRoleRoleName(String roleRoleName) {
+		this.roleRoleName = roleRoleName;
+	}
+	
+	
 	
 	
 	

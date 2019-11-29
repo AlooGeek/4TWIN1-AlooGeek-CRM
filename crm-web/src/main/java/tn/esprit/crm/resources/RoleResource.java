@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -33,7 +34,7 @@ public class RoleResource {
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
-	@PermitAll
+	@RolesAllowed("ROLE_ADMIN")
 	public List<RoleDto> selectAll(){
 		List<Role> roleList= roleService.selectAll();
 		List<RoleDto> roleDtoList=new ArrayList<RoleDto>();
@@ -46,6 +47,7 @@ public class RoleResource {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@RolesAllowed("ROLE_ADMIN")
 	public RoleDto selectById(@PathParam("id") long id){		
 		Role role=roleService.findOne("id", id);
 		if(role != null)
@@ -57,7 +59,7 @@ public class RoleResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@PermitAll
+	@RolesAllowed("ROLE_ADMIN")
 	public RoleDto save(RoleDto roleDto) {
 		return roleMapper.mapToDto(roleService.save(roleMapper.mapFromDto(roleDto)));
 	}
@@ -65,14 +67,14 @@ public class RoleResource {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@PermitAll
+	@RolesAllowed("ROLE_ADMIN")
 	public RoleDto update(RoleDto roleDto) {
 		return roleMapper.mapToDto(roleService.update(roleMapper.mapFromDto(roleDto)));
 	}
 	
 	@DELETE
 	@Path("/{id}")
-	@PermitAll
+	@RolesAllowed("ROLE_ADMIN")
 	public void delete( @PathParam("id")long id) {
 		roleService.remove(id);
 	}

@@ -45,7 +45,7 @@ public class UserResource {
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed("ROLE_CLIENT")
+	@PermitAll
 	public List<UserDto> selectAll(){
 		List<User> userList= userService.selectAll();
 		List<UserDto> userDtoList=new ArrayList<UserDto>();
@@ -59,7 +59,7 @@ public class UserResource {
 	@GET
 	@Path("/findone/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed("ROLE_PROSPECT")
+	@PermitAll
 	public UserDto selectById(@PathParam("id") long id){		
 		User user=userService.findOne("id", id);
 		if(user != null)
@@ -71,6 +71,7 @@ public class UserResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public UserDto save(UserDto userDto) {
 		User user=userMapper.mapFromDto(userDto);
 		return userMapper.mapToDto(userService.save(user));
@@ -79,6 +80,7 @@ public class UserResource {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public UserDto update(UserDto userDto) {
 		User user=userMapper.mapFromDto(userDto);
 		return userMapper.mapToDto(userService.updateBasicInformation(user));
@@ -86,18 +88,18 @@ public class UserResource {
 	
 	@DELETE
 	@Path("/{id}")
-	@RolesAllowed("ROLE_SUPER_ADMIN")
+	@PermitAll
 	public void delete( @PathParam("id")long id) {
 		userService.remove(id);
 	}
 	
 	@POST
 	@Path("/authenticate")
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@PermitAll
-	public UserDto authenticateUser(@QueryParam("username") String username, 
-            @QueryParam("passwd") String passwd) {
-		User authenticatedUser = authService.authenticate(username, passwd);
+	public UserDto authenticateUser(UserDto userDto) {
+		User authenticatedUser = authService.authenticate(userDto.getUsername(), userDto.getPassword());
 		if(authenticatedUser != null) return userMapper.mapToDto(authenticatedUser);
 		else return null;
 		
@@ -117,6 +119,7 @@ public class UserResource {
 	@GET
 	@Path("/get-authenticated")
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public UserDto getAuthenticatedUser() {
 		User authenticatedUser = authService.getAuthenticated();
 		if(authenticatedUser != null) return userMapper.mapToDto(authenticatedUser);
