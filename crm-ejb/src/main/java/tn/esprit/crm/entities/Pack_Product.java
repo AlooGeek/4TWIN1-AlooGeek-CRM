@@ -28,7 +28,7 @@ public class Pack_Product implements Serializable{
 	private Long id;
 	private int period;
 	private float prix;
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name="PACK_ID",referencedColumnName="id")
 	private Pack packs;
 	@ManyToOne

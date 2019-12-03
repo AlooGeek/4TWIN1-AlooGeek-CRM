@@ -95,6 +95,16 @@ public class OfferRessource {
 
 			}
 		
+		@Path("bestuserswithoffer")
+		@GET
+		@Produces(MediaType.APPLICATION_JSON)
+		@RolesAllowed("admin")
+		public Response DisplayOfferedUsers() {
+			return Response.status(Status.OK).entity(OffService.getBestUsersWithOffer()).build();
+
+			}
+		
+		
 		
 		@PUT
 		@Path("/affected/{OffCode}")

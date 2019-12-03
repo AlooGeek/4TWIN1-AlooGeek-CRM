@@ -17,6 +17,7 @@ public interface IOfferService {
 	public Offer update(Offer offer);
 	public boolean Delete(String OffCode);
 	public List<User> getBestUsers();
+	public List<User> getBestUsersWithOffer();
 	public int AddOfferToUser(String OffCode);
 	public Offer getById(String OffCode);
 	public void setUsersNull();

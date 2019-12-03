@@ -61,7 +61,7 @@ public class OfferServiceImpl implements IOfferService{
 
 	@Override
 	public List<User> getBestUsers() {
-		List<User> users=em.createQuery("SELECT u FROM User u where u.userScore >= 100 ",User.class).getResultList();
+		List<User> users=em.createQuery("SELECT u FROM User u where u.userScore >= 100 and u.offer=NULL",User.class).getResultList();
 		return users;
 	}
 
@@ -120,6 +120,12 @@ public class OfferServiceImpl implements IOfferService{
 		q.setParameter("idUser",idUser);
 		q.executeUpdate();*/
 				
+	}
+
+	@Override
+	public List<User> getBestUsersWithOffer() {
+		List<User> users=em.createQuery("SELECT u FROM User u where u.userScore >= 100 and u.offer!=NULL",User.class).getResultList();
+		return users;
 	}
 
 }

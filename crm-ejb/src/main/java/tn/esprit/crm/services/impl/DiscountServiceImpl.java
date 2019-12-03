@@ -79,6 +79,12 @@ public class DiscountServiceImpl implements IDiscountService  {
 		Query q=em.createQuery("SELECT p.discount.reduction_amount ,COUNT(*)  from Product p group by(p.discount.id)");
 		return q.getResultList();			
 		}
+
+	@Override
+	public List<Product> getProductWithoutDiscount() {
+		List<Product> products=em.createQuery("SELECT p FROM Product p where p.discount=NULL",Product.class).getResultList();
+		return products;
+	}
 		
 		
 		

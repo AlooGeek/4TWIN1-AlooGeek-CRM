@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import tn.esprit.crm.dao.IPackProductDao;
 import tn.esprit.crm.entities.Pack_Product;
@@ -52,9 +53,10 @@ public class PackProductServiceImpl  implements IPackProductService{
 	}
 
 	@Override
-	public List<Double> getPriceOfPack() {
-		List<Double> packs=em.createQuery("SELECT SUM(p.prix) FROM Pack_Product p group by p.packs ",Double.class).getResultList();
-		return packs;
+	public List<Pack_Product> getPriceOfPack() {
+		Query q=em.createQuery("SELECT SUM(p.prix),p.packs.id FROM Pack_Product p group by (p.packs.id)");
+		return q.getResultList();	
 	}
+	
 
 }

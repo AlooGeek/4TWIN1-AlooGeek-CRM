@@ -30,7 +30,7 @@ public class Pack implements Serializable{
 	private String PackDescription;
 	private int reduction_amount;
 	
-	@OneToMany(fetch=FetchType.EAGER,mappedBy = "packs", cascade = CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER,mappedBy = "packs")
 	private Set<Pack_Product> pack_products;
 
 	public Pack(String packName, Date packStartDate, Date packEndDate, String packDescription) {

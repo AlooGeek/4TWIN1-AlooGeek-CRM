@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import tn.esprit.crm.dao.IPackDao;
 import tn.esprit.crm.entities.Pack;
@@ -38,6 +39,9 @@ public class PackServiceImpl implements IPackService{
 	@Override
 	public boolean remove(Long id) {
 		if(id!=0) {
+			Query q = em.createQuery("delete Pack_Product p where p.packs.id=:id"); //verifier si la discount est affecter a un produit
+			q.setParameter("id", id);
+			q.executeUpdate();
 			 packDao.remove(id);
 			 return true;
 		}

@@ -100,6 +100,17 @@ public class DiscountResource {
 
 			}
 		
+		@GET
+		@Path("productsnotdiscounted")
+		@Produces(MediaType.APPLICATION_JSON)
+		@RolesAllowed("admin")
+		public Response DisplayProductWithoutDiscount() {
+			return Response.status(Status.OK).entity(discloc.getProductWithoutDiscount()).build();
+			
+
+			}
 		
+
 		
+
 }
