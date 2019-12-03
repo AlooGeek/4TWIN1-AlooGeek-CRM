@@ -23,6 +23,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 	public User register(User user) {
 		if(userService.findOne("username", user.getUsername()) ==null) {
 			user.setRole(roleService.findOne("roleName", "ROLE_PROSPECT"));
+			user.setActivated(true);
 			user= userService.save(user);
 			return user;
 		}

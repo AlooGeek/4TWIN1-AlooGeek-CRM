@@ -55,6 +55,7 @@ public class BasicAuthFilter implements ContainerRequestFilter {
 	/*	if (!(uri.equals("/crm-web/rest/user/authenticate") || uri.equals("/crm-web/rest/user/register"))) {
 			// Get authorization token for request header
 			String authHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
+			System.out.println(authHeader);
 			// If token is null throw exception and send null token message back
 			if (authHeader == null)
 				throw new NotAuthorizedException("null_token");
@@ -64,17 +65,14 @@ public class BasicAuthFilter implements ContainerRequestFilter {
 			if (verifyToken(token) == false) {
 				throw new NotAuthorizedException("invalid_token");
 			}
-			Method method = resourceInfo.getResourceMethod();
-			if (!method.isAnnotationPresent(PermitAll.class)) {
-				RolesAllowed rolesAnnotation = method.getAnnotation(RolesAllowed.class);
-				List<String> roleList = new ArrayList<String>();
-				if (rolesAnnotation != null) {
-					roleList = Arrays.asList(rolesAnnotation.value());
-				}
-				String role = authService.getAuthenticated().getRole().getRoleName();
-				if (!roleList.contains(role)) {
-					throw new NotAuthorizedException("role_not_authorized");
-				}
+			RolesAllowed rolesAnnotation = method.getAnnotation(RolesAllowed.class);
+			List<String> roleList = new ArrayList<String>();
+			if (rolesAnnotation != null) {
+				roleList = Arrays.asList(rolesAnnotation.value());
+			}
+			String role = authService.getAuthenticated().getRole().getRoleName();
+			if (!roleList.contains(role)) {
+				throw new NotAuthorizedException("role_not_authorized");
 			}
 		}*/
 	}
