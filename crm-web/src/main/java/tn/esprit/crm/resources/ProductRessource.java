@@ -76,8 +76,6 @@ public class ProductRessource {
 
 		}
 	
-	
-	
 	@PermitAll
 	@PUT
 	@Path("{IdCategorie}")
@@ -108,22 +106,22 @@ public Response UpdateProduct(@PathParam(value="IdCategorie") Long IdCategorie,P
 
 	}
 
-	
+	@Path("affect/{id_discount}")
 	@PermitAll
 	@PUT
-	@Path("affect/{id_discount}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 public Response affetDiscount(@PathParam(value="id_discount") Long id_discount,Product p) {
 
-			
+		if(id_discount!=null) {
 			p.setDiscount(servdisc.getById(id_discount));
-			
-		//	p.setNewprice(p.getUnitPrice()-((( p.getUnitPrice()*servdisc.getById(id_discount).getReduction_amount())/100)));
-
+			p.setNewprice(p.getUnitPrice()-((( p.getUnitPrice()*servdisc.getById(id_discount).getReduction_amount())/100)));
 			servprod.update(p);
-			
-		return Response.status(Status.OK).entity(servprod.selectAll()).build();
+			return Response.status(Status.ACCEPTED).entity("Product Updated").build();
+
+			}
+		return Response.status(Status.NOT_MODIFIED).entity("Product Not Updated").build();
+
 		
 
 	}
