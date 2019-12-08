@@ -14,6 +14,7 @@ public interface IPackProductService {
 	public Pack_Product update(Pack_Product pp);
 	public boolean remove(Long id);
 	public Pack_Product getById(Long id);
+	public List<Pack_Product>Select();
 	public List<Pack_Product> getPriceOfPack();
 
 }

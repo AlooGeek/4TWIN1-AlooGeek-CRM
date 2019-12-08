@@ -117,4 +117,14 @@ public Response UpdatePP(@PathParam(value="id") Long id,Pack_Product p) {
 		}
 	
 	
+	@Path("liste")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
+	public Response DisplayList() {
+		System.out.println("aaaaaa"+packproductservice.Select());
+		return Response.status(Status.OK).entity(packproductservice.Select()).build();
+		}
+	
+	
 }

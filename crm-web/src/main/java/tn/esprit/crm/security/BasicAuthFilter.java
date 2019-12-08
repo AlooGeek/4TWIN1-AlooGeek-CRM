@@ -52,7 +52,7 @@ public class BasicAuthFilter implements ContainerRequestFilter {
 		System.out.println(request.getRequestURI());
 		String uri = request.getRequestURI();
 		// For the verification we skip /authenticate and /register
-		if (!(uri.equals("/crm-web/rest/user/authenticate") || uri.equals("/crm-web/rest/user/register"))) {
+		/*if (!(uri.equals("/crm-web/rest/user/authenticate") || uri.equals("/crm-web/rest/user/register"))) {
 			// Get authorization token for request header
 			String authHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 			System.out.println(authHeader);
@@ -77,7 +77,7 @@ public class BasicAuthFilter implements ContainerRequestFilter {
 					throw new NotAuthorizedException("role_not_authorized");
 				}
 			}
-		}
+		}*/
 	}
 
 	/**

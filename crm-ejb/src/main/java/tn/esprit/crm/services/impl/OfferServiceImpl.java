@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.validation.constraints.Null;
 
 import tn.esprit.crm.entities.Discount;
 import tn.esprit.crm.entities.Offer;
@@ -126,6 +127,19 @@ public class OfferServiceImpl implements IOfferService{
 	public List<User> getBestUsersWithOffer() {
 		List<User> users=em.createQuery("SELECT u FROM User u where u.userScore >= 100 and u.offer!=NULL",User.class).getResultList();
 		return users;
+	}
+
+	@Override
+	public Offer VerifyCoupon(String coupon) {
+		Query q=em.createQuery("SELECT o FROM Offer o where o.OffCode =:coupon and o.OffEndDate >= current_date()");
+		q.setParameter("coupon",coupon);
+		Offer f =(Offer) q.getSingleResult();
+		if(f!=null) {
+			return f;
+		}
+		else  {
+			return null ;
+		}
 	}
 
 }

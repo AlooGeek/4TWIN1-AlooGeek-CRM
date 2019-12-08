@@ -136,5 +136,23 @@ public class OfferRessource {
 
 		}
 		
+		
+		
+		
+		@Path("checkOffer/{OffCode}")
+		@GET
+		@Produces(MediaType.APPLICATION_JSON)
+		@PermitAll
+		public Response CheckOffer(@PathParam(value="OffCode") String code) {
+			try {
+			return Response.status(Status.OK).entity(OffService.VerifyCoupon(code)).build();
+				
+			}
+			catch (Exception e) {
+				return Response.status(Status.NOT_FOUND).entity(false).build();
+
+			}
+			}
+		
 	
 }

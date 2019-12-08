@@ -55,7 +55,16 @@ public class PackProductServiceImpl  implements IPackProductService{
 	@Override
 	public List<Pack_Product> getPriceOfPack() {
 		Query q=em.createQuery("SELECT SUM(p.prix),p.packs.id FROM Pack_Product p group by (p.packs.id)");
+		
 		return q.getResultList();	
+	}
+
+	@Override
+	public List<Pack_Product> Select() {
+		 List<Pack_Product>packproducts=em.createQuery("SELECT p FROM Pack_Product p group by (p.packs)",Pack_Product.class).getResultList();
+		 
+		// Map<Integer,List<Pack_Product>> result = packproducts.stream().collect(groupingBy(String::length)); 
+		return packproducts;
 	}
 	
 
