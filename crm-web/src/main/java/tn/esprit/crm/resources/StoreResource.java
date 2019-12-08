@@ -30,7 +30,7 @@ public class StoreResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response AddStore(Store s) {
 		storeserv.save(s);
-		return  Response.status(Status.OK).entity("Store Added : "+s).build();
+		return  Response.status(Status.OK).entity(storeserv.selectAll()).build();
 	}
 
 	@PermitAll
@@ -61,21 +61,12 @@ public class StoreResource {
 	
 	@PermitAll
 	@PUT
-	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-public Response UpdateStore(@PathParam(value="id") Long id,Store s) {
+public Response UpdateStore(Store s) {
 	
-		if (id!=0) {
-
 				storeserv.update(s);
-				return Response.status(Status.ACCEPTED).entity("Store "+id+" Updated").build();
-
-		}
-		
-	
-		
-		return Response.status(Status.NOT_MODIFIED).entity("Store Not Updated").build();
+				return Response.status(Status.ACCEPTED).entity(storeserv.selectAll()).build();
 
 	}
 
@@ -91,7 +82,7 @@ public Response UpdateStore(@PathParam(value="id") Long id,Store s) {
 		
 		try {
 		if (storeserv.remove(id_store)) {
-		return Response.status(Status.GONE).entity("Store "+id_store+" Deleted").build();
+		return Response.status(Status.OK).entity(storeserv.selectAll()).build();
 		}
 		}catch(Exception e) {
 			return Response.status(Status.NOT_FOUND).entity("The store that you try to delete have products").build();

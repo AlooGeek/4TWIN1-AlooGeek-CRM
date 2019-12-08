@@ -40,7 +40,7 @@ public class ProductRessource {
 		
 		if (servcat.getById(IdCategorie)!=null) {
 		servprod.save(p);
-		return  Response.status(Status.OK).entity("Product Added : "+p).build();
+		return  Response.status(Status.OK).entity(servprod.selectAll()).build();
 		}
 		return Response.status(Status.NOT_FOUND).entity("Category Not Found!").build();
 	}
@@ -62,6 +62,10 @@ public class ProductRessource {
 		
 
 		}
+	
+
+	
+	
 	@PermitAll
 	@GET
 	@Path("{param}/{value}")
@@ -76,15 +80,19 @@ public class ProductRessource {
 	
 	@PermitAll
 	@PUT
-	@Path("{id}/{id_discount}")
+	@Path("{IdCategorie}/{id_discount}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-public Response UpdateProduct(@PathParam(value="id") Long id,@PathParam(value="id_discount") Long id_discount,Product p) {
+public Response UpdateProduct(@PathParam(value="IdCategorie") Long IdCategorie,@PathParam(value="id_discount") Long id_discount,Product p) {
 
-		if (id!=0) {					
+						
 			p.setDiscount(servdisc.getById(id_discount));
-			p.setCategory(servprod.getById(id).getCategory());
-			p.setNewprice(p.getUnitPrice()-((( p.getUnitPrice()*servdisc.getById(id_discount).getReduction_amount())/100)));
+			if (servcat.getById(IdCategorie)==null) {
+			p.setCategory(servprod.getById(p.getId()).getCategory());
+			}else {
+				p.setCategory(servcat.getById(IdCategorie));
+			}
+		//	p.setNewprice(p.getUnitPrice()-((( p.getUnitPrice()*servdisc.getById(id_discount).getReduction_amount())/100)));
 
 			servprod.update(p);
 			
@@ -93,10 +101,10 @@ public Response UpdateProduct(@PathParam(value="id") Long id,@PathParam(value="i
 			}else {
 				servprod.DesactivateDispo(p.getId());
 			}
-		return Response.status(Status.ACCEPTED).entity("Product "+id+" Updated").build();
-		}
+		return Response.status(Status.OK).entity(servprod.selectAll()).build();
+		
 	
-		return Response.status(Status.NOT_MODIFIED).entity("Product Not Updated").build();
+		
 
 	}
 
@@ -108,11 +116,11 @@ public Response UpdateProduct(@PathParam(value="id") Long id,@PathParam(value="i
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteStore(@PathParam(value="id") Long id) {
+	public Response deleteProduct(@PathParam(value="id") Long id) {
 		
 		try {
 		if (servprod.remove(id)) {
-		return Response.status(Status.GONE).entity("Product "+id+" Deleted").build();
+		return Response.status(Status.OK).entity(servprod.selectAll()).build();
 		}
 		}catch(Exception e) {
 			return Response.status(Status.NOT_FOUND).entity("The Product that you try to delete is afected to a store ").build();

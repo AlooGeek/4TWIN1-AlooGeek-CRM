@@ -59,7 +59,7 @@ public class StoreProductRessource {
 			
 			servsp.save(sp);
 			
-			return  Response.status(Status.OK).entity("Store Product Added").build();
+			return  Response.status(Status.OK).entity(servpro.selectAll()).build();
 			
 		}
 	}
@@ -107,20 +107,18 @@ public class StoreProductRessource {
 		}
 	@PermitAll
 	@PUT
-	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-public Response UpdateStoreProd(@PathParam(value="id") Long id,StoreProduct sp) {
+public Response UpdateStoreProd(StoreProduct sp) {
 
-		if (id!=null) {
-			
-			sp.setStores(servsp.getById(id).getStores());
-			sp.setProducts(servsp.getById(id).getProducts());
-			servsp.update(sp);
-		return Response.status(Status.ACCEPTED).entity("Store Product "+id+" Updated").build();
-		}
 	
-		return Response.status(Status.NOT_MODIFIED).entity("Store Product Not Updated").build();
+			
+			sp.setStores(servsp.getById(sp.getId()).getStores());
+			sp.setProducts(servsp.getById(sp.getId()).getProducts());
+			servsp.update(sp);
+		return Response.status(Status.OK).entity(servsp.selectAll()).build();
+		
+	
 
 	}
 
@@ -134,8 +132,10 @@ public Response UpdateStoreProd(@PathParam(value="id") Long id,StoreProduct sp) 
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteStoreProd(@PathParam(value="id") Long id) {
 		
+		Long ids=servsp.getById(id).getStores().getId();
+		
 		if (servsp.remove(id)) {
-		return Response.status(Status.GONE).entity("Store Product "+id+" Deleted").build();
+		return Response.status(Status.OK).entity(servsp.selectBy("STORE_ID",""+ids)).build();
 		}
 		return Response.status(Status.NOT_FOUND).entity("Store Product Not Found").build();
 		

@@ -30,7 +30,7 @@ ICategoryService servcat;
 public Response AddCategory (Categorie c) {
 	
 	servcat.save(c);
-	return  Response.status(Status.OK).entity("Category Added : "+c).build();
+	return  Response.status(Status.OK).entity(servcat.selectAll()).build();
 }
 
 @PermitAll
@@ -61,17 +61,16 @@ public Response AfficheCategoryParamValue(@PathParam(value="param") String param
 	}
 @PermitAll
 @PUT
-@Path("{id}")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public Response UpdateCategory(@PathParam(value="id") Long id,Categorie c) {
+public Response UpdateCategory(Categorie c) {
 
-	if (id!=0) {					
+					
 		servcat.update(c);
-	return Response.status(Status.ACCEPTED).entity("Category "+id+" Updated").build();
-	}
+	return Response.status(Status.OK).entity(servcat.selectAll()).build();
+	
 
-	return Response.status(Status.NOT_MODIFIED).entity("Category Not Updated").build();
+	
 
 }
 
@@ -86,7 +85,7 @@ public Response UpdateCategory(@PathParam(value="id") Long id,Categorie c) {
 public Response deleteStore(@PathParam(value="id") Long id) {
 	
 	if (servcat.remove(id)) {
-	return Response.status(Status.GONE).entity("Category "+id+" Deleted").build();
+	return Response.status(Status.OK).entity(servcat.selectAll()).build();
 	}
 	return Response.status(Status.NOT_FOUND).entity("Category Not Found").build();
 	
