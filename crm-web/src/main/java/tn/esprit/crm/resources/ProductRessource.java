@@ -80,19 +80,19 @@ public class ProductRessource {
 	
 	@PermitAll
 	@PUT
-	@Path("{IdCategorie}/{id_discount}")
+	@Path("{IdCategorie}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-public Response UpdateProduct(@PathParam(value="IdCategorie") Long IdCategorie,@PathParam(value="id_discount") Long id_discount,Product p) {
+public Response UpdateProduct(@PathParam(value="IdCategorie") Long IdCategorie,Product p) {
 
 						
-			p.setDiscount(servdisc.getById(id_discount));
+			p.setDiscount(servdisc.getById(p.getDiscount().getId()));
 			if (servcat.getById(IdCategorie)==null) {
 			p.setCategory(servprod.getById(p.getId()).getCategory());
 			}else {
 				p.setCategory(servcat.getById(IdCategorie));
 			}
-		//	p.setNewprice(p.getUnitPrice()-((( p.getUnitPrice()*servdisc.getById(id_discount).getReduction_amount())/100)));
+		
 
 			servprod.update(p);
 			
@@ -108,6 +108,25 @@ public Response UpdateProduct(@PathParam(value="IdCategorie") Long IdCategorie,@
 
 	}
 
+	
+	@PermitAll
+	@PUT
+	@Path("affect/{id_discount}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+public Response affetDiscount(@PathParam(value="id_discount") Long id_discount,Product p) {
+
+			
+			p.setDiscount(servdisc.getById(id_discount));
+			
+		//	p.setNewprice(p.getUnitPrice()-((( p.getUnitPrice()*servdisc.getById(id_discount).getReduction_amount())/100)));
+
+			servprod.update(p);
+			
+		return Response.status(Status.OK).entity(servprod.selectAll()).build();
+		
+
+	}
 	
 	
 	
