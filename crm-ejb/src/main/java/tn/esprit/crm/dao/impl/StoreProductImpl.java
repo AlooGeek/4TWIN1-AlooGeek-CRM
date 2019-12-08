@@ -4,6 +4,7 @@ package tn.esprit.crm.dao.impl;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.mail.Store;
 import javax.persistence.Query;
 
 import tn.esprit.crm.dao.IStoreProductDao;
@@ -46,6 +47,19 @@ public class StoreProductImpl extends GenericDaoImpl<StoreProduct> implements IS
 		query.setParameter("idprod", id_prod);
 		query.executeUpdate();
 		
+	}
+
+	@Override
+	public List<StoreProduct> listGroupByProduct(Long IdStore) {
+		Query query = em.createQuery("select sp from StoreProduct sp where sp.stores.id=:IdStore group by sp.products",StoreProduct.class);
+		query.setParameter("IdStore", IdStore);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<StoreProduct> listGroupByStores() {
+		Query query = em.createQuery("select sp from StoreProduct sp group by sp.stores");
+		return query.getResultList();
 	}
 
 }

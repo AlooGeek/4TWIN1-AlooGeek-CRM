@@ -34,6 +34,14 @@ public class Store implements Serializable{
 	private float longitude;
 	private String ville;
 	
+	public String getVille() {
+		return ville;
+	}
+
+	public void setVille(String ville) {
+		this.ville = ville;
+	}
+
 	@OneToMany(mappedBy="stores",fetch=FetchType.EAGER)
 	private Set<StoreProduct> storeproduct;
 	
