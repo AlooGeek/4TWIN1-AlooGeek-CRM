@@ -83,8 +83,10 @@ public class ProductRessource {
 	@Produces(MediaType.APPLICATION_JSON)
 public Response UpdateProduct(@PathParam(value="IdCategorie") Long IdCategorie,Product p) {
 
-						
-			p.setDiscount(servdisc.getById(p.getDiscount().getId()));
+			/*if (p.getDiscount()!=null) {
+				p.setDiscount(servdisc.getById(p.getDiscount().getId()));
+			}*/
+		
 			if (servcat.getById(IdCategorie)==null) {
 			p.setCategory(servprod.getById(p.getId()).getCategory());
 			}else {
@@ -106,7 +108,7 @@ public Response UpdateProduct(@PathParam(value="IdCategorie") Long IdCategorie,P
 
 	}
 
-	@Path("affect/{id_discount}")
+	@Path("/affect/{id_discount}")
 	@PermitAll
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)

@@ -87,6 +87,27 @@ public class StoreProductRessource {
 		
 
 		}
+	
+	@PermitAll
+	@GET
+	@Path("/groupprod/{idStore}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response DisplayStoreProdListGroupByProd(@PathParam(value="idStore") Long idStore) {
+		return Response.status(Status.OK).entity(servsp.listGroupByProduct(idStore)).build();
+		
+
+		}
+	@PermitAll
+	@GET
+	@Path("groupstore")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response DisplayStoreProdListGroupByStore() {
+		return Response.status(Status.OK).entity(servsp.listGroupByStores()).build();
+		
+
+		}
+	
+	
 	@PermitAll
 	@GET
 	@Path("{id}")

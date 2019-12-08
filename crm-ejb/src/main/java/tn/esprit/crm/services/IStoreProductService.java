@@ -30,4 +30,8 @@ public interface IStoreProductService {
 	public void ActivateDispo(Long idsp,Long id_prod);
 	
 	public void DesactivateDispo(Long idsp,Long id_prod);
+	
+	public List<StoreProduct> listGroupByProduct(Long IdStore);
+	
+	public List<StoreProduct> listGroupByStores();
 }
