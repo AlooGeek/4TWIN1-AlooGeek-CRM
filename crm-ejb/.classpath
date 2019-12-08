@@ -35,7 +35,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Psico/Documents/GitHub/4TWIN1-AlooGeek-CRM/itextpdf-5.1.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Psico/Documents/GitHub/4TWIN1-AlooGeek-CRM/javax.mail-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ahmed Derbel/Documents/GitHub/4TWIN1-AlooGeek-CRM/itextpdf-5.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ahmed Derbel/Documents/GitHub/4TWIN1-AlooGeek-CRM/javax.mail-1.6.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

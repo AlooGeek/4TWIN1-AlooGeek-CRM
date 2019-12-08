@@ -14,6 +14,8 @@ public interface IDocumentDao extends IGenericDao<Document>{
 
 	public List<Document> listQuotes();
 	public List<Document> listBills();
+	public List<Document> listDocs();
+
 	public List<Document> listDocumentByUser(long userID);
 	public List<Document_line> listLine();
 	public String getLineDocByID(long id);

@@ -15,7 +15,7 @@ public interface IDocumentService {
 
 
 	/********Client************/ //CRUD not treat 
-	public String requestDocument(DocumentType reason, int qte,long idProd, long idUser);//done
+	public String requestDocument(DocumentType reason,int qte , long idProd, long idUser);//done
 	public String cancelRequestDocument(long documentID);//done
 	public String updateRequestDocument(long documentID);//done
 	/***********Document line******************************/
@@ -29,11 +29,12 @@ public interface IDocumentService {
 	public void updateDocument(Document newDocument);//done
 	public void deleteDocument(long documentID);//done
 	public Document findDocByID(long documentID);//done
+	public List<Document_line> getDocDetails(long documentID);//done
 
 	/***business 
 	 * @return ****/
-	public String calculateBill(long billID);//done
-	public String calculateQuote(long quoteID);//done
+	public void calculateBill(long billID);//done
+	public void calculateQuote(long quoteID);//done
 	public String trackDocumentState(long documentID);//done
 	public String deadlineReminder(long documentID);//done
 	public String pdfCreateDownloadDocument() ;
