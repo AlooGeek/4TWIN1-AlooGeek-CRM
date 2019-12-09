@@ -24,6 +24,10 @@ import tn.esprit.crm.services.IDiscountService;
 @Path("discount")
 public class DiscountResource {
 
+	
+	private final String statusstart="{\"statusres\":\"";
+	private final String statusEnd="\"}";
+
 	@EJB
 	IDiscountService discloc;
 	
@@ -57,7 +61,7 @@ public class DiscountResource {
 	public Response UpdateDiscount(@PathParam(value="id") Long id,Discount d) {
 			if(id!=0) {
 				discloc.update(d);
-					return Response.status(Status.ACCEPTED).entity("Discount Updated").build();
+					return Response.status(Status.OK).entity(statusstart+"discount updated"+statusEnd).build();
 		}
 			
 			return Response.status(Status.NOT_MODIFIED).entity("Discount n est pas modifie").build();
@@ -69,7 +73,6 @@ public class DiscountResource {
 		@Produces(MediaType.APPLICATION_JSON)
 		@RolesAllowed("admin")
 		public Response deleteDiscount(@PathParam(value="id") Long id) {
-			
 			if (discloc.remove(id)) {
 			return Response.status(Status.GONE).entity("Discount deleted"+id).build();
 			}
@@ -91,12 +94,22 @@ public class DiscountResource {
 		}
 		
 		@GET
+		@Path("statistiqueDiscountAmount")
+		@Produces(MediaType.APPLICATION_JSON)
+		@RolesAllowed("admin")
+		public Response DisplayStatListAmount() {
+			 
+			return Response.status(Status.OK).entity(discloc.StatistiqueDiscount()).build();
+
+			}
+		
+		@GET
 		@Path("statistiqueDiscount")
 		@Produces(MediaType.APPLICATION_JSON)
 		@RolesAllowed("admin")
 		public Response DisplayStatList() {
 			 
-			return Response.status(Status.OK).entity(discloc.StatistiqueDiscount()).build();
+			return Response.status(Status.OK).entity(discloc.StatistiqueDiscountCount()).build();
 
 			}
 		

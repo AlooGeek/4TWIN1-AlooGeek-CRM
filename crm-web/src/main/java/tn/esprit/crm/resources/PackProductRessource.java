@@ -29,6 +29,9 @@ import tn.esprit.crm.services.IProductService;
 
 @Path("packproducts")
 public class PackProductRessource {
+	
+	private final String statusstart="{\"statusres\":\"";
+	private final String statusEnd="\"}";
 
 	@EJB
 	IPackProductService packproductservice;
@@ -86,7 +89,7 @@ public Response UpdatePP(@PathParam(value="id") Long id,Pack_Product p) {
 			p.setPacks(packproductservice.getById(id).getPacks());
 			p.setProductss(packproductservice.getById(id).getProductss());
 			packproductservice.update(p);
-		return Response.status(Status.ACCEPTED).entity("Pack Product "+id+" Updated").build();
+		return Response.status(Status.ACCEPTED).entity(statusstart+"Pack Product "+id+" Updated"+statusEnd).build();
 		}
 	
 		return Response.status(Status.NOT_MODIFIED).entity("Pack Product Not Updated").build();
@@ -99,9 +102,10 @@ public Response UpdatePP(@PathParam(value="id") Long id,Pack_Product p) {
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed("admin")
 	public Response deletePackProduct(@PathParam(value="id") Long id) {
-		
+
 		if (packproductservice.remove(id)) {
-		return Response.status(Status.GONE).entity("Pack product deleted"+id).build();
+			
+		return Response.status(Status.OK).entity(statusstart+"Pack product deleted"+id+statusEnd).build();
 		}
 		return Response.status(Status.NOT_FOUND).entity("Not found Pack product").build();
 		
@@ -122,7 +126,7 @@ public Response UpdatePP(@PathParam(value="id") Long id,Pack_Product p) {
 	@Produces(MediaType.APPLICATION_JSON)
 	@PermitAll
 	public Response DisplayList() {
-		System.out.println("aaaaaa"+packproductservice.Select());
+		System.out.println(packproductservice.Select());
 		return Response.status(Status.OK).entity(packproductservice.Select()).build();
 		}
 	

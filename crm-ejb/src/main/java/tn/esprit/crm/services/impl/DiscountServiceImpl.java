@@ -50,7 +50,7 @@ public class DiscountServiceImpl implements IDiscountService  {
 		//List<Product>list=em.createQuery("SELECT p FROM Product u where u.discount:=id ",Product.class).getResultList();
 		
 		if(id!=0) {
-			Query q = em.createQuery("update Product p set p.discount=NULL where p.discount.id=:id"); //verifier si la discount est affecter a un produit
+			Query q = em.createQuery("update Product p set p.discount=NULL,p.newprice=0 where p.discount.id=:id"); //verifier si la discount est affecter a un produit
 			q.setParameter("id", id);
 			q.executeUpdate();
 			 discountDao.remove(id);
@@ -76,14 +76,20 @@ public class DiscountServiceImpl implements IDiscountService  {
 
 	@Override
 	public List<Discount> StatistiqueDiscount() {
-		Query q=em.createQuery("SELECT p.discount.reduction_amount ,COUNT(*)  from Product p group by(p.discount.id)");
-		return q.getResultList();			
+	Query q=em.createQuery("SELECT p.discount.reduction_amount from Product p group by(p.discount.id)");
+	return q.getResultList();
 		}
 
 	@Override
 	public List<Product> getProductWithoutDiscount() {
 		List<Product> products=em.createQuery("SELECT p FROM Product p where p.discount=NULL",Product.class).getResultList();
 		return products;
+	}
+
+	@Override
+	public List<Discount> StatistiqueDiscountCount() {
+		Query q=em.createQuery("SELECT COUNT(p.discount)  from Product p group by(p.discount.id)");
+		return q.getResultList();	
 	}
 		
 		

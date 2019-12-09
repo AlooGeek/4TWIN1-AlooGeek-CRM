@@ -24,6 +24,9 @@ import tn.esprit.crm.services.IPackService;
 @Path("pack")
 public class PackRessource {
 
+	private final String statusstart="{\"statusres\":\"";
+	private final String statusEnd="\"}";
+
 	@EJB
 	IPackService packService;
 	
@@ -57,7 +60,7 @@ public class PackRessource {
 			if(id!=0) {
 				
 					packService.update(p);
-					return Response.status(Status.ACCEPTED).entity("Pack Updated").build();
+					return Response.status(Status.OK).entity(statusstart+"Pack Updated"+statusEnd).build();
 		}
 			
 			return Response.status(Status.NOT_MODIFIED).entity("Pack n est pas modifie").build();

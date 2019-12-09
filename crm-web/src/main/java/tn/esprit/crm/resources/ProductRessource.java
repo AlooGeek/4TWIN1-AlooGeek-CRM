@@ -22,6 +22,10 @@ import tn.esprit.crm.services.IProductService;
 @Path("product")
 public class ProductRessource {
 
+	private final String statusstart="{\"statusres\":\"";
+	private final String statusEnd="\"}";
+
+	
 	@EJB
 	IProductService servprod;
 	@EJB
@@ -117,7 +121,7 @@ public Response affetDiscount(@PathParam(value="id_discount") Long id_discount,P
 			p.setDiscount(servdisc.getById(id_discount));
 			p.setNewprice(p.getUnitPrice()-((( p.getUnitPrice()*servdisc.getById(id_discount).getReduction_amount())/100)));
 			servprod.update(p);
-			return Response.status(Status.ACCEPTED).entity("Product Updated").build();
+			return Response.status(Status.OK).entity(statusstart+"Product Updated"+statusEnd).build();
 
 			}
 		return Response.status(Status.NOT_MODIFIED).entity("Product Not Updated").build();

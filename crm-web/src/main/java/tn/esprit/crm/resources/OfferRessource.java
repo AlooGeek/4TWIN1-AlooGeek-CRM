@@ -26,6 +26,9 @@ import tn.esprit.crm.services.IUserService;
 @Path("offer")
 public class OfferRessource {
 
+	private final String statusstart="{\"statusres\":\"";
+	private final String statusEnd="\"}";
+
 	@EJB
 	IOfferService OffService; 
 	@EJB
@@ -62,7 +65,7 @@ public class OfferRessource {
 				if(OffCode!=null) {
 					
 					OffService.update(o);
-					return Response.status(Status.ACCEPTED).entity("Offer Updated").build();
+					return Response.status(Status.ACCEPTED).entity(statusstart+"Offer Updated"+statusEnd).build();
 
 				
 			
@@ -80,7 +83,7 @@ public class OfferRessource {
 			//set offer code in user already affected null
 			OffService.setUsersNull();
 			if (OffService.Delete(OffCode)) {
-			return Response.status(Status.GONE).entity("Offer deleted"+OffCode).build();
+			return Response.status(Status.OK).entity(statusstart+"Offer deleted"+OffCode+statusEnd).build();
 			}
 			return Response.status(Status.NOT_FOUND).entity("Not found Offer").build();
 			
@@ -114,7 +117,7 @@ public class OfferRessource {
 			if(OffCode!=null) {
 				
 				OffService.AddOfferToUser(OffCode);
-					return Response.status(Status.ACCEPTED).entity("Offer affected").build();
+					return Response.status(Status.ACCEPTED).entity(statusstart+"Offer affected"+statusEnd).build();
 		}
 			
 			return Response.status(Status.NOT_MODIFIED).entity("Offer not affected").build();
@@ -129,7 +132,7 @@ public class OfferRessource {
 			if(idUser!=0) {
 				
 				OffService.AddScoreToUser(idUser);
-					return Response.status(Status.ACCEPTED).entity("User Score Updated").build();
+					return Response.status(Status.ACCEPTED).entity(statusstart+"User Score Updated"+statusEnd).build();
 		}
 			
 			return Response.status(Status.NOT_MODIFIED).entity("Score not updated").build();

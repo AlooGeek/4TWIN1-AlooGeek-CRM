@@ -41,6 +41,9 @@ public class PackProductServiceImpl  implements IPackProductService{
 	@Override
 	public boolean remove(Long id) {
 		if(id!=0) {
+			Query q = em.createQuery("update Pack_Product p set p.packs=NULL,p.productss=NULL where p.id=:id");
+			q.setParameter("id", id);
+			q.executeUpdate();
 			 ppdao.remove(id);
 			 return true;
 		}

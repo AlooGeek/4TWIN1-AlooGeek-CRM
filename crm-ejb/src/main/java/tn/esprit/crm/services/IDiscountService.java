@@ -19,4 +19,5 @@ public interface IDiscountService {
 	public boolean DeleteExpiredDiscount ();
 	public List<Product> getProductWithoutDiscount();
 	public List<Discount> StatistiqueDiscount();
+	public List<Discount> StatistiqueDiscountCount();
 }
