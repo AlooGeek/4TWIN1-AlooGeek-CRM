@@ -24,7 +24,9 @@ import tn.esprit.crm.entities.DocumentState;
 import tn.esprit.crm.entities.DocumentType;
 import tn.esprit.crm.entities.Product;
 import tn.esprit.crm.entities.StoreProduct;
+import tn.esprit.crm.entities.User;
 import tn.esprit.crm.services.IDocumentService;
+import tn.esprit.crm.services.IProductService;
 import tn.esprit.crm.services.IStoreProductService;
 import tn.esprit.crm.util.MailSender;
 import tn.esprit.crm.util.PDFGenerator;
@@ -36,6 +38,7 @@ public class DocumentServiceImp implements IDocumentService {
 	EntityManager em;
 	
 	private IDocumentDao documentDao;
+	private IProductService prodService;
 
 
 	@Override
@@ -49,7 +52,9 @@ public class DocumentServiceImp implements IDocumentService {
 		commande.setDate_creation(new Date());
 		commande.setState(DocumentState.notTreated);
 		
-		//commande.setUser(currentUser);
+	//	commande.setUser(currentUser);
+		//System.out.println(currentUser.getId() + " "+ currentUser.getGender());
+		//get user 
 		//commande.setUser(authenticationService.getAuthenticated());
 		//notify admin to validate it by mail
 		this.addDocument(commande);
@@ -70,14 +75,15 @@ public class DocumentServiceImp implements IDocumentService {
 		try {
 			mailSender.sendMessage(
 					"smtp.gmail.com",
-					"sender mail",
-					"password",
+					"rabeimelek9@gmail.com",
+					//change password
+					"@Yaoming913",
 					"587",
 					"true",
 					"true",
-					"ahmed.derbel@esprit.tn",
-					"destination",
-					"New "+reason+" Request"
+					"rabeimelek9@gmail.com",
+					"New "+reason+" Request",
+					messageBody
 			);
 		}
 		catch (MessagingException e) {
@@ -102,12 +108,12 @@ public class DocumentServiceImp implements IDocumentService {
 		try {
 			mailSender.sendMessage(
 					"smtp.gmail.com",
-					"sender mail",
-					"password",
+					"rabeimelek9@gmail.com",
+					"@Yaoming913",
 					"587",
 					"true",
 					"true",
-					"destination",
+					"rabeimelek9@gmail.com",
 					"New Cancellation",
 					messageBody
 			);
@@ -137,14 +143,14 @@ public class DocumentServiceImp implements IDocumentService {
 		try {
 			mailSender.sendMessage(
 					"smtp.gmail.com",
-					"sender mail",
-					"password",
+					"rabeimelek9@gmail.com",
+					"@Yaoming913",
 					"587",
 					"true",
 					"true",
-					"ahmed.derbel@esprit.tn",
-					"destination",
-					"New Command update"
+					"rabeimelek9@gmail.com",
+					"New Command update",
+					messageBody
 			);
 		}
 		catch (MessagingException e) {
@@ -171,6 +177,7 @@ public class DocumentServiceImp implements IDocumentService {
 		 //add document (bill)	
 		document.setState(DocumentState.validated);
 		Document autoDoc= new Document();
+		autoDoc.setId_commande(document.getId());
 		//get the user id
 		//autoDoc.setUser(document.getUser());
 		autoDoc.setDate_creation(new Date());
@@ -179,28 +186,19 @@ public class DocumentServiceImp implements IDocumentService {
 		//check type 
 		if(document.getType()==DocumentType.command && document.getState()==DocumentState.validated) {
 			autoDoc.setType(DocumentType.bill);
-		// create doc line 
-		Document_line docLine = new Document_line();
-		docLine.setCreation_date(new Date());
-		docLine.setProduct(em.find(Product.class, prodID));
-		docLine.setDocument(em.find(Document.class, autoDoc.getId()));
-		docLine.setQuantity(qte);
+		
 		
 		this.addDocument(autoDoc);
-		this.addLine(docLine, prodID, autoDoc.getId());
 		//update document type
 		//update product qty 
-		prod.setQte(prod.getQte()-qte);
+		//prod.setQte(prod.getQte()-qte);
 		//calculate bill
-		this.calculateBill(autoDoc.getId());
+		this.calculateBill(document.getId());
+		autoDoc.setTotal(document.getTotal());
+		autoDoc.setTotal_ttc(document.getTotal_ttc());
+		autoDoc.setTotal_ht(document.getTotal_ht());
 		
-
-		} else {
-			//creatiioon du quote à part
-		autoDoc.setType(DocumentType.quote);
-		this.calculateQuote(autoDoc.getId());
-		this.addDocument(autoDoc);
-			}
+		} 
 		//set ligne document
 		res= "The request has been validated successfully you will find this product in the following stores"; 
 		return res; 
@@ -233,56 +231,65 @@ public class DocumentServiceImp implements IDocumentService {
 	public Document findDocByID(long documentID) {
 		
 		if (em.contains( em.find(Document.class,documentID))== true) {
-		Document doc = em.find(Document.class,documentID);
-		return doc;}
+			Document doc = em.find(Document.class,documentID);
+			return doc;}
+		
 		else return null;
+	}
+	@Override
+	public List getDocDetails(long documentID){
+		
+		long id = this.findDocByID(documentID).getId();
+		System.out.println(id);
+		List lines = em.createQuery("select d,p.label as label, p.unitPrice as price , p.tva as tva from Document_line d , Product p where d.document.id = :id and d.product.id=p.id ")
+				.setParameter("id", id).getResultList();
+		List linesList = new ArrayList();
+		for(Object line : lines){
+			linesList.add(line);
+		}
+		System.out.println(linesList);
+		return linesList;
 	}
 	
 
 	@Override
-	public String calculateBill(long billID) {
+	public void calculateBill(long billID) {
 		
 		
 		Document document = this.findDocByID(billID);
+
 		 String ht = em.createQuery("SELECT   sum(p.unitPrice*d.quantity) "
 					+ "FROM Document_line d, Product p , Document doc"
 					+ " WHERE d.product= p.id\r\n" + 
 					"and d.document = doc.id "
-					+ " and doc.id= :billID "
-					+ " and doc.type = 1").setParameter("billID", billID)
+					+ " and doc.id= :billID and doc.type = 2").setParameter("billID", billID)
 				 .getSingleResult().toString();
 		 float totalht = Float.parseFloat(ht);
 		document.setTotal_ht(totalht);
+
 		 
 		String ttc= em.createQuery("SELECT   sum(p.unitPrice*d.quantity*(p.tva/100)+ (p.unitPrice*d.quantity)) "
 					+ "FROM Document_line d, Product p , Document doc "
 					+ " WHERE d.product= p.id\r\n" + 
 					"and d.document = doc.id "
-					+ " and doc.id= :billID  "
-					+ " and doc.type = 1").setParameter("billID", billID).getSingleResult().toString();
+					+ " and doc.id= :billID and doc.type = 2").setParameter("billID", billID).getSingleResult().toString();
 		 float totalttc = Float.parseFloat(ttc);
 		 document.setTotal_ttc(totalttc);
+
 		
 		String total =  em.createQuery("SELECT   SUM((p.unitPrice*d.quantity*(p.tva/100)) + (p.unitPrice*d.quantity))  as total "
 				+ "FROM Document_line d, Product p , Document doc"
 				+ " WHERE d.product= p.id\r\n" + 
 				"and d.document = doc.id "
-				+ " and doc.id= :billID "
-				+ " and doc.type = 1").setParameter("billID", billID).getSingleResult().toString();
+				+ " and doc.id= :billID and doc.type = 2").setParameter("billID", billID).getSingleResult().toString();
 		 float tot = Float.parseFloat(total);
 		 document.setTotal(tot);
-
-		
-		
-					
-		return " Facture" + billID+"Le total =" + tot + ", totalTTC = "+totalttc+", totalHT = "+ totalht;
-
 		
 	}
 	
 
 	@Override
-	public String calculateQuote(long quoteID) {
+	public void calculateQuote(long quoteID) {
 		Document document = this.findDocByID(quoteID);
 		//must create method to calculate ttc n ht
 		 String ht = em.createQuery("SELECT   sum(p.unitPrice*d.quantity) "
@@ -311,9 +318,7 @@ public class DocumentServiceImp implements IDocumentService {
 				+ " and doc.id= :quoteID "
 				+ " and doc.type = 0").setParameter("quoteID", quoteID).getSingleResult().toString();
 		 float tot = Float.parseFloat(total);
-		 document.setTotal(tot);
-		 return " Facture" + quoteID+"Le total =" + tot + ", totalTTC = "+totalttc+", totalHT = "+ totalht;
-		 
+		 document.setTotal(tot);		 
 		 
 	}
 

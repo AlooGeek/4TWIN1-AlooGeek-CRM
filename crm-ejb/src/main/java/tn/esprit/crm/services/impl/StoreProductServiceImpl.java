@@ -85,6 +85,17 @@ public class StoreProductServiceImpl implements IStoreProductService {
 		spDao.DesactivateDispo(idsp, id_prod);
 		
 	}
+
+	@Override
+	public List<StoreProduct> listGroupByProduct(Long IdStore) {
+		
+		return spDao.listGroupByProduct(IdStore);
+	}
+
+	@Override
+	public List<StoreProduct> listGroupByStores() {
+		return spDao.listGroupByStores();
+	}
 	
 	
 	

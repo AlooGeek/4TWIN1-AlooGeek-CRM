@@ -3,7 +3,6 @@ package tn.esprit.crm.entities;
 import java.io.Serializable;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,12 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.xml.bind.annotation.XmlRootElement;
 
 
 
 @Entity
-@XmlRootElement
 public class Document implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -30,12 +27,11 @@ public class Document implements Serializable {
 	private Date date_creation;
 	private DocumentType type;
 	private DocumentState State;
-	
-	@OneToMany (mappedBy="document",cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	private long id_commande;
+	//fetch
+	@OneToMany (mappedBy = "document",cascade = CascadeType.ALL, fetch= FetchType.EAGER)
 	private Set<Document_line> doc_lines;
 	
-
-
 	@ManyToOne
 	User user;
 
@@ -45,7 +41,7 @@ public class Document implements Serializable {
 	}
 
 	public Document(long id, float total_ht, float total_ttc, float total, Date date_creation, DocumentType type,
-			DocumentState state, User user) {
+			DocumentState state, Set<Document_line> doc_lines, User user) {
 		super();
 		this.id = id;
 		this.total_ht = total_ht;
@@ -54,6 +50,7 @@ public class Document implements Serializable {
 		this.date_creation = date_creation;
 		this.type = type;
 		State = state;
+		this.doc_lines = doc_lines;
 		this.user = user;
 	}
 
@@ -116,6 +113,7 @@ public class Document implements Serializable {
 	}
 
 
+
 	public User getUser() {
 		return user;
 	}
@@ -128,6 +126,14 @@ public class Document implements Serializable {
 	public String toString() {
 		return "Document [id=" + id + ", total_ht=" + total_ht + ", total_ttc=" + total_ttc + ", total=" + total
 				+ ", date_creation=" + date_creation + ", type=" + type + ", State=" + State + ", user=" + user + "]";
+	}
+
+	public long getId_commande() {
+		return id_commande;
+	}
+
+	public void setId_commande(long id_commande) {
+		this.id_commande = id_commande;
 	}
 	
 	

@@ -35,7 +35,15 @@ public class DocumentDaoImp extends GenericDaoImpl<Document> implements IDocumen
 		}
 		return billsList;
 	}
-
+   @Override
+	public List<Document> listDocs() {
+		List<Document> bills = em.createQuery("select d from Document d",Document.class).getResultList();
+		List<Document> billsList = new ArrayList<Document>();
+		for(Document bill : bills){
+			billsList.add(bill);
+		}
+		return billsList;
+	}
 	@Override
 	public List<Document> listDocumentByUser(long userID) {
 		List<Document> docs =
