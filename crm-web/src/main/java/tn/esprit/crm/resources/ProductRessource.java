@@ -1,6 +1,7 @@
 package tn.esprit.crm.resources;
 
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -33,7 +34,7 @@ public class ProductRessource {
 	@EJB
 	ICategoryService servcat;
 	
-	@PermitAll
+	@RolesAllowed("ROLE_ADMIN")
 	@POST
 	@Path("{IdCategorie}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -80,7 +81,7 @@ public class ProductRessource {
 
 		}
 	
-	@PermitAll
+	@RolesAllowed("ROLE_ADMIN")
 	@PUT
 	@Path("{IdCategorie}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -113,7 +114,7 @@ public Response UpdateProduct(@PathParam(value="IdCategorie") Long IdCategorie,P
 	}
 
 	@Path("/affect/{id_discount}")
-	@PermitAll
+	@RolesAllowed("ROLE_ADMIN")
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -135,7 +136,7 @@ public Response affetDiscount(@PathParam(value="id_discount") Long id_discount,P
 	
 	
 	
-	@PermitAll
+	@RolesAllowed("ROLE_ADMIN")
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)

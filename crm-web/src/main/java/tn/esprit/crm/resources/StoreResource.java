@@ -2,6 +2,7 @@ package tn.esprit.crm.resources;
 
 
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -24,7 +25,7 @@ public class StoreResource {
 	@EJB
 	IStoreService storeserv;
 
-	@PermitAll
+	@RolesAllowed("ROLE_ADMIN")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -59,7 +60,7 @@ public class StoreResource {
 		}
 	
 	
-	@PermitAll
+	@RolesAllowed("ROLE_ADMIN")
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -74,7 +75,7 @@ public Response UpdateStore(Store s) {
 	
 	
 	
-	@PermitAll
+	@RolesAllowed("ROLE_ADMIN")
 	@DELETE
 	@Path("{id_store}")
 	@Produces(MediaType.APPLICATION_JSON)

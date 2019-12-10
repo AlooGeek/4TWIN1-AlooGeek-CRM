@@ -2,6 +2,7 @@ package tn.esprit.crm.resources;
 
 
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -32,7 +33,7 @@ public class StoreProductRessource {
 	@EJB
 	IProductService servpro;
 	
-	@PermitAll
+	@RolesAllowed("ROLE_ADMIN")
 	@POST
 	@Path("{id_store}/{id_product}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -126,7 +127,7 @@ public class StoreProductRessource {
 		
 
 		}
-	@PermitAll
+	@RolesAllowed("ROLE_ADMIN")
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -147,7 +148,7 @@ public Response UpdateStoreProd(StoreProduct sp) {
 	
 	
 	
-	@PermitAll
+	@RolesAllowed("ROLE_ADMIN")
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
