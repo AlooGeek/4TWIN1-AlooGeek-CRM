@@ -44,52 +44,51 @@ public class DocumentServiceImp implements IDocumentService {
 	@Override
 	public String requestDocument(DocumentType reason, int qte,long idProd, long idUser) {
 
+		
 		// create doc (command) use it to send mail
-	
-		Document commande = new Document();
-		//User currentUser = (User) em.find(UserPhysical.class, idUser); 
-		commande.setType(DocumentType.command);
-		commande.setDate_creation(new Date());
-		commande.setState(DocumentState.notTreated);
 		
-	//	commande.setUser(currentUser);
-		//System.out.println(currentUser.getId() + " "+ currentUser.getGender());
-		//get user 
-		//commande.setUser(authenticationService.getAuthenticated());
-		//notify admin to validate it by mail
-		this.addDocument(commande);
-		Product prod = em.find(Product.class, idProd);
-		String prodname = prod.getLabel();
+			Document commande = new Document();
+			commande.setType(DocumentType.command);
+			commande.setDate_creation(new Date());
+			commande.setState(DocumentState.notTreated);
+			commande.setUser(null);
+			
+			this.addDocument(commande);
+	        //add prod list
+			 List<Product> prods = em.createQuery("select d from Product d",Product.class).getResultList();
+			  
+		 	prods.forEach(p-> {System.out.println();
+		 	Document_line dl= new Document_line();
+		 	dl.setCreation_date(new Date());
+		 	this.addLine(dl, p.getId(), commande.getId());});
+		 		
 		
-		String description = " Produit :  " +prod.getId()+"  "+prodname + ", Quantity"+qte ; 
-		System.out.println(description);
-
-		MailSender mailSender = new MailSender();
-		String messageBody = "Dear Stock Supervisor, <br>"
-				+ "You have a new  request "+ commande.getId()+"from the client : . <br>"
-				+ "<b>Request details:</b> <br>"
-				+ "Request context: " + reason + "<br>"
-				+ "Products Description: " + description + "<br>"
-				+ "Date: " + commande.getDate_creation() + "<br>"
-				+"Please take the time to review it . <br> Cordially";
-		try {
-			mailSender.sendMessage(
-					"smtp.gmail.com",
-					"rabeimelek9@gmail.com",
-					//change password
-					"@Yaoming913",
-					"587",
-					"true",
-					"true",
-					"rabeimelek9@gmail.com",
-					"New "+reason+" Request",
-					messageBody
-			);
-		}
-		catch (MessagingException e) {
-			throw new RuntimeException(e);
-		}
-		return "Email request sent successfully";
+			/*MailSender mailSender = new MailSender();
+			String messageBody = "Dear Stock Supervisor, <br>"
+					+ "You have a new  request "+ commande.getId()+"from the client : . <br>"
+					+ "<b>Request details:</b> <br>"
+					+ "Request context: " + reason + "<br>"
+					+ "Products Description: " + description + "<br>"
+					+ "Date: " + commande.getDate_creation() + "<br>"
+					+"Please take the time to review it . <br> Cordially";
+			try {
+				mailSender.sendMessage(
+						"smtp.gmail.com",
+						"rabeimelek9@gmail.com",
+						//change password
+						"@Yaoming913",
+						"587",
+						"true",
+						"true",
+						"rabeimelek9@gmail.com",
+						"New "+reason+" Request",
+						messageBody
+				);
+			}
+			catch (MessagingException e) {
+				throw new RuntimeException(e);
+			}*/
+			return "Email request sent successfully";
 	
 	}
 

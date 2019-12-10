@@ -53,9 +53,9 @@ public class DocumentResource {
 	@Path("/request")
 	@Produces(MediaType.APPLICATION_JSON)
 	@PermitAll
-	public Response request(@QueryParam(value ="qte") int qte , @QueryParam(value="idProd") long idProd, @QueryParam(value="idUser")long idUser) {
+	public Response request( @QueryParam(value="idUser")long idUser) {
 		DocumentType type = null ;
-	  return Response.status(Status.CREATED).entity(documentService.requestDocument(type.command,qte,idProd, idUser)).build();
+	  return Response.status(Status.CREATED).entity(documentService.requestDocument( idUser)).build();
 	
 	}
 	@POST 
