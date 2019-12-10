@@ -33,7 +33,7 @@ public class PackRessource {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed("admin")
+	@RolesAllowed("ROLE_ADMIN")
 	public Response AddPack(Pack p) {
 		packService.save(p);
 		return  Response.status(Status.OK).entity("votre pack a ete ajouté").build();
@@ -53,7 +53,7 @@ public class PackRessource {
 		
 	@PUT
 	@Path("{id}")
-	@RolesAllowed("admin")
+	@RolesAllowed("ROLE_ADMIN")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response UpdatePack(@PathParam(value="id") Long id,Pack p) {
@@ -70,7 +70,7 @@ public class PackRessource {
 		@DELETE
 		@Path("{id}")
 		@Produces(MediaType.APPLICATION_JSON)
-		@RolesAllowed("admin")
+		@RolesAllowed("ROLE_ADMIN")
 		public Response deletePack(@PathParam(value="id") Long id) {
 			
 			if (packService.remove(id)) {

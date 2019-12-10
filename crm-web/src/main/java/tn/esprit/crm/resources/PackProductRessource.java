@@ -46,7 +46,7 @@ public class PackProductRessource {
 	@Path("{idpack}/{idproduct}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed("admin")
+	@RolesAllowed("ROLE_ADMIN")
 	public Response AddPack_Product(@PathParam(value="idpack") Long idpack,@PathParam(value="idproduct") Long idproduct,Pack_Product pp) throws ParseException {
 		//pp=new Pack_Product();
 		SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd ");
@@ -82,7 +82,7 @@ public class PackProductRessource {
 	@Path("{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed("admin")
+	@RolesAllowed("ROLE_ADMIN")
 public Response UpdatePP(@PathParam(value="id") Long id,Pack_Product p) {
 
 		if (id!=null) {
@@ -100,7 +100,7 @@ public Response UpdatePP(@PathParam(value="id") Long id,Pack_Product p) {
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed("admin")
+	@RolesAllowed("ROLE_ADMIN")
 	public Response deletePackProduct(@PathParam(value="id") Long id) {
 
 		if (packproductservice.remove(id)) {

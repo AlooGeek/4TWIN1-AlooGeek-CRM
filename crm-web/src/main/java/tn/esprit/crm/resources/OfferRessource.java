@@ -36,7 +36,7 @@ public class OfferRessource {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed("admin")
+	@RolesAllowed("ROLE_ADMIN")
 	public Response AddOffer(Offer o) {
 		
 		
@@ -59,7 +59,7 @@ public class OfferRessource {
 		@Path("{OffCode}")
 		@Consumes(MediaType.APPLICATION_JSON)
 		@Produces(MediaType.APPLICATION_JSON)
-		@RolesAllowed("admin")
+		@RolesAllowed("ROLE_ADMIN")
 	public Response UpdateOffer(@PathParam(value="OffCode") String OffCode,Offer o) {
 			
 				if(OffCode!=null) {
@@ -78,7 +78,7 @@ public class OfferRessource {
 		@DELETE
 		@Path("{OffCode}")
 		@Produces(MediaType.APPLICATION_JSON)
-		@RolesAllowed("admin")
+		@RolesAllowed("ROLE_ADMIN")
 		public Response deleteOffer(@PathParam(value="OffCode") String OffCode) {
 			//set offer code in user already affected null
 			OffService.setUsersNull();
@@ -92,7 +92,7 @@ public class OfferRessource {
 		@Path("bestusers")
 		@GET
 		@Produces(MediaType.APPLICATION_JSON)
-		@RolesAllowed("admin")
+		@RolesAllowed("ROLE_ADMIN")
 		public Response DisplayScoredUsers() {
 			return Response.status(Status.OK).entity(OffService.getBestUsers()).build();
 
@@ -101,7 +101,7 @@ public class OfferRessource {
 		@Path("bestuserswithoffer")
 		@GET
 		@Produces(MediaType.APPLICATION_JSON)
-		@RolesAllowed("admin")
+		@RolesAllowed("ROLE_ADMIN")
 		public Response DisplayOfferedUsers() {
 			return Response.status(Status.OK).entity(OffService.getBestUsersWithOffer()).build();
 
@@ -112,7 +112,7 @@ public class OfferRessource {
 		@PUT
 		@Path("/affected/{OffCode}")
 		@Consumes(MediaType.APPLICATION_JSON)
-		@RolesAllowed("admin")
+		@RolesAllowed("ROLE_ADMIN")
 		public Response AddOfferToUser(@PathParam(value="OffCode") String OffCode) {
 			if(OffCode!=null) {
 				
@@ -126,7 +126,7 @@ public class OfferRessource {
 		
 		@PUT
 		@Path("/UpdateScore/{idUser}")
-		@RolesAllowed("admin")
+		@PermitAll
 		@Consumes(MediaType.APPLICATION_JSON)
 		public Response UpdateScore(@PathParam(value="idUser") Long idUser) {
 			if(idUser!=0) {

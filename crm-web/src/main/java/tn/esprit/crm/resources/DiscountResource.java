@@ -20,7 +20,6 @@ import javax.ws.rs.core.Response.Status;
 
 import tn.esprit.crm.entities.Discount;
 import tn.esprit.crm.services.IDiscountService;
-
 @Path("discount")
 public class DiscountResource {
 
@@ -34,7 +33,7 @@ public class DiscountResource {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed("admin")
+	@RolesAllowed("ROLE_ADMIN")
 	
 	public Response AddDiscount(Discount d) {
 		
@@ -57,7 +56,7 @@ public class DiscountResource {
 		@Path("{id}")
 		@Consumes(MediaType.APPLICATION_JSON)
 		@Produces(MediaType.APPLICATION_JSON)
-		@RolesAllowed("admin")
+		@RolesAllowed("ROLE_ADMIN")
 	public Response UpdateDiscount(@PathParam(value="id") Long id,Discount d) {
 			if(id!=0) {
 				discloc.update(d);
@@ -71,7 +70,7 @@ public class DiscountResource {
 		@DELETE
 		@Path("{id}")
 		@Produces(MediaType.APPLICATION_JSON)
-		@RolesAllowed("admin")
+		@RolesAllowed("ROLE_ADMIN")
 		public Response deleteDiscount(@PathParam(value="id") Long id) {
 			if (discloc.remove(id)) {
 			return Response.status(Status.GONE).entity("Discount deleted"+id).build();
@@ -83,7 +82,7 @@ public class DiscountResource {
 		@DELETE
 		@Path("deleteExpired")
 		@Produces(MediaType.APPLICATION_JSON)
-		@RolesAllowed("admin")
+		@RolesAllowed("ROLE_ADMIN")
 	public Response deleteExpiredDiscount() {
 			
 			if (discloc.DeleteExpiredDiscount()) {
@@ -96,7 +95,7 @@ public class DiscountResource {
 		@GET
 		@Path("statistiqueDiscountAmount")
 		@Produces(MediaType.APPLICATION_JSON)
-		@RolesAllowed("admin")
+		@RolesAllowed("ROLE_ADMIN")
 		public Response DisplayStatListAmount() {
 			 
 			return Response.status(Status.OK).entity(discloc.StatistiqueDiscount()).build();
@@ -106,7 +105,7 @@ public class DiscountResource {
 		@GET
 		@Path("statistiqueDiscount")
 		@Produces(MediaType.APPLICATION_JSON)
-		@RolesAllowed("admin")
+		@RolesAllowed("ROLE_ADMIN")
 		public Response DisplayStatList() {
 			 
 			return Response.status(Status.OK).entity(discloc.StatistiqueDiscountCount()).build();
@@ -116,7 +115,7 @@ public class DiscountResource {
 		@GET
 		@Path("productsnotdiscounted")
 		@Produces(MediaType.APPLICATION_JSON)
-		@RolesAllowed("admin")
+		@RolesAllowed("ROLE_ADMIN")
 		public Response DisplayProductWithoutDiscount() {
 			return Response.status(Status.OK).entity(discloc.getProductWithoutDiscount()).build();
 			
