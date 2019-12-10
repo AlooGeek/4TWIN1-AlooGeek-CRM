@@ -24,6 +24,9 @@ public class StoreResource {
 	
 	@EJB
 	IStoreService storeserv;
+	
+	private final String statusstart="{\"statusres\":\"";
+	private final String statusEnd="\"}";
 
 	@RolesAllowed("ROLE_ADMIN")
 	@POST
@@ -86,7 +89,7 @@ public Response UpdateStore(Store s) {
 		return Response.status(Status.OK).entity(storeserv.selectAll()).build();
 		}
 		}catch(Exception e) {
-			return Response.status(Status.NOT_FOUND).entity("The store that you try to delete have products").build();
+			return Response.status(Status.OK).entity(statusstart+"The store that you try to delete have products"+statusEnd).build();
 		}
 		return Response.status(Status.NOT_FOUND).entity("Store Not Found").build();
 		

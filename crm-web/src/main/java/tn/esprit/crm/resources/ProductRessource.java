@@ -147,7 +147,7 @@ public Response affetDiscount(@PathParam(value="id_discount") Long id_discount,P
 		return Response.status(Status.OK).entity(servprod.selectAll()).build();
 		}
 		}catch(Exception e) {
-			return Response.status(Status.NOT_FOUND).entity("The Product that you try to delete is afected to a store ").build();
+			return Response.status(Status.OK).entity(statusstart+"The Product That you are trying to Delete is affected to a store"+statusEnd).build();
 		}
 		return Response.status(Status.NOT_FOUND).entity("Product Not Found").build();
 		

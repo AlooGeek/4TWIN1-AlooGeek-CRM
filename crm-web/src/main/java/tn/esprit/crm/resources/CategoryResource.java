@@ -24,6 +24,10 @@ public class CategoryResource {
 @EJB 
 ICategoryService servcat;
 
+
+private final String statusstart="{\"statusres\":\"";
+private final String statusEnd="\"}";
+
 @RolesAllowed("ROLE_ADMIN")
 @POST
 @Consumes(MediaType.APPLICATION_JSON)
@@ -85,8 +89,12 @@ public Response UpdateCategory(Categorie c) {
 @Produces(MediaType.APPLICATION_JSON)
 public Response deleteStore(@PathParam(value="id") Long id) {
 	
+	try {
 	if (servcat.remove(id)) {
 	return Response.status(Status.OK).entity(servcat.selectAll()).build();
+	}
+	}catch(Exception e) {
+		return Response.status(Status.OK).entity(statusstart+"The Category that you try to delete is affected to a product"+statusEnd).build();
 	}
 	return Response.status(Status.NOT_FOUND).entity("Category Not Found").build();
 	
