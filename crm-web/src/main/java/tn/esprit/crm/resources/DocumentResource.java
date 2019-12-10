@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.json.Json;
 import javax.json.JsonObject;
