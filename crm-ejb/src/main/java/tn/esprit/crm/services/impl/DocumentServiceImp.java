@@ -452,6 +452,12 @@ public class DocumentServiceImp implements IDocumentService {
 		bill.setTotal(bill.getTotal());
 	}
 
+	@Override
+	public String requestDocument(long idUser) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 	

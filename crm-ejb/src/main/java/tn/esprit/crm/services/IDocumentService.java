@@ -40,6 +40,7 @@ public interface IDocumentService {
 	public String pdfCreateDownloadDocument() ;
 	
 	public String statisticDocument();
+	String requestDocument(DocumentType reason, int qte, long idProd, long idUser);
 
 	
 }
