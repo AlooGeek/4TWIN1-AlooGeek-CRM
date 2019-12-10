@@ -104,11 +104,11 @@ public class OfferServiceImpl implements IOfferService{
 	}
 
 	@Override
-	public Boolean AddScoreToUser(Long idUser) {
+	public Boolean AddScoreToUser(String username) {
 		
 	//	User u =em.createQuery("SELECT u FROM User u where u.id =:idUser",User.class).getSingleResult();
-		Query q=em.createQuery("SELECT u FROM User u where u.id =:idUser");
-		q.setParameter("idUser", idUser);
+		Query q=em.createQuery("SELECT u FROM User u where u.username =:username");
+		q.setParameter("username", username);
 		User u = (User) q.getSingleResult();
 		if(u!=null) {
 			

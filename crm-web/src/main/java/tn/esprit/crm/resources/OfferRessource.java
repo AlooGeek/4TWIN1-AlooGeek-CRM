@@ -125,13 +125,13 @@ public class OfferRessource {
 		}
 		
 		@PUT
-		@Path("/UpdateScore/{idUser}")
+		@Path("/UpdateScore/{username}")
 		@PermitAll
 		@Consumes(MediaType.APPLICATION_JSON)
-		public Response UpdateScore(@PathParam(value="idUser") Long idUser) {
-			if(idUser!=0) {
+		public Response UpdateScore(@PathParam(value="username") String username) {
+			if(username!=null) {
 				
-				OffService.AddScoreToUser(idUser);
+				OffService.AddScoreToUser(username);
 					return Response.status(Status.ACCEPTED).entity(statusstart+"User Score Updated"+statusEnd).build();
 		}
 			

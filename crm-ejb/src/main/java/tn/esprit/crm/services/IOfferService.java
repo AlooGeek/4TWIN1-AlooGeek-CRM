@@ -22,6 +22,6 @@ public interface IOfferService {
 	public Offer getById(String OffCode);
 	public void setUsersNull();
 	public Offer VerifyCoupon(String coupon);
-	public Boolean AddScoreToUser(Long idUser);
+	public Boolean AddScoreToUser(String username);
 
 }
