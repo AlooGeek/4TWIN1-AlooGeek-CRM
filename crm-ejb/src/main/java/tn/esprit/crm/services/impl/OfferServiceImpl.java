@@ -131,7 +131,7 @@ public class OfferServiceImpl implements IOfferService{
 
 	@Override
 	public Offer VerifyCoupon(String coupon) {
-		Query q=em.createQuery("SELECT o FROM Offer o where o.OffCode =:coupon and o.OffEndDate >= current_date()");
+		Query q=em.createQuery("SELECT u.offer FROM User u where u.offer.OffCode =:coupon and u.offer.OffEndDate >= current_date()");
 		q.setParameter("coupon",coupon);
 		Offer f =(Offer) q.getSingleResult();
 		if(f!=null) {

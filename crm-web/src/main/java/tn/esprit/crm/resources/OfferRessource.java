@@ -152,7 +152,7 @@ public class OfferRessource {
 				
 			}
 			catch (Exception e) {
-				return Response.status(Status.NOT_FOUND).entity(false).build();
+				return Response.status(Status.OK).entity(statusstart+"Not Found"+statusEnd).build();
 
 			}
 			}
